@@ -6,13 +6,27 @@ namespace t3v
 	class engine
 	{
 	private:
-		//SDL stuff
-		SDL_Window *window=NULL;
+		int m_resx=1920;
+		int m_resy=1080;
 
+		//renderer
+		int m_renderer_type=TE_RENDERER_NO_RENDERER;
+		t3v::renderer m_renderer;
+		t3v::software_rasterizer* m_software_rasterizer=NULL;
+
+		//SDL stuff
+		SDL_Window *m_window=NULL;
 
 		engine();
 		~engine();
+		
 	public:
+		int resx(){return m_resx;}
+		int resy(){return m_resy;}
+
+		//rendering stuff
+		void choose_renderer(int renderer_type);
+		void render();
 
 
 		engine(const engine&) = delete;

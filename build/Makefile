@@ -150,6 +150,60 @@ src/engine/general.cpp.s:
 	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/general.cpp.s
 .PHONY : src/engine/general.cpp.s
 
+src/engine/renderer/renderer_init.o: src/engine/renderer/renderer_init.cpp.o
+
+.PHONY : src/engine/renderer/renderer_init.o
+
+# target to build an object file
+src/engine/renderer/renderer_init.cpp.o:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.o
+.PHONY : src/engine/renderer/renderer_init.cpp.o
+
+src/engine/renderer/renderer_init.i: src/engine/renderer/renderer_init.cpp.i
+
+.PHONY : src/engine/renderer/renderer_init.i
+
+# target to preprocess a source file
+src/engine/renderer/renderer_init.cpp.i:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.i
+.PHONY : src/engine/renderer/renderer_init.cpp.i
+
+src/engine/renderer/renderer_init.s: src/engine/renderer/renderer_init.cpp.s
+
+.PHONY : src/engine/renderer/renderer_init.s
+
+# target to generate assembly for a file
+src/engine/renderer/renderer_init.cpp.s:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.s
+.PHONY : src/engine/renderer/renderer_init.cpp.s
+
+src/engine/renderer/software_rasterizer/software_rasterizer.o: src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o
+
+.PHONY : src/engine/renderer/software_rasterizer/software_rasterizer.o
+
+# target to build an object file
+src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o
+.PHONY : src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o
+
+src/engine/renderer/software_rasterizer/software_rasterizer.i: src/engine/renderer/software_rasterizer/software_rasterizer.cpp.i
+
+.PHONY : src/engine/renderer/software_rasterizer/software_rasterizer.i
+
+# target to preprocess a source file
+src/engine/renderer/software_rasterizer/software_rasterizer.cpp.i:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.i
+.PHONY : src/engine/renderer/software_rasterizer/software_rasterizer.cpp.i
+
+src/engine/renderer/software_rasterizer/software_rasterizer.s: src/engine/renderer/software_rasterizer/software_rasterizer.cpp.s
+
+.PHONY : src/engine/renderer/software_rasterizer/software_rasterizer.s
+
+# target to generate assembly for a file
+src/engine/renderer/software_rasterizer/software_rasterizer.cpp.s:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.s
+.PHONY : src/engine/renderer/software_rasterizer/software_rasterizer.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -189,6 +243,12 @@ help:
 	@echo "... src/engine/general.o"
 	@echo "... src/engine/general.i"
 	@echo "... src/engine/general.s"
+	@echo "... src/engine/renderer/renderer_init.o"
+	@echo "... src/engine/renderer/renderer_init.i"
+	@echo "... src/engine/renderer/renderer_init.s"
+	@echo "... src/engine/renderer/software_rasterizer/software_rasterizer.o"
+	@echo "... src/engine/renderer/software_rasterizer/software_rasterizer.i"
+	@echo "... src/engine/renderer/software_rasterizer/software_rasterizer.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -15,8 +15,9 @@ find_package(SDL2 REQUIRED)
 find_library(SDL2_ttf SDL2_ttf)
 find_library(SDL2_image SDL2_image)
 find_package(SDL2_image REQUIRED)
+find_package(Threads REQUIRED)
 
-#creating the executable of Money Man
+#creating the executable of the engine test
 include_directories(src/)
 file(GLOB_RECURSE "T3V-engine" SRC src/*.cpp)
 add_executable(T3V-engine ${T3V-engine})
@@ -24,4 +25,4 @@ add_executable(T3V-engine ${T3V-engine})
 target_link_libraries(T3V-engine LINK_PRIVATE "${SDL2}")
 target_link_libraries(T3V-engine LINK_PRIVATE "${SDL2_ttf}")
 target_link_libraries(T3V-engine LINK_PRIVATE "${SDL2_image}")
-
+target_link_libraries(T3V-engine LINK_PRIVATE Threads::Threads)

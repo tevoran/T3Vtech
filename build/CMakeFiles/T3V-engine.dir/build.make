@@ -70,9 +70,35 @@ CMakeFiles/T3V-engine.dir/src/engine/general.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/T3V-engine.dir/src/engine/general.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johannespfeiffer/Code/phoenix-engine/src/engine/general.cpp -o CMakeFiles/T3V-engine.dir/src/engine/general.cpp.s
 
+CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.o: CMakeFiles/T3V-engine.dir/flags.make
+CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.o: ../src/engine/renderer/renderer_init.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.o -c /home/johannespfeiffer/Code/phoenix-engine/src/engine/renderer/renderer_init.cpp
+
+CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johannespfeiffer/Code/phoenix-engine/src/engine/renderer/renderer_init.cpp > CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.i
+
+CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johannespfeiffer/Code/phoenix-engine/src/engine/renderer/renderer_init.cpp -o CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.s
+
+CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o: CMakeFiles/T3V-engine.dir/flags.make
+CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o: ../src/engine/renderer/software_rasterizer/software_rasterizer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o -c /home/johannespfeiffer/Code/phoenix-engine/src/engine/renderer/software_rasterizer/software_rasterizer.cpp
+
+CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/johannespfeiffer/Code/phoenix-engine/src/engine/renderer/software_rasterizer/software_rasterizer.cpp > CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.i
+
+CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/johannespfeiffer/Code/phoenix-engine/src/engine/renderer/software_rasterizer/software_rasterizer.cpp -o CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.s
+
 CMakeFiles/T3V-engine.dir/src/main.cpp.o: CMakeFiles/T3V-engine.dir/flags.make
 CMakeFiles/T3V-engine.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/T3V-engine.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/T3V-engine.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/T3V-engine.dir/src/main.cpp.o -c /home/johannespfeiffer/Code/phoenix-engine/src/main.cpp
 
 CMakeFiles/T3V-engine.dir/src/main.cpp.i: cmake_force
@@ -86,19 +112,23 @@ CMakeFiles/T3V-engine.dir/src/main.cpp.s: cmake_force
 # Object files for target T3V-engine
 T3V__engine_OBJECTS = \
 "CMakeFiles/T3V-engine.dir/src/engine/general.cpp.o" \
+"CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.o" \
+"CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o" \
 "CMakeFiles/T3V-engine.dir/src/main.cpp.o"
 
 # External object files for target T3V-engine
 T3V__engine_EXTERNAL_OBJECTS =
 
 T3V-engine: CMakeFiles/T3V-engine.dir/src/engine/general.cpp.o
+T3V-engine: CMakeFiles/T3V-engine.dir/src/engine/renderer/renderer_init.cpp.o
+T3V-engine: CMakeFiles/T3V-engine.dir/src/engine/renderer/software_rasterizer/software_rasterizer.cpp.o
 T3V-engine: CMakeFiles/T3V-engine.dir/src/main.cpp.o
 T3V-engine: CMakeFiles/T3V-engine.dir/build.make
 T3V-engine: /usr/lib/x86_64-linux-gnu/libSDL2.so
 T3V-engine: /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so
 T3V-engine: /usr/lib/x86_64-linux-gnu/libSDL2_image.so
 T3V-engine: CMakeFiles/T3V-engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable T3V-engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable T3V-engine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/T3V-engine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

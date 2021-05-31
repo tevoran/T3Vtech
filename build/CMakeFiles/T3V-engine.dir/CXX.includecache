@@ -6,7 +6,19 @@
 
 #IncludeRegexTransform: 
 
+../src/definitions.hpp
+te.hpp
+-
+
 ../src/engine/general.hpp
+te.hpp
+-
+
+../src/engine/renderer/renderer.hpp
+te.hpp
+-
+
+../src/engine/renderer/software_rasterizer/software_rasterizer.hpp
 te.hpp
 -
 
@@ -15,12 +27,18 @@ SDL2/SDL.h
 -
 iostream
 -
+thread
+-
+definitions.hpp
+-
+engine/renderer/renderer.hpp
+-
+engine/renderer/software_rasterizer/software_rasterizer.hpp
+-
 engine/general.hpp
 -
 
-/home/johannespfeiffer/Code/phoenix-engine/src/engine/general.cpp
-engine/general.hpp
--
+/home/johannespfeiffer/Code/phoenix-engine/src/engine/renderer/software_rasterizer/software_rasterizer.cpp
 te.hpp
 -
 
