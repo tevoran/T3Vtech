@@ -1,0 +1,13 @@
+The Phoenix-Engine features that are currently planned are the following:
+
+
+Downscaling of scene geometry
+		(for reducing scene complexity on older hardware)
+
+Renderers:
+	Software Rasterizer
+	Software Raytracer
+	OpenGL Renderer
+	Vulkan Renderer
+	OpenCL Raytracer
+

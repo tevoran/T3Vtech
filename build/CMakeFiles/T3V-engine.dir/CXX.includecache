@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/johannespfeiffer/Code/phoenix-engine/src/main.cpp
+te.hpp
+/home/johannespfeiffer/Code/phoenix-engine/src/te.hpp
+
+/home/johannespfeiffer/Code/phoenix-engine/src/te.hpp
+SDL2/SDL.h
+-
+iostream
+-
+

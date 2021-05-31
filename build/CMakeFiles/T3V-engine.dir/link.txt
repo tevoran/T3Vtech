@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/T3V-engine.dir/src/main.cpp.o  -o T3V-engine  /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so /usr/lib/x86_64-linux-gnu/libSDL2_image.so 
