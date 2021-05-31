@@ -74,12 +74,12 @@ clean: CMakeFiles/T3V-engine.dir/clean
 CMakeFiles/T3V-engine.dir/all:
 	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/depend
 	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles --progress-num=1,2 "Built target T3V-engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles --progress-num=1,2,3 "Built target T3V-engine"
 .PHONY : CMakeFiles/T3V-engine.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/T3V-engine.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/T3V-engine.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles 0
 .PHONY : CMakeFiles/T3V-engine.dir/rule

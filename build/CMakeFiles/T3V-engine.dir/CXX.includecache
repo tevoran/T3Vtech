@@ -6,13 +6,21 @@
 
 #IncludeRegexTransform: 
 
-/home/johannespfeiffer/Code/phoenix-engine/src/main.cpp
+../src/engine/general.hpp
 te.hpp
-/home/johannespfeiffer/Code/phoenix-engine/src/te.hpp
+-
 
-/home/johannespfeiffer/Code/phoenix-engine/src/te.hpp
+../src/te.hpp
 SDL2/SDL.h
 -
 iostream
+-
+engine/general.hpp
+-
+
+/home/johannespfeiffer/Code/phoenix-engine/src/engine/general.cpp
+engine/general.hpp
+-
+te.hpp
 -
 

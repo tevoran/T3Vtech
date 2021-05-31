@@ -2,5 +2,5 @@
 
 int main()
 {
-	std::cout << "hello world" << std::endl;
+	t3v::engine::get();
 }

@@ -123,6 +123,33 @@ T3V-engine/fast:
 	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/build
 .PHONY : T3V-engine/fast
 
+src/engine/general.o: src/engine/general.cpp.o
+
+.PHONY : src/engine/general.o
+
+# target to build an object file
+src/engine/general.cpp.o:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/general.cpp.o
+.PHONY : src/engine/general.cpp.o
+
+src/engine/general.i: src/engine/general.cpp.i
+
+.PHONY : src/engine/general.i
+
+# target to preprocess a source file
+src/engine/general.cpp.i:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/general.cpp.i
+.PHONY : src/engine/general.cpp.i
+
+src/engine/general.s: src/engine/general.cpp.s
+
+.PHONY : src/engine/general.s
+
+# target to generate assembly for a file
+src/engine/general.cpp.s:
+	$(MAKE) -f CMakeFiles/T3V-engine.dir/build.make CMakeFiles/T3V-engine.dir/src/engine/general.cpp.s
+.PHONY : src/engine/general.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... T3V-engine"
+	@echo "... src/engine/general.o"
+	@echo "... src/engine/general.i"
+	@echo "... src/engine/general.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
