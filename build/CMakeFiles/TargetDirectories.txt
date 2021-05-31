@@ -1,3 +1,0 @@
-/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles/rebuild_cache.dir
-/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles/edit_cache.dir
-/home/johannespfeiffer/Code/phoenix-engine/build/CMakeFiles/T3V-engine.dir
