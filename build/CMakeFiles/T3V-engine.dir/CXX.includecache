@@ -22,10 +22,16 @@ te.hpp
 te.hpp
 -
 
-../src/te.hpp
+/home/johannespfeiffer/Code/phoenix-engine/src/main.cpp
+te.hpp
+/home/johannespfeiffer/Code/phoenix-engine/src/te.hpp
+
+/home/johannespfeiffer/Code/phoenix-engine/src/te.hpp
 SDL2/SDL.h
 -
 iostream
+-
+cstring
 -
 thread
 -
@@ -36,9 +42,5 @@ engine/renderer/renderer.hpp
 engine/renderer/software_rasterizer/software_rasterizer.hpp
 -
 engine/general.hpp
--
-
-/home/johannespfeiffer/Code/phoenix-engine/src/engine/renderer/software_rasterizer/software_rasterizer.cpp
-te.hpp
 -
 

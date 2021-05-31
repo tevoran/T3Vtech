@@ -8,11 +8,13 @@ namespace t3v
 	{
 	private:
 		SDL_Surface *m_window_surface=NULL;
-
+		SDL_Window *m_window=NULL;
+		
 		int m_num_cpu_threads=0;
 
 	public:
 		software_rasterizer(SDL_Window *window);
 		void render();
+		void update();
 	};
 }

@@ -13,10 +13,11 @@ namespace t3v
 	public:
 		int m_resx=0;
 		int m_resy=0;
-		
+
 		renderer();
 		~renderer();
 
 		virtual void render();
+		virtual void update();
 	};
 }

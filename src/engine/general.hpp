@@ -19,7 +19,7 @@ namespace t3v
 
 		engine();
 		~engine();
-		
+
 	public:
 		int resx(){return m_resx;}
 		int resy(){return m_resy;}
@@ -27,6 +27,7 @@ namespace t3v
 		//rendering stuff
 		void choose_renderer(int renderer_type);
 		void render();
+		void update();
 
 
 		engine(const engine&) = delete;

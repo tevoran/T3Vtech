@@ -63,3 +63,17 @@ void t3v::engine::render()
 			break;
 	}
 }
+
+void t3v::engine::update()
+{
+	switch(m_renderer_type)
+	{
+		case TE_RENDERER_SOFTWARE_RASTERIZER:
+			m_software_rasterizer->update();
+			break;
+
+		default:
+			m_renderer.update();
+			break;		
+	}
+}
