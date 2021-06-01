@@ -18,7 +18,13 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 
 void t3v::software_rasterizer::render()
 {
-	std::cout << "HELL YEAH!" << std::endl;
+	for(int ix=100; ix<2000; ix++)
+	{
+		for(int iy=100; iy<2000; iy++)
+		{
+			draw_pixel_basic(ix,iy,0,0,200);
+		}
+	}
 }
 
 void t3v::software_rasterizer::update()
@@ -29,5 +35,5 @@ void t3v::software_rasterizer::update()
 		std::cout << "SDL2 error message:" << std::endl << SDL_GetError() << std::endl;
 		exit(0);
 	}
-	memset(m_window_surface->pixels, 200, m_resx*m_resy*sizeof(uint32_t));
+	memset(m_window_surface->pixels, 0, m_resx*m_resy*sizeof(uint32_t)); //clearing the screen to black
 }

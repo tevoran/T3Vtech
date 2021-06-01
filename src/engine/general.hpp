@@ -10,7 +10,7 @@ namespace t3v
 		int m_resy=1080;
 
 		//renderer
-		int m_renderer_type=TE_RENDERER_NO_RENDERER;
+		int m_renderer_type=TE_RENDERER_NO_RENDERER; //active renderer
 		t3v::renderer m_renderer;
 		t3v::software_rasterizer* m_software_rasterizer=NULL;
 

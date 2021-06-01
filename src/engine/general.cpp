@@ -17,7 +17,7 @@ t3v::engine::engine()
 		exit(0);
 	}
 
-	m_window=SDL_CreateWindow("T3V-ENGINE test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, SDL_WINDOW_FULLSCREEN);
+	m_window=SDL_CreateWindow("T3V-ENGINE test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, 0);
 	if(m_window==NULL)
 	{
 		std::cout << "[ERROR] SDL2 couldn't create a window" << std::endl;
@@ -54,12 +54,12 @@ void t3v::engine::render()
 {
 	switch(m_renderer_type)
 	{
-		case TE_RENDERER_NO_RENDERER:
-			m_renderer.render();
-			break;
-
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
 			m_software_rasterizer->render();
+			break;
+
+		default:
+			m_renderer.render();
 			break;
 	}
 }

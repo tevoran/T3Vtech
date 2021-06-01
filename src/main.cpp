@@ -6,6 +6,7 @@ int main()
 	te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 	te.render();
 	te.update();
+	te.render();
 	te.update();
 
 
