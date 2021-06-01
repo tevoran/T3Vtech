@@ -20,3 +20,17 @@ void t3v::software_rasterizer::draw_pixel_basic(
 		*pixel_ptr=pixel_color;
 	}
 }
+
+void t3v::software_rasterizer::draw_pixel_fast(
+	uint32_t* pixel_ptr,
+	const uint8_t r, 
+	const uint8_t g, 
+	const uint8_t b)
+{
+	register uint32_t pixel_color=r;
+	pixel_color=pixel_color<<8;
+	pixel_color+=g;
+	pixel_color=pixel_color<<8;
+	pixel_color+=b;
+	*pixel_ptr=pixel_color;
+}
