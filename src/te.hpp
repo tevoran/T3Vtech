@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstring>
 #include <thread>
+#include <vector>
 
 //engine headers
 #include <definitions.hpp>
