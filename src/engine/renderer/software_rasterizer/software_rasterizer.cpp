@@ -23,6 +23,11 @@ void t3v::software_rasterizer::render()
 
 void t3v::software_rasterizer::update()
 {
-	SDL_UpdateWindowSurface(m_window);
+	if(SDL_UpdateWindowSurface(m_window)!=0)
+	{
+		std::cout << "[ERROR] Couldn't update window surface anymore" << std::endl;
+		std::cout << "SDL2 error message:" << std::endl << SDL_GetError() << std::endl;
+		exit(0);
+	}
 	memset(m_window_surface->pixels, 200, m_resx*m_resy*sizeof(uint32_t));
 }
