@@ -12,6 +12,7 @@
 #include <barrier>
 #include <chrono>
 #include <cmath>
+#include <algorithm>
 
 //engine headers
 #include <definitions.hpp>

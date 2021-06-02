@@ -3,6 +3,11 @@
 
 namespace t3v
 {
+	struct vertex
+	{
+		int x=0;
+	};
+
 	class engine
 	{
 	private:
