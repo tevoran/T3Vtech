@@ -19,13 +19,15 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 
 	//creating render threads
 	m_num_cpu_threads=std::thread::hardware_concurrency();
+
+	m_num_render_threads=m_num_cpu_threads-1;		
+	std::cout << "Using " << m_num_cpu_threads << " thread(s) for software rasterizing" << std::endl;
+	m_thread_data= new render_thread_data[m_num_cpu_threads];
+	sync_point(m_num_cpu_threads); //creating barrier
+
+	//multithreaded
 	if(m_num_cpu_threads>1)
 	{
-		m_num_render_threads=m_num_cpu_threads-1;		
-		std::cout << "Using " << m_num_cpu_threads << " threads for software rasterizing" << std::endl;
-		m_thread_data= new render_thread_data[m_num_cpu_threads];
-		sync_point(m_num_cpu_threads); //creating barrier
-
 		for(int i=0; i<m_num_cpu_threads; i++)
 		{
 			m_thread_data[i].resx=m_resx;
@@ -39,11 +41,17 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 		}
 		sync_point(0)->arrive_and_wait(); //synchronizing threads
 	}
+	//single threaded
 	else
 	{
-		std::cout << "[ERROR] Currently only multithreaded software rasterizing is supported" << std::endl;
-		exit(0);
+		m_thread_data[0].resx=m_resx;
+		m_thread_data[0].resy=m_resy;
+		m_thread_data[0].y_start=0;
+		m_thread_data[0].y_end=m_resy;
+		m_thread_data[0].window_surface=m_window_surface;
+		m_thread_data[0].start_rendering=false;
 	}
+
 	std::cout << "Software rasterizer successfully initialized" << std::endl;
 }
 
@@ -63,6 +71,7 @@ t3v::software_rasterizer::~software_rasterizer()
 void t3v::software_rasterizer::render(uint8_t r, uint8_t g, uint8_t b)
 {
 	m_update_necessary=true;
+	//multithreaded
 	if(m_num_render_threads>0)
 	{
 		for(int i=0; i<m_num_cpu_threads; i++)
@@ -70,7 +79,16 @@ void t3v::software_rasterizer::render(uint8_t r, uint8_t g, uint8_t b)
 			m_thread_data[i].r=r;
 			m_thread_data[i].g=g;
 			m_thread_data[i].b=b;
+			m_thread_data[i].start_rendering=true;
 		}
+	}
+	//singlethreaded
+	else
+	{
+		m_thread_data[0].r=r;
+		m_thread_data[0].g=g;
+		m_thread_data[0].b=b;
+		m_thread_data[0].start_rendering=true;
 	}
 }
 
