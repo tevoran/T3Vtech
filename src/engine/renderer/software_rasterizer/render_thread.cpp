@@ -41,7 +41,7 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 			{
 				x_bounding_start=vertex3_screen.x;
 			}
-			if(vertex3_screen.x<0)
+			if(x_bounding_start<0)
 			{
 				x_bounding_start=0;
 			}
@@ -67,7 +67,7 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 			}
 
 			int y_bounding_end=vertex3_screen.y;
-			if(data->y_end<y_bounding_end)
+			if(y_bounding_end>data->y_end)
 			{
 				y_bounding_end=data->y_end;
 			}
@@ -79,7 +79,7 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 			float a,b,c; //barycentric coordinates
 
 			//rasterizing loop
-			for(int iy = y_bounding_start; iy < data->y_end; iy++)
+			for(int iy = y_bounding_start; iy < y_bounding_end; iy++)
 			{
 				pixel_draw.y=iy;
 
