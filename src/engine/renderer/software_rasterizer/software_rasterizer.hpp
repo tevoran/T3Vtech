@@ -15,11 +15,16 @@ namespace t3v
 			int y_end=0; //the end of the drawing space of the thread
 			SDL_Surface *window_surface=NULL;
 			glm::vec3 vertex{0.3, 0.3, 0};
+			uint8_t r=0;
+			uint8_t g=0;
+			uint8_t b=0;
 			bool ready=true; //shows if the thread has done everything so far
 			bool start_rendering=false; //if this is set to true the thread will start the rendering
 		};
 
 	private:
+		bool m_update_necessary=false;
+
 		SDL_Surface *m_window_surface=NULL;
 		SDL_Window *m_window=NULL;
 		
@@ -42,7 +47,7 @@ namespace t3v
 	public:
 		software_rasterizer(SDL_Window *window);
 		~software_rasterizer();
-		void render();
+		void render(uint8_t r, uint8_t g, uint8_t b);
 		void update();
 	};
 }

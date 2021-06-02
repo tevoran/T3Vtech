@@ -24,6 +24,7 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 		m_num_render_threads=m_num_cpu_threads-1;		
 		std::cout << "Using " << m_num_render_threads << " threads for software rasterizing" << std::endl;
 		m_thread_data= new render_thread_data[m_num_render_threads];
+		sync_point(m_num_cpu_threads); //creating barrier
 
 		for(int i=0; i<m_num_render_threads; i++)
 		{
@@ -32,12 +33,11 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 			m_thread_data[i].y_start=(i)*m_resy/m_num_render_threads;
 			m_thread_data[i].y_end=(i+1)*m_resy/m_num_render_threads;
 			m_thread_data[i].window_surface=m_window_surface;
-			m_thread_data[i].start_rendering=true;
+			m_thread_data[i].start_rendering=false;
 
 			m_thread.push_back(std::thread(render_thread, &m_thread_data[i]));
 		}
-
-		sync_point(m_num_cpu_threads);
+		sync_point(0)->arrive_and_wait(); //synchronizing threads
 	}
 	else
 	{
@@ -60,41 +60,54 @@ t3v::software_rasterizer::~software_rasterizer()
 	}
 }
 
-void t3v::software_rasterizer::render()
+void t3v::software_rasterizer::render(uint8_t r, uint8_t g, uint8_t b)
 {
+	m_update_necessary=true;
+	if(m_num_render_threads>0)
+	{
+		for(int i=0; i<m_num_render_threads; i++)
+		{
+			m_thread_data[i].r=r;
+			m_thread_data[i].g=g;
+			m_thread_data[i].b=b;
+		}
+	}
 }
 
 void t3v::software_rasterizer::render_thread(render_thread_data *data)
 {
-	data->ready=false;
 	while(true)
 	{
 		if(data->start_rendering==true)
 		{
-			data->ready=false;
 			data->start_rendering=false;
-			std::cout << "i" << std::endl;
-
 			//actual rendering part
 			for(int iy=data->y_start; iy<data->y_end; iy++)
 			{
 				for(int ix=0; ix<data->resx; ix++)
 				{
 					uint32_t* pixel_ptr=(uint32_t*)data->window_surface->pixels+ix+iy*(data->resx);
-					draw_pixel_fast(pixel_ptr,120,80, 0);
+					draw_pixel_fast(pixel_ptr,data->r,data->g,data->b);
 				}
 			}
 		}
-		data->ready=true;
 		sync_point(0)->arrive_and_wait();
 	}
 }
 
 void t3v::software_rasterizer::update()
 {
-	sync_point(0)->arrive_and_wait();
+	if(m_num_render_threads>0 && m_update_necessary==true)
+	{
+		for(int i=0; i<m_num_render_threads; i++)
+		{
+			m_thread_data[i].start_rendering=true;			
+		}
+		sync_point(0)->arrive_and_wait(); //let the threads work
+		sync_point(0)->arrive_and_wait(); //continue 
+	}
+	m_update_necessary=false;
 
-	std::cout << "update" << std::endl;
 	if(SDL_UpdateWindowSurface(m_window)!=0)
 	{
 		std::cout << "[ERROR] Couldn't update window surface anymore" << std::endl;
