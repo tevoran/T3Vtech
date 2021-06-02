@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 256
+#define FRAMES 2000
 
 int main()
 {
@@ -10,7 +10,7 @@ int main()
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		te.render(i, i, 0);
+		te.render(sin(((float)i/100))*55+200, sin(((float)i/150))*30+70, 0);
 		te.update();
 	}
 
