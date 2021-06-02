@@ -87,31 +87,18 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 				uint32_t *pixel_ptr=(uint32_t*)data->window_surface->pixels+x_bounding_start+pixel_draw.y*data->resx;
 
 				pixel_draw.x=x_bounding_start;
-				t3v::barycentric_interpolation_optimized(
+				t3v::barycentric_interpolation_line_optimized(
 					vertex1_screen,
 					vertex2_screen,
 					vertex3_screen,
 					pixel_draw,
 					div_const,
-					a, b, c);
+					a, b, c,
+					d_a, d_b, d_c);
 
-				pixel_draw.x++;
-				float tmp_a, tmp_b, tmp_c;
-				t3v::barycentric_interpolation_optimized(
-					vertex1_screen,
-					vertex2_screen,
-					vertex3_screen,
-					pixel_draw,
-					div_const,
-					tmp_a, tmp_b, tmp_c);
-
-				d_a=tmp_a-a;
-				d_b=tmp_b-b;
-				d_c=tmp_c-c;
 
 				for(int ix=x_bounding_start; ix<x_bounding_end; ix++)
 				{
-					pixel_draw.x=ix;
 					a+=d_a;
 					b+=d_b;
 					c+=d_c;
@@ -133,6 +120,10 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 			}
 		}
 
+		if(data->is_main_thread==true)
+		{
+			return;
+		}
 		//synchronizing with the other render threads
 		sync_point(0)->arrive_and_wait();
 	}

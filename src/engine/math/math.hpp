@@ -31,4 +31,18 @@ namespace t3v
 		float& b,
 		float& c
 		);
+
+	void barycentric_interpolation_line_optimized(
+		const glm::ivec2& vertex1,
+		const glm::ivec2& vertex2,
+		const glm::ivec2& vertex3,
+		glm::ivec2 current_pixel,
+		const float div_const,
+		float& a,
+		float& b,
+		float& c,
+		float& delta_a,
+		float& delta_b,
+		float& delta_c
+		);
 } 	

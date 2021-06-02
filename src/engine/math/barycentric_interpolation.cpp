@@ -60,3 +60,53 @@ void t3v::barycentric_interpolation_optimized(
 		/div_const;
 	c=1-a-b;
 }
+
+void t3v::barycentric_interpolation_line_optimized(
+	const glm::ivec2& vertex1,
+	const glm::ivec2& vertex2,
+	const glm::ivec2& vertex3,
+	glm::ivec2 current_pixel,
+	const float div_const,
+	float& a,
+	float& b,
+	float& c,
+	float& delta_a,
+	float& delta_b,
+	float& delta_c
+	)
+{
+	//first pixel
+	a=(float)(
+		(vertex2.x-current_pixel.x)
+		*(vertex3.y-current_pixel.y)
+		-(vertex3.x-current_pixel.x)
+		*(vertex2.y-current_pixel.y))
+		/div_const;
+	b=(float)(
+		(vertex3.x-current_pixel.x)
+		*(vertex1.y-current_pixel.y)
+		-(vertex1.x-current_pixel.x)
+		*(vertex3.y-current_pixel.y))
+		/div_const;
+	c=1-a-b;
+
+	//next pixel in the line
+	current_pixel.x++;
+	float tmp_a=(float)(
+		(vertex2.x-current_pixel.x)
+		*(vertex3.y-current_pixel.y)
+		-(vertex3.x-current_pixel.x)
+		*(vertex2.y-current_pixel.y))
+		/div_const;
+	float tmp_b=(float)(
+		(vertex3.x-current_pixel.x)
+		*(vertex1.y-current_pixel.y)
+		-(vertex1.x-current_pixel.x)
+		*(vertex3.y-current_pixel.y))
+		/div_const;
+	float tmp_c=1-tmp_a-tmp_b;
+
+	delta_a=tmp_a-a;
+	delta_b=tmp_b-b;
+	delta_c=tmp_c-c;
+}

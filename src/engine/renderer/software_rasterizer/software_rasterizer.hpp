@@ -24,6 +24,7 @@ namespace t3v
 			struct barycentric_interpolation_optimized_data* bary_data=NULL;
 
 			//render function variables
+			bool is_main_thread=false;
 		};
 
 	private:
