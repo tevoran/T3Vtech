@@ -72,6 +72,8 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 				y_bounding_end=data->y_end;
 			}
 
+			//determining barycentric division constant for the triangle
+			const float div_const=t3v::barycentric_interpolation_optimized_div(vertex1_screen, vertex2_screen, vertex3_screen);
 
 			glm::ivec2 pixel_draw={0,0};
 			float a,b,c; //barycentric coordinates
@@ -87,11 +89,13 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 				for(int ix=x_bounding_start; ix<x_bounding_end; ix++)
 				{
 					pixel_draw.x=ix;
-					t3v::barycentric_interpolation(
+					t3v::barycentric_interpolation_optimized(
 						vertex1_screen,
 						vertex2_screen,
 						vertex3_screen,
-						pixel_draw, a, b, c);
+						pixel_draw,
+						div_const,
+						a, b, c);
 					if(a>0 && a<1 && b>0 && b<1 && c>0)
 					{
 						has_drawn=true;

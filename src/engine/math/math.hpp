@@ -12,4 +12,23 @@ namespace t3v
 		float& b,
 		float& c
 		);
-} 
+
+
+	//these functions are for an optimized engine intern use
+	float barycentric_interpolation_optimized_div(
+		const glm::ivec2& vertex1,
+		const glm::ivec2& vertex2,
+		const glm::ivec2& vertex3
+		);
+
+	void barycentric_interpolation_optimized(
+		const glm::ivec2& vertex1,
+		const glm::ivec2& vertex2,
+		const glm::ivec2& vertex3,
+		const glm::ivec2& current_pixel,
+		const float div_const,
+		float& a,
+		float& b,
+		float& c
+		);
+} 	
