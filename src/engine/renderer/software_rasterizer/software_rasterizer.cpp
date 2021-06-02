@@ -84,10 +84,11 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 			//actual rendering part
 			for(int iy=data->y_start; iy<data->y_end; iy++)
 			{
+				uint32_t* pixel_ptr=(uint32_t*)data->window_surface->pixels+iy*(data->resx);
 				for(int ix=0; ix<data->resx; ix++)
 				{
-					uint32_t* pixel_ptr=(uint32_t*)data->window_surface->pixels+ix+iy*(data->resx);
 					draw_pixel_fast(pixel_ptr,data->r,data->g,data->b);
+					pixel_ptr++;
 				}
 			}
 		}

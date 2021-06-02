@@ -41,6 +41,14 @@ namespace t3v
 
 		void draw_pixel_basic(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast(uint32_t* pixel_ptr, const uint8_t r,	const uint8_t g, const uint8_t b);
+		static void draw_pixel_fast_64(
+			uint64_t* pixel_ptr,
+			const uint8_t r, 
+			const uint8_t g, 
+			const uint8_t b,
+			const uint8_t r2, 
+			const uint8_t g2, 
+			const uint8_t b2);
 
 		static void render_thread(render_thread_data *data);
 
