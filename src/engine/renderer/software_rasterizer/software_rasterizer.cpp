@@ -74,38 +74,19 @@ void t3v::software_rasterizer::render(uint8_t r, uint8_t g, uint8_t b)
 	}
 }
 
-void t3v::software_rasterizer::render_thread(render_thread_data *data)
-{
-	while(true)
-	{
-		if(data->start_rendering==true)
-		{
-			data->start_rendering=false;
-			//actual rendering part
-			for(int iy=data->y_start; iy<data->y_end; iy++)
-			{
-				uint32_t* pixel_ptr=(uint32_t*)data->window_surface->pixels+iy*(data->resx);
-				for(int ix=0; ix<data->resx; ix++)
-				{
-					draw_pixel_fast(pixel_ptr,data->r,data->g,data->b);
-					pixel_ptr++;
-				}
-			}
-		}
-		sync_point(0)->arrive_and_wait();
-	}
-}
-
 void t3v::software_rasterizer::update()
 {
-	if(m_num_render_threads>0 && m_update_necessary==true)
+	if(m_update_necessary==true) //if update is necessary then render everything
 	{
-		for(int i=0; i<m_num_render_threads; i++)
+		if(m_num_render_threads>0)
 		{
-			m_thread_data[i].start_rendering=true;			
+			for(int i=0; i<m_num_render_threads; i++)
+			{
+				m_thread_data[i].start_rendering=true;			
+			}
+			sync_point(0)->arrive_and_wait(); //let the threads work
+			sync_point(0)->arrive_and_wait(); //continue 
 		}
-		sync_point(0)->arrive_and_wait(); //let the threads work
-		sync_point(0)->arrive_and_wait(); //continue 
 	}
 	m_update_necessary=false;
 

@@ -10,7 +10,7 @@ int main()
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		te.render(i, i, 0);
+		te.render(255, 255, 255);
 		te.update();
 	}
 
@@ -33,5 +33,5 @@ int main()
 	std::cout << "Time needed for " << FRAMES <<" frames: " << t_delta.count() << "s" << std::endl;
 	std::cout << "Which is " << t_delta.count()*1000/FRAMES << "ms per frame" << std::endl;
 
-	//SDL_Delay(500);
+	//SDL_Delay(1000);
 }
