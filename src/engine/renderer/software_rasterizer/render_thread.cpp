@@ -77,25 +77,44 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 
 			glm::ivec2 pixel_draw={0,0};
 			float a,b,c; //barycentric coordinates
-
+			float d_a,d_b,d_c; //barycentric coordinates
 			//rasterizing loop
 			for(int iy = y_bounding_start; iy < y_bounding_end; iy++)
 			{
 				pixel_draw.y=iy;
 
-				//starting_y_line+=dx_dy;
 				bool has_drawn=false; //is used for determining the end of the line
 				uint32_t *pixel_ptr=(uint32_t*)data->window_surface->pixels+x_bounding_start+pixel_draw.y*data->resx;
+
+				pixel_draw.x=x_bounding_start;
+				t3v::barycentric_interpolation_optimized(
+					vertex1_screen,
+					vertex2_screen,
+					vertex3_screen,
+					pixel_draw,
+					div_const,
+					a, b, c);
+
+				pixel_draw.x++;
+				float tmp_a, tmp_b, tmp_c;
+				t3v::barycentric_interpolation_optimized(
+					vertex1_screen,
+					vertex2_screen,
+					vertex3_screen,
+					pixel_draw,
+					div_const,
+					tmp_a, tmp_b, tmp_c);
+
+				d_a=tmp_a-a;
+				d_b=tmp_b-b;
+				d_c=tmp_c-c;
+
 				for(int ix=x_bounding_start; ix<x_bounding_end; ix++)
 				{
 					pixel_draw.x=ix;
-					t3v::barycentric_interpolation_optimized(
-						vertex1_screen,
-						vertex2_screen,
-						vertex3_screen,
-						pixel_draw,
-						div_const,
-						a, b, c);
+					a+=d_a;
+					b+=d_b;
+					c+=d_c;
 					if(a>0 && a<1 && b>0 && b<1 && c>0)
 					{
 						has_drawn=true;
