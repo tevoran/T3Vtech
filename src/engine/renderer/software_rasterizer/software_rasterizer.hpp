@@ -14,7 +14,9 @@ namespace t3v
 			int y_start=0; //the beginning of the drawing space of the thread
 			int y_end=0; //the end of the drawing space of the thread
 			SDL_Surface *window_surface=NULL;
-			glm::vec3 vertex{0.1, 0.1, 0};
+			glm::vec3 vertex1{0.1, 0.1, 0};
+			glm::vec3 vertex2{0.8, 0.2, 0};
+			glm::vec3 vertex3{0.25, 0.9, 0};
 			uint8_t r=0;
 			uint8_t g=0;
 			uint8_t b=0;

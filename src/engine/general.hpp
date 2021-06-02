@@ -3,11 +3,6 @@
 
 namespace t3v
 {
-	struct vertex
-	{
-		glm::vec3 pos;
-	};
-
 	class engine
 	{
 	private:
