@@ -12,7 +12,7 @@ void t3v::software_rasterizer::draw_pixel_basic(
 		uint32_t *pixel_ptr=(uint32_t*)m_window_surface->pixels;
 		pixel_ptr=pixel_ptr+x+y*m_resx;
 
-		register uint32_t pixel_color=r;
+		uint32_t pixel_color=r;
 		pixel_color=pixel_color<<8;
 		pixel_color+=g;
 		pixel_color=pixel_color<<8;
@@ -27,7 +27,7 @@ void t3v::software_rasterizer::draw_pixel_fast(
 	const uint8_t g, 
 	const uint8_t b)
 {
-	register uint32_t pixel_color=r;
+	uint32_t pixel_color=r;
 	pixel_color=pixel_color<<8;
 	pixel_color+=g;
 	pixel_color=pixel_color<<8;
@@ -44,7 +44,7 @@ void t3v::software_rasterizer::draw_pixel_fast_64(
 	const uint8_t g2, 
 	const uint8_t b2)
 {
-	register uint64_t pixel_color=r;
+	uint64_t pixel_color=r;
 	pixel_color=pixel_color<<8;
 	pixel_color+=g;
 	pixel_color=pixel_color<<8;
