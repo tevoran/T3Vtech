@@ -26,6 +26,18 @@ void t3v::barycentric_interpolation(
 	c=1-a-b;
 }
 
+float t3v::barycentric_interpolate_value(
+	const float a,
+	const float b,
+	const float c,
+	const float x,
+	const float y,
+	const float z
+	)
+{
+	return a*x+b*y+c*z;
+}
+
 float t3v::barycentric_interpolation_optimized_div(
 	const glm::ivec2& vertex1,
 	const glm::ivec2& vertex2,

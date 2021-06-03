@@ -98,10 +98,18 @@ void t3v::software_rasterizer::rasterize_triangle(
 			a+=d_a;
 			b+=d_b;
 			c+=d_c;
-			if(a>0 && a<1 && b>0 && b<1 && c>0)
+			if(a>0 && b>0 && c>0)
 			{
-				has_drawn=true;
-				draw_pixel_fast(pixel_ptr, data->r, data->g, data->b);
+				//z-buffer check
+				float current_z=t3v::barycentric_interpolate_value(a,b,c,vertex1.pos.z,vertex2.pos.z,vertex3.pos.z);
+				int offset=ix+iy*data->resx;
+				if((current_z<data->z_buffer[offset] && current_z>0) || data->z_buffer[offset]==0)
+				{
+					//writing z-buffer value
+					data->z_buffer[offset]=current_z;
+					has_drawn=true;
+					draw_pixel_fast(pixel_ptr, vertex1.color.r, vertex1.color.g, vertex1.color.b);
+				}
 			}
 			else
 			{

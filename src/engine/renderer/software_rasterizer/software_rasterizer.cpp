@@ -17,6 +17,10 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 	m_resx=m_window_surface->w;
 	m_resy=m_window_surface->h;
 
+	//creating z-buffer
+	m_z_buffer = new float[m_resx*m_resx];
+	memset(m_z_buffer, 0, m_resx*m_resy*sizeof(float)); //writes 0
+
 	//creating render threads
 	m_num_cpu_threads=std::thread::hardware_concurrency();
 
@@ -66,31 +70,10 @@ t3v::software_rasterizer::~software_rasterizer()
 		}
 		delete [] m_thread_data;
 	}
+
+	delete [] m_z_buffer;
 }
 
-void t3v::software_rasterizer::render(uint8_t r, uint8_t g, uint8_t b)
-{
-	m_update_necessary=true;
-	//multithreaded
-	if(m_num_render_threads>0)
-	{
-		for(int i=0; i<m_num_cpu_threads; i++)
-		{
-			m_thread_data[i].r=r;
-			m_thread_data[i].g=g;
-			m_thread_data[i].b=b;
-			m_thread_data[i].start_rendering=true;
-		}
-	}
-	//singlethreaded
-	else
-	{
-		m_thread_data[0].r=r;
-		m_thread_data[0].g=g;
-		m_thread_data[0].b=b;
-		m_thread_data[0].start_rendering=true;
-	}
-}
 
 void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices)
 {
@@ -100,23 +83,20 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 	{
 		for(int i=0; i<m_num_cpu_threads; i++)
 		{
-			m_thread_data[i].r=250;
-			m_thread_data[i].g=250;
-			m_thread_data[i].b=0;
 			m_thread_data[i].start_rendering=true;
 			m_thread_data[i].vertex_ptr=vertices;
 			m_thread_data[i].num_vertices=num_vertices;
+			m_thread_data[i].z_buffer=m_z_buffer;
 		}
 	}
 	//singlethreaded
 	else
 	{
-		m_thread_data[0].r=250;
-		m_thread_data[0].g=250;
-		m_thread_data[0].b=0;
 		m_thread_data[0].start_rendering=true;
 		m_thread_data[0].vertex_ptr=vertices;
 		m_thread_data[0].num_vertices=num_vertices;
+		m_thread_data[0].z_buffer=m_z_buffer;
+
 	}
 }
 
@@ -148,4 +128,5 @@ void t3v::software_rasterizer::update()
 		exit(0);
 	}
 	memset(m_window_surface->pixels, 0, m_resx*m_resy*sizeof(uint32_t)); //clearing the screen to black
+	memset(m_z_buffer, 0, m_resx*m_resy*sizeof(float)); //resetting z_buffer
 }

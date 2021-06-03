@@ -14,14 +14,9 @@ namespace t3v
 			int y_start=0; //the beginning of the drawing space of the thread
 			int y_end=0; //the end of the drawing space of the thread
 			SDL_Surface *window_surface=NULL;
-			glm::vec3 vertex1{0.9, 0.1, 0};
-			glm::vec3 vertex2{0.1, 0.2, 0};
-			glm::vec3 vertex3{0.5, 0.9, 0};
 			t3v::vertex *vertex_ptr=NULL;
 			int num_vertices=0;
-			uint8_t r=0;
-			uint8_t g=0;
-			uint8_t b=0;
+			float *z_buffer=NULL;
 			bool start_rendering=false; //if this is set to true the thread will start the rendering
 			struct barycentric_interpolation_optimized_data* bary_data=NULL;
 
@@ -30,11 +25,15 @@ namespace t3v
 		};
 
 	private:
-		bool m_update_necessary=false;
+		bool m_update_necessary=false; //indicate if the update function needs to do something
 
+		//SDL2 related members
 		SDL_Surface *m_window_surface=NULL;
 		SDL_Window *m_window=NULL;
 		
+		//Z-Buffer
+		float *m_z_buffer=NULL;
+
 		//renderthreads
 		int m_num_cpu_threads=0;
 		int m_num_render_threads=0;
@@ -46,6 +45,7 @@ namespace t3v
 				return &sync_point;
 			}
 
+	private:
 		void draw_pixel_basic(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast(uint32_t* pixel_ptr, const uint8_t r,	const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast_64(

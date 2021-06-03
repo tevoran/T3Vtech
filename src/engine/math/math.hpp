@@ -13,6 +13,14 @@ namespace t3v
 		float& c
 		);
 
+	float barycentric_interpolate_value(
+		const float a,
+		const float b,
+		const float c,
+		const float x,
+		const float y,
+		const float z
+		);
 
 	//these functions are for an optimized engine intern use
 	float barycentric_interpolation_optimized_div(
