@@ -17,6 +17,7 @@
 //engine headers
 #include <definitions.hpp>
 #include <engine/math/math.hpp>
+#include <engine/renderer/vertex.hpp>
 #include <engine/renderer/renderer.hpp>
 #include <engine/renderer/software_rasterizer/software_rasterizer.hpp>
 #include <engine/general.hpp>

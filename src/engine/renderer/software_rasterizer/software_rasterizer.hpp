@@ -17,6 +17,8 @@ namespace t3v
 			glm::vec3 vertex1{0.9, 0.1, 0};
 			glm::vec3 vertex2{0.1, 0.2, 0};
 			glm::vec3 vertex3{0.5, 0.9, 0};
+			t3v::vertex *vertex_ptr=NULL;
+			int num_vertices=0;
 			uint8_t r=0;
 			uint8_t g=0;
 			uint8_t b=0;
@@ -56,11 +58,17 @@ namespace t3v
 			const uint8_t b2);
 
 		static void render_thread(render_thread_data *data);
+		static void rasterize_triangle(
+			t3v::vertex vertex1,
+			t3v::vertex vertex2,
+			t3v::vertex vertex3,
+			render_thread_data *data);
 
 	public:
 		software_rasterizer(SDL_Window *window);
 		~software_rasterizer();
 		void render(uint8_t r, uint8_t g, uint8_t b);
+		void render(t3v::vertex *vertices, const int num_vertices);
 		void update();
 	};
 }

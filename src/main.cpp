@@ -1,8 +1,37 @@
 #include "te.hpp"
 #define FRAMES 2000
 
+
+
 int main()
 {
+	t3v::vertex vertex[6];
+	//first triangle
+	vertex[0].pos.x=0.1;
+	vertex[0].pos.y=0.05;
+	vertex[0].pos.z=0.0;
+
+	vertex[1].pos.x=0.99;
+	vertex[1].pos.y=0.16;
+	vertex[1].pos.z=0.0;
+
+	vertex[2].pos.x=0.8;
+	vertex[2].pos.y=0.9;
+	vertex[2].pos.z=0.1;
+
+	//second triangle
+	vertex[3].pos.x=0.1;
+	vertex[3].pos.y=0.5;
+	vertex[3].pos.z=0.0;
+
+	vertex[4].pos.x=0.2;
+	vertex[4].pos.y=0.6;
+	vertex[4].pos.z=0.0;
+
+	vertex[5].pos.x=0.03;
+	vertex[5].pos.y=0.9;
+	vertex[5].pos.z=0.1;
+
 	t3v::engine& te=t3v::engine::get();
 	te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
@@ -10,7 +39,7 @@ int main()
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		te.render(sin(((float)i/100))*55+200, sin(((float)i/150))*30+70, 0);
+		te.render(vertex, 6);
 		te.update();
 	}
 
@@ -18,6 +47,7 @@ int main()
 	std::chrono::duration<float> t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_end-t_begin);
 	std::cout << "Time needed for " << FRAMES <<" frames: " << t_delta.count() << "s" << std::endl;
 	std::cout << "Which is " << t_delta.count()*1000/FRAMES << "ms per frame" << std::endl;
+	std::cout << "Which is " << FRAMES/t_delta.count() << " FPS on average" << std::endl;
 
 
 

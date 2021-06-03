@@ -92,6 +92,34 @@ void t3v::software_rasterizer::render(uint8_t r, uint8_t g, uint8_t b)
 	}
 }
 
+void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices)
+{
+	m_update_necessary=true;
+	//multithreaded
+	if(m_num_render_threads>0)
+	{
+		for(int i=0; i<m_num_cpu_threads; i++)
+		{
+			m_thread_data[i].r=250;
+			m_thread_data[i].g=250;
+			m_thread_data[i].b=0;
+			m_thread_data[i].start_rendering=true;
+			m_thread_data[i].vertex_ptr=vertices;
+			m_thread_data[i].num_vertices=num_vertices;
+		}
+	}
+	//singlethreaded
+	else
+	{
+		m_thread_data[0].r=250;
+		m_thread_data[0].g=250;
+		m_thread_data[0].b=0;
+		m_thread_data[0].start_rendering=true;
+		m_thread_data[0].vertex_ptr=vertices;
+		m_thread_data[0].num_vertices=num_vertices;
+	}
+}
+
 void t3v::software_rasterizer::update()
 {
 	if(m_update_necessary==true) //if update is necessary then render everything

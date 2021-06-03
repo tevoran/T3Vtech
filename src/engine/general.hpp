@@ -3,11 +3,6 @@
 
 namespace t3v
 {
-	struct vertex
-	{
-		int x=0;
-	};
-
 	class engine
 	{
 	private:
@@ -32,6 +27,7 @@ namespace t3v
 		//rendering stuff
 		void choose_renderer(int renderer_type);
 		void render(uint8_t r, uint8_t g, uint8_t b);
+		void render(t3v::vertex *vertices, const int num_vertices); //render a bunch of vertices
 		void update();
 
 
