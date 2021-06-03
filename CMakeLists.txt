@@ -2,10 +2,13 @@ cmake_minimum_required(VERSION 3.16)
 project("T3V-engine")
 
 #BASICALLY REALEASE MODE
-SET(CMAKE_CXX_FLAGS  "-m64 -Ofast -flto -march=native -funroll-loops -std=c++2a")
+SET(CMAKE_CXX_FLAGS  "-m64 -Ofast -flto -march=native -funroll-loops -ffast-math -std=c++2a")
 
 #DEBUGMODE
 #SET(CMAKE_CXX_FLAGS "-g -std=c++2a")
+
+#PROFILERMODE
+#SET(CMAKE_CXX_FLAGS "-g -pg -std=c++2a")
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
