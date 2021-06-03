@@ -17,6 +17,7 @@ te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 ```
 
 ### Renderer flags
+
 The software renderer uses
 ```cpp
 TE_RENDERER_SOFTWARE_RASTERIZER
@@ -24,6 +25,7 @@ TE_RENDERER_SOFTWARE_RASTERIZER
 as its flag.
 
 Once there are more renderers implemented, it is possible to switch your renderer on the fly.
+
 
 ## Using the API for information
 
@@ -35,8 +37,23 @@ te.resy(); //will return the resolution for the y-axis as an int
 ```
 
 ## Rendering
-For showing the current frame the engine's update function is used.
+
+### Updating screen
+For showing the current frame the engine's update function is used. It clears the screen to black
+for the next frame as well.
 
 ```cpp
 te.update();
 ```
+
+### Render mesh / vertices
+
+To render any number of vertices you have to give a pointer of the vertices and their number
+to the render function.
+
+```cpp
+void render(t3v::vertex *vertices, const int num_vertices); //the function definition
+
+te.render(vertex, 6); //sample usage
+```
+
