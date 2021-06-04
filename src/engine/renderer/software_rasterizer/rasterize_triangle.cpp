@@ -83,6 +83,8 @@ void t3v::software_rasterizer::rasterize_triangle(
 		uint32_t *pixel_ptr=(uint32_t*)data->window_surface->pixels+x_bounding_start+pixel_draw.y*data->resx;
 
 		pixel_draw.x=x_bounding_start;
+
+		//barycentric coordinates line preparation
 		t3v::barycentric_interpolation_line_optimized(
 			vertex1_screen,
 			vertex2_screen,
@@ -92,22 +94,26 @@ void t3v::software_rasterizer::rasterize_triangle(
 			a, b, c,
 			d_a, d_b, d_c);
 
+		//z-buffering line preparation
+		//INT32_MAX is my max used z-buffer value for optimal clipping
+		float z_tmp_1=t3v::barycentric_interpolate_value(a,b,c,vertex1.pos.z,vertex2.pos.z,vertex3.pos.z);
+		uint32_t z=z_tmp_1*INT32_MAX; //calculating line beginning
+
+		float z_tmp_2=t3v::barycentric_interpolate_value(a+d_a,b+d_b,c+d_c,vertex1.pos.z,vertex2.pos.z,vertex3.pos.z);
+		uint32_t z_tmp_int_2=z_tmp_2*INT32_MAX;
+
+		uint32_t z_delta=z_tmp_int_2-z; //calculating difference for each following pixel in a line
+		int offset=x_bounding_start+iy*data->resx; //pixel offset in the z-buffer
 
 		for(int ix=x_bounding_start; ix<x_bounding_end; ix++)
 		{
-			a+=d_a;
-			b+=d_b;
-			c+=d_c;
 			if(a>0 && b>0 && c>0)
 			{
 				//z-buffer check
-				float current_z=t3v::barycentric_interpolate_value(a,b,c,vertex1.pos.z,vertex2.pos.z,vertex3.pos.z);
-				uint32_t current_z_int=current_z*UINT16_MAX;
-				int offset=ix+iy*data->resx;
-				if(current_z_int < data->z_buffer[offset])
+				if(z < data->z_buffer[offset])
 				{
 					//writing z-buffer value
-					data->z_buffer[offset]=current_z_int;
+					data->z_buffer[offset]=z;
 					has_drawn=true;
 					draw_pixel_fast(pixel_ptr, vertex1.color.r, vertex1.color.g, vertex1.color.b);
 				}
@@ -120,6 +126,16 @@ void t3v::software_rasterizer::rasterize_triangle(
 					break;
 				}
 			}
+			//barycentric coordinates line increments
+			a+=d_a;
+			b+=d_b;
+			c+=d_c;
+
+			//z-buffer line increments
+			z+=z_delta;
+			offset++;
+
+			//pixel draw pointer increment
 			pixel_ptr++;
 		}
 	}

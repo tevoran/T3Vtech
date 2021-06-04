@@ -96,7 +96,6 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		m_thread_data[0].vertex_ptr=vertices;
 		m_thread_data[0].num_vertices=num_vertices;
 		m_thread_data[0].z_buffer=m_z_buffer;
-
 	}
 }
 
