@@ -18,8 +18,8 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 	m_resy=m_window_surface->h;
 
 	//creating z-buffer
-	m_z_buffer = new float[m_resx*m_resx];
-	memset(m_z_buffer, 0, m_resx*m_resy*sizeof(float)); //writes 0
+	m_z_buffer = new uint32_t[m_resx*m_resx];
+	memset(m_z_buffer, 0xFF, m_resx*m_resy*sizeof(uint32_t)); //writes MAX_UINT64 to each entry in the z-buffer
 
 	//creating render threads
 	m_num_cpu_threads=std::thread::hardware_concurrency();
@@ -128,5 +128,5 @@ void t3v::software_rasterizer::update()
 		exit(0);
 	}
 	memset(m_window_surface->pixels, 0, m_resx*m_resy*sizeof(uint32_t)); //clearing the screen to black
-	memset(m_z_buffer, 0, m_resx*m_resy*sizeof(float)); //resetting z_buffer
+	memset(m_z_buffer, 0xFF, m_resx*m_resy*sizeof(uint32_t)); //resetting z_buffer
 }

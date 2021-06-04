@@ -16,7 +16,7 @@ namespace t3v
 			SDL_Surface *window_surface=NULL;
 			t3v::vertex *vertex_ptr=NULL;
 			int num_vertices=0;
-			float *z_buffer=NULL;
+			uint32_t *z_buffer=NULL;
 			bool start_rendering=false; //if this is set to true the thread will start the rendering
 			struct barycentric_interpolation_optimized_data* bary_data=NULL;
 
@@ -32,7 +32,7 @@ namespace t3v
 		SDL_Window *m_window=NULL;
 		
 		//Z-Buffer
-		float *m_z_buffer=NULL;
+		uint32_t *m_z_buffer=NULL;
 
 		//renderthreads
 		int m_num_cpu_threads=0;

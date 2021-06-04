@@ -102,11 +102,12 @@ void t3v::software_rasterizer::rasterize_triangle(
 			{
 				//z-buffer check
 				float current_z=t3v::barycentric_interpolate_value(a,b,c,vertex1.pos.z,vertex2.pos.z,vertex3.pos.z);
+				uint32_t current_z_int=current_z*UINT16_MAX;
 				int offset=ix+iy*data->resx;
-				if((current_z<data->z_buffer[offset] && current_z>0) || data->z_buffer[offset]==0)
+				if(current_z_int < data->z_buffer[offset])
 				{
 					//writing z-buffer value
-					data->z_buffer[offset]=current_z;
+					data->z_buffer[offset]=current_z_int;
 					has_drawn=true;
 					draw_pixel_fast(pixel_ptr, vertex1.color.r, vertex1.color.g, vertex1.color.b);
 				}

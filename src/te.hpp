@@ -13,6 +13,7 @@
 #include <chrono>
 #include <cmath>
 #include <algorithm>
+#include <limits>
 
 //engine headers
 #include <definitions.hpp>

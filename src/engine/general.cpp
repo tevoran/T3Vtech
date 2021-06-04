@@ -50,20 +50,6 @@ void t3v::engine::choose_renderer(int renderer_type)
 	}
 }
 
-void t3v::engine::render(uint8_t r, uint8_t g, uint8_t b)
-{
-	switch(m_renderer_type)
-	{
-		case TE_RENDERER_SOFTWARE_RASTERIZER:
-			m_software_rasterizer->render(r,g,b);
-			break;
-
-		default:
-			m_renderer.render();
-			break;
-	}
-}
-
 //render a bunch of vertices
 void t3v::engine::render(t3v::vertex *vertices, const int num_vertices)
 {
