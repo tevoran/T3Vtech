@@ -13,6 +13,8 @@ int main()
 	vertex[0].color.r=200;
 	vertex[0].color.g=200;
 	vertex[0].color.b=0;
+	vertex[0].tex.u=25;
+	vertex[0].tex.v=0;
 
 	vertex[1].pos.x=0.99;
 	vertex[1].pos.y=0.16;
@@ -20,6 +22,8 @@ int main()
 	vertex[1].color.r=200;
 	vertex[1].color.g=200;
 	vertex[1].color.b=0;
+	vertex[1].tex.u=0;
+	vertex[1].tex.v=0;
 
 	vertex[2].pos.x=0.8;
 	vertex[2].pos.y=0.9;
@@ -27,6 +31,8 @@ int main()
 	vertex[2].color.r=200;
 	vertex[2].color.g=200;
 	vertex[2].color.b=0;
+	vertex[2].tex.u=0;
+	vertex[2].tex.v=25;
 
 	//second triangle
 	vertex[3].pos.x=0.1;
@@ -35,13 +41,17 @@ int main()
 	vertex[3].color.r=50;
 	vertex[3].color.g=5;
 	vertex[3].color.b=0;
+	vertex[3].tex.u=0;
+	vertex[3].tex.v=0;
 
 	vertex[4].pos.x=0.8;
 	vertex[4].pos.y=0.5;
-	vertex[4].pos.z=0.09;
+	vertex[4].pos.z=0.07;
 	vertex[4].color.r=50;
 	vertex[4].color.g=5;
 	vertex[4].color.b=0;
+	vertex[4].tex.u=10;
+	vertex[4].tex.v=0;
 
 	vertex[5].pos.x=0.03;
 	vertex[5].pos.y=0.9;
@@ -49,6 +59,8 @@ int main()
 	vertex[5].color.r=50;
 	vertex[5].color.g=5;
 	vertex[5].color.b=0;
+	vertex[5].tex.u=0;
+	vertex[5].tex.v=10;
 
 	t3v::engine& te=t3v::engine::get();
 	te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);

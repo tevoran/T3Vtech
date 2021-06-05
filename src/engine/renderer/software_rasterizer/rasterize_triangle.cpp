@@ -75,8 +75,6 @@ void t3v::software_rasterizer::rasterize_triangle(
 	float a,b,c; //barycentric coordinates
 	float d_a,d_b,d_c; //barycentric coordinates
 
-	data->color={vertex1.color.b, vertex1.color.g, vertex1.color.r, 0};
-
 	//rasterizing loop
 	for(int iy = y_bounding_start; iy < y_bounding_end; iy++)
 	{
@@ -117,8 +115,13 @@ void t3v::software_rasterizer::rasterize_triangle(
 				{
 					//writing z-buffer value
 					data->z_buffer[offset]=z;
+
+					//texture coordinates
+					float u=t3v::barycentric_interpolate_value(a,b,c,vertex1.tex.u,vertex2.tex.u,vertex3.tex.u);
+					float v=t3v::barycentric_interpolate_value(a,b,c,vertex1.tex.v,vertex2.tex.v,vertex3.tex.v);
+					t3v::color pixel_color=texture_mapping(u, v);
 					has_drawn=true;
-					draw_pixel_fast_simple(pixel_ptr, data->color);
+					draw_pixel_fast_simple(pixel_ptr, pixel_color);
 				}
 			}
 			else
