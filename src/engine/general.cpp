@@ -17,7 +17,7 @@ t3v::engine::engine()
 		exit(0);
 	}
 
-	m_window=SDL_CreateWindow("T3V-ENGINE test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, 0);
+	m_window=SDL_CreateWindow("T3V-ENGINE test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, SDL_WINDOW_FULLSCREEN);
 	if(m_window==NULL)
 	{
 		std::cout << "[ERROR] SDL2 couldn't create a window" << std::endl;

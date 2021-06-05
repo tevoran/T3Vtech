@@ -6,6 +6,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 	t3v::vertex vertex3,
 	render_thread_data *data)
 {
+
 	//sorting vertices along y-axis
 	if(vertex1.pos.y > vertex2.pos.y)
 	{
@@ -72,8 +73,14 @@ void t3v::software_rasterizer::rasterize_triangle(
 	const float div_const=t3v::barycentric_interpolation_optimized_div(vertex1_screen, vertex2_screen, vertex3_screen);
 
 	glm::ivec2 pixel_draw={0,0};
-	float a,b,c; //barycentric coordinates
-	float d_a,d_b,d_c; //barycentric coordinates
+	//barycentric coordinates
+	float a,b,c; 
+	float d_a,d_b,d_c; //barycentric coordinates increment
+
+	//texture coordinates
+	float u,v;
+	float u_tmp, v_tmp;
+	float u_delta, v_delta;
 
 	//rasterizing loop
 	for(int iy = y_bounding_start; iy < y_bounding_end; iy++)
@@ -106,6 +113,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 		uint32_t z_delta=z_tmp_int_2-z; //calculating difference for each following pixel in a line
 		int offset=x_bounding_start+iy*data->resx; //pixel offset in the z-buffer
 
+		//rendering a line
 		for(int ix=x_bounding_start; ix<x_bounding_end; ix++)
 		{
 			if(a>0 && b>0 && c>0)
@@ -116,9 +124,19 @@ void t3v::software_rasterizer::rasterize_triangle(
 					//writing z-buffer value
 					data->z_buffer[offset]=z;
 
+					//this is the first pixel that is drawn in the line
 					//texture coordinates
-					float u=t3v::barycentric_interpolate_value(a,b,c,vertex1.tex.u,vertex2.tex.u,vertex3.tex.u);
-					float v=t3v::barycentric_interpolate_value(a,b,c,vertex1.tex.v,vertex2.tex.v,vertex3.tex.v);
+					if(has_drawn==false)
+					{
+						//texture coordinates interpolation preparation
+						u=t3v::barycentric_interpolate_value(a,b,c,vertex1.tex.u,vertex2.tex.u,vertex3.tex.u);
+						v=t3v::barycentric_interpolate_value(a,b,c,vertex1.tex.v,vertex2.tex.v,vertex3.tex.v);
+						u_tmp=t3v::barycentric_interpolate_value(a+d_a,b+d_b,c+d_c,vertex1.tex.u,vertex2.tex.u,vertex3.tex.u);
+						v_tmp=t3v::barycentric_interpolate_value(a+d_a,b+d_b,c+d_c,vertex1.tex.v,vertex2.tex.v,vertex3.tex.v);
+						u_delta=u_tmp-u;
+						v_delta=v_tmp-v;
+					}
+
 					t3v::color pixel_color=texture_mapping(u, v);
 					has_drawn=true;
 					draw_pixel_fast_simple(pixel_ptr, pixel_color);
@@ -132,6 +150,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 					break;
 				}
 			}
+			//line increments
 			//barycentric coordinates line increments
 			a+=d_a;
 			b+=d_b;
@@ -140,6 +159,10 @@ void t3v::software_rasterizer::rasterize_triangle(
 			//z-buffer line increments
 			z+=z_delta;
 			offset++;
+
+			//texture coordinates increment;
+			u+=u_delta;
+			v+=v_delta;
 
 			//pixel draw pointer increment
 			pixel_ptr++;
