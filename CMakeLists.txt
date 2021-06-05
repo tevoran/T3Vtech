@@ -5,6 +5,7 @@ project("T3V-engine")
 SET(CMAKE_CXX_FLAGS  "-m64 -Ofast -flto -march=native -funroll-loops -ffast-math -std=c++2a")
 
 #DEBUGMODE
+#SET(CMAKE_CXX_FLAGS "-g -ggdb -fsanitize=address -std=c++2a")
 #SET(CMAKE_CXX_FLAGS "-g -std=c++2a")
 
 #PROFILERMODE

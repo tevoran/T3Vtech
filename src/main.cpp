@@ -1,11 +1,11 @@
 #include "te.hpp"
-#define FRAMES 2000
+#define FRAMES 1000
 
 
 
 int main()
 {
-	t3v::vertex vertex[6];
+	t3v::vertex vertex[9];
 	//first triangle
 	vertex[0].pos.x=0.1;
 	vertex[0].pos.y=0.05;
@@ -13,7 +13,7 @@ int main()
 	vertex[0].color.r=200;
 	vertex[0].color.g=200;
 	vertex[0].color.b=0;
-	vertex[0].tex.u=25;
+	vertex[0].tex.u=35;
 	vertex[0].tex.v=0;
 
 	vertex[1].pos.x=0.99;
@@ -118,8 +118,9 @@ int main()
 
 	t_end=std::chrono::steady_clock::now();
 	t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_end-t_begin);
-	std::cout << "Time needed for " << 5 <<" frames: " << t_delta.count() << "s" << std::endl;
-	std::cout << "Which is " << t_delta.count()*1000/5 << "ms per frame" << std::endl;
+	std::cout << "Time needed for " << 10 <<" frames: " << t_delta.count() << "s" << std::endl;
+	std::cout << "Which is " << t_delta.count()*1000/10 << "ms per frame" << std::endl;
 
 	//SDL_Delay(1000);
+	return 0;
 }

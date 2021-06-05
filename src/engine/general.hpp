@@ -12,7 +12,7 @@ namespace t3v
 		//renderer
 		int m_renderer_type=TE_RENDERER_NO_RENDERER; //active renderer
 		t3v::renderer m_renderer;
-		t3v::software_rasterizer* m_software_rasterizer=NULL;
+		t3v::software_rasterizer *m_software_rasterizer=NULL;
 
 		//SDL stuff
 		SDL_Window *m_window=NULL;
