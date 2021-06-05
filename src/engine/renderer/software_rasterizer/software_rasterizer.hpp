@@ -11,14 +11,19 @@ namespace t3v
 		{
 			int resx=0;
 			int resy=0;
+
 			int y_start=0; //the beginning of the drawing space of the thread
 			int y_end=0; //the end of the drawing space of the thread
+
 			SDL_Surface *window_surface=NULL;
+
 			t3v::vertex *vertex_ptr=NULL;
 			int num_vertices=0;
 			uint32_t *z_buffer=NULL;
+			t3v::color color={0,0,0,0};
+
 			bool start_rendering=false; //if this is set to true the thread will start the rendering
-			struct barycentric_interpolation_optimized_data* bary_data=NULL;
+
 
 			//render function variables
 			bool is_main_thread=false;
@@ -56,6 +61,9 @@ namespace t3v
 			const uint8_t r2, 
 			const uint8_t g2, 
 			const uint8_t b2);
+		static void draw_pixel_fast_simple(
+			uint32_t* pixel_ptr,
+			const t3v::color color);
 
 		static void render_thread(render_thread_data *data);
 		static void rasterize_triangle(

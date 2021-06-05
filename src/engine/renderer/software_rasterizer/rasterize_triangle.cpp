@@ -74,6 +74,9 @@ void t3v::software_rasterizer::rasterize_triangle(
 	glm::ivec2 pixel_draw={0,0};
 	float a,b,c; //barycentric coordinates
 	float d_a,d_b,d_c; //barycentric coordinates
+
+	data->color={vertex1.color.b, vertex1.color.g, vertex1.color.r, 0};
+
 	//rasterizing loop
 	for(int iy = y_bounding_start; iy < y_bounding_end; iy++)
 	{
@@ -115,7 +118,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 					//writing z-buffer value
 					data->z_buffer[offset]=z;
 					has_drawn=true;
-					draw_pixel_fast(pixel_ptr, vertex1.color.r, vertex1.color.g, vertex1.color.b);
+					draw_pixel_fast_simple(pixel_ptr, data->color);
 				}
 			}
 			else

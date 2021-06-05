@@ -19,7 +19,7 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 
 	//creating z-buffer
 	m_z_buffer = new uint32_t[m_resx*m_resx];
-	memset(m_z_buffer, 0xFF, m_resx*m_resy*sizeof(uint32_t)); //writes MAX_UINT64 to each entry in the z-buffer
+	memset(m_z_buffer, 0xFF, m_resx*m_resy*sizeof(uint32_t)); //writes MAX_INT32 to each entry in the z-buffer
 
 	//creating render threads
 	m_num_cpu_threads=std::thread::hardware_concurrency();

@@ -35,6 +35,13 @@ void t3v::software_rasterizer::draw_pixel_fast(
 	*pixel_ptr=pixel_color;
 }
 
+void t3v::software_rasterizer::draw_pixel_fast_simple(
+	uint32_t* pixel_ptr,
+	const t3v::color color)
+{
+	*pixel_ptr=*(uint32_t*)&color;
+}
+
 void t3v::software_rasterizer::draw_pixel_fast_64(
 	uint64_t* pixel_ptr,
 	const uint8_t r, 
