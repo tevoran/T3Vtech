@@ -21,6 +21,7 @@ namespace t3v
 			int num_vertices=0;
 			uint32_t *z_buffer=NULL;
 			t3v::color color={0,0,0,0};
+			t3v::texture texture={2,2, NULL};
 
 			bool start_rendering=false; //if this is set to true the thread will start the rendering
 
@@ -51,7 +52,7 @@ namespace t3v
 			}
 
 	private:
-		static t3v::color texture_mapping(float u, float v);
+		static t3v::color texture_mapping(float u, float v, t3v::texture *texture);
 		void draw_pixel_basic(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast(uint32_t* pixel_ptr, const uint8_t r,	const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast_64(
@@ -76,8 +77,7 @@ namespace t3v
 	public:
 		software_rasterizer(SDL_Window *window);
 		~software_rasterizer();
-		void render(uint8_t r, uint8_t g, uint8_t b);
-		void render(t3v::vertex *vertices, const int num_vertices);
+		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture texture);
 		void update();
 	};
 }

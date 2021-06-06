@@ -13,7 +13,7 @@ int main()
 	vertex[0].color.r=200;
 	vertex[0].color.g=200;
 	vertex[0].color.b=0;
-	vertex[0].tex.u=35;
+	vertex[0].tex.u=0;
 	vertex[0].tex.v=0;
 
 	vertex[1].pos.x=0.99;
@@ -22,7 +22,7 @@ int main()
 	vertex[1].color.r=200;
 	vertex[1].color.g=200;
 	vertex[1].color.b=0;
-	vertex[1].tex.u=0;
+	vertex[1].tex.u=1;
 	vertex[1].tex.v=0;
 
 	vertex[2].pos.x=0.8;
@@ -31,8 +31,8 @@ int main()
 	vertex[2].color.r=200;
 	vertex[2].color.g=200;
 	vertex[2].color.b=0;
-	vertex[2].tex.u=0;
-	vertex[2].tex.v=25;
+	vertex[2].tex.u=1;
+	vertex[2].tex.v=1;
 
 	//second triangle
 	vertex[3].pos.x=0.1;
@@ -93,11 +93,12 @@ int main()
 	t3v::engine& te=t3v::engine::get();
 	te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
+	t3v::texture tex=t3v::load_texture("../assets/mexican_tile.png");
 	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		te.render(vertex, 9);
+		te.render(vertex, 9, tex);
 		te.update();
 	}
 

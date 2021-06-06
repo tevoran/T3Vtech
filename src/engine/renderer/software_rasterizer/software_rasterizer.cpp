@@ -29,6 +29,8 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 	m_thread_data= new render_thread_data[m_num_cpu_threads];
 	sync_point(m_num_cpu_threads); //creating barrier
 
+	uint8_t test_tex[]={30,10,50,0, 0,60,10,0,
+					60,10,90,0, 100, 0, 10, 0};
 	//multithreaded
 	if(m_num_cpu_threads>1)
 	{
@@ -40,6 +42,7 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 			m_thread_data[i].y_end=(i+1)*m_resy/m_num_cpu_threads;
 			m_thread_data[i].window_surface=m_window_surface;
 			m_thread_data[i].start_rendering=false;
+			m_thread_data[i].texture.data=test_tex;
 
 			m_thread.push_back(std::thread(render_thread, &m_thread_data[i]));
 		}
@@ -54,6 +57,7 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 		m_thread_data[0].y_end=m_resy;
 		m_thread_data[0].window_surface=m_window_surface;
 		m_thread_data[0].start_rendering=false;
+		m_thread_data[0].texture.data=test_tex;
 	}
 
 	std::cout << "Software rasterizer successfully initialized" << std::endl;
@@ -75,7 +79,7 @@ t3v::software_rasterizer::~software_rasterizer()
 }
 
 
-void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices)
+void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture texture)
 {
 	m_update_necessary=true;
 	//multithreaded
@@ -87,6 +91,7 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 			m_thread_data[i].vertex_ptr=vertices;
 			m_thread_data[i].num_vertices=num_vertices;
 			m_thread_data[i].z_buffer=m_z_buffer;
+			m_thread_data[i].texture=texture;
 		}
 	}
 	//singlethreaded
@@ -96,6 +101,8 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		m_thread_data[0].vertex_ptr=vertices;
 		m_thread_data[0].num_vertices=num_vertices;
 		m_thread_data[0].z_buffer=m_z_buffer;
+		m_thread_data[0].texture=texture;
+
 	}
 }
 

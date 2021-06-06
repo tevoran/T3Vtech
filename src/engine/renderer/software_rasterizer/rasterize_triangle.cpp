@@ -137,7 +137,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 						v_delta=v_tmp-v;
 					}
 
-					t3v::color pixel_color=texture_mapping(u, v);
+					t3v::color pixel_color=texture_mapping(u, v, &data->texture);
 					has_drawn=true;
 					draw_pixel_fast_simple(pixel_ptr, pixel_color);
 				}

@@ -26,6 +26,12 @@ t3v::engine::engine()
 	}
 	std::cout << "done" << std::endl;
 
+	//getting SDL2_image working
+	//The return seems to be kinda buggy on their side
+	//might be better to use something different later on
+	IMG_Init(IMG_INIT_PNG || IMG_INIT_JPG || IMG_INIT_TIF);
+	std::cout << "SDL2_image initialized" << std::endl;
+
 	std::cout << "Using resolution " << m_resx << "x" << m_resy << std::endl;
 
 	std::cout << "T3V-engine successfully initialized" << std::endl;
@@ -34,6 +40,7 @@ t3v::engine::engine()
 
 t3v::engine::~engine()
 {
+	IMG_Quit();
 	SDL_Quit();
 }
 
@@ -51,12 +58,12 @@ void t3v::engine::choose_renderer(int renderer_type)
 }
 
 //render a bunch of vertices
-void t3v::engine::render(t3v::vertex *vertices, const int num_vertices)
+void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::texture texture)
 {
 	switch(m_renderer_type)
 	{
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
-			m_software_rasterizer->render(vertices, num_vertices);
+			m_software_rasterizer->render(vertices, num_vertices, texture);
 			break;
 
 		default:

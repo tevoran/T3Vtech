@@ -21,12 +21,12 @@ namespace t3v
 		~engine();
 
 	public:
-		int resx(){return m_resx;}
-		int resy(){return m_resy;}
+		int get_resx(){return m_resx;}
+		int get_resy(){return m_resy;}
 
 		//rendering stuff
 		void choose_renderer(int renderer_type);
-		void render(t3v::vertex *vertices, const int num_vertices); //render a bunch of vertices
+		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture texture); //render a bunch of vertices
 		void update();
 
 

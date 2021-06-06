@@ -32,9 +32,10 @@ Once there are more renderers implemented, it is possible to switch your rendere
 ### Getting current resolution
 
 ```cpp
-te.resx(); //will return the resolution for the x-axis as an int
-te.resy(); //will return the resolution for the y-axis as an int
+te.get_resx(); //will return the resolution for the x-axis as an int
+te.get_resy(); //will return the resolution for the y-axis as an int
 ```
+
 
 ## Rendering
 
