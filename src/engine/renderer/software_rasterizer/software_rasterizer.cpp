@@ -21,16 +21,16 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 	m_z_buffer = new uint32_t[m_resx*m_resx];
 	memset(m_z_buffer, 0xFF, m_resx*m_resy*sizeof(uint32_t)); //writes MAX_INT32 to each entry in the z-buffer
 
+
 	//creating render threads
 	m_num_cpu_threads=std::thread::hardware_concurrency();
 
 	m_num_render_threads=m_num_cpu_threads-1;		
+
 	std::cout << "Using " << m_num_cpu_threads << " thread(s) for software rasterizing" << std::endl;
 	m_thread_data= new render_thread_data[m_num_cpu_threads];
 	sync_point(m_num_cpu_threads); //creating barrier
 
-	uint8_t test_tex[]={30,10,50,0, 0,60,10,0,
-					60,10,90,0, 100, 0, 10, 0};
 	//multithreaded
 	if(m_num_cpu_threads>1)
 	{
@@ -42,7 +42,8 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 			m_thread_data[i].y_end=(i+1)*m_resy/m_num_cpu_threads;
 			m_thread_data[i].window_surface=m_window_surface;
 			m_thread_data[i].start_rendering=false;
-			m_thread_data[i].texture.data=test_tex;
+			m_thread_data[i].rendering_vertex_buffer_ptr=&m_rendering_vertex_buffer;
+
 
 			m_thread.push_back(std::thread(render_thread, &m_thread_data[i]));
 		}
@@ -57,7 +58,8 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 		m_thread_data[0].y_end=m_resy;
 		m_thread_data[0].window_surface=m_window_surface;
 		m_thread_data[0].start_rendering=false;
-		m_thread_data[0].texture.data=test_tex;
+		m_thread_data[0].rendering_vertex_buffer_ptr=&m_rendering_vertex_buffer;
+
 	}
 
 	std::cout << "Software rasterizer successfully initialized" << std::endl;
@@ -79,30 +81,28 @@ t3v::software_rasterizer::~software_rasterizer()
 }
 
 
-void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture texture)
+void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture)
 {
+	//writing to rendering vertex buffer
+	for(int i=0; i<num_vertices; i++)
+	{
+		m_rendering_vertex_buffer.push_back(*(vertices+i));
+		m_rendering_vertex_buffer.back().texture=texture;
+	}
+
 	m_update_necessary=true;
 	//multithreaded
 	if(m_num_render_threads>0)
 	{
 		for(int i=0; i<m_num_cpu_threads; i++)
 		{
-			m_thread_data[i].start_rendering=true;
-			m_thread_data[i].vertex_ptr=vertices;
-			m_thread_data[i].num_vertices=num_vertices;
-			m_thread_data[i].z_buffer=m_z_buffer;
-			m_thread_data[i].texture=texture;
+			m_thread_data[i].texture=*texture;
 		}
 	}
 	//singlethreaded
 	else
 	{
-		m_thread_data[0].start_rendering=true;
-		m_thread_data[0].vertex_ptr=vertices;
-		m_thread_data[0].num_vertices=num_vertices;
-		m_thread_data[0].z_buffer=m_z_buffer;
-		m_thread_data[0].texture=texture;
-
+		m_thread_data[0].texture=*texture;
 	}
 }
 
@@ -114,7 +114,10 @@ void t3v::software_rasterizer::update()
 		{
 			for(int i=0; i<m_num_cpu_threads; i++)
 			{
-				m_thread_data[i].start_rendering=true;			
+				m_thread_data[i].start_rendering=true;
+				m_thread_data[i].z_buffer=m_z_buffer;
+				m_thread_data[i].rendering_vertex_buffer_ptr=&m_rendering_vertex_buffer;
+				m_thread_data[i].start_rendering=true;	
 			}
 			sync_point(0)->arrive_and_wait(); //let the threads work
 
@@ -133,6 +136,9 @@ void t3v::software_rasterizer::update()
 		std::cout << "SDL2 error message:" << std::endl << SDL_GetError() << std::endl;
 		exit(0);
 	}
+
+	//clearing buffers
 	memset(m_window_surface->pixels, 0, m_resx*m_resy*sizeof(uint32_t)); //clearing the screen to black
 	memset(m_z_buffer, 0xFF, m_resx*m_resy*sizeof(uint32_t)); //resetting z_buffer
+	m_rendering_vertex_buffer.erase(m_rendering_vertex_buffer.begin(), m_rendering_vertex_buffer.end()); 	//clearing rendering vertex buffer
 }

@@ -30,6 +30,7 @@ namespace t3v
 	{
 		glm::vec3 pos;
 		t3v::color color;
-		t3v::tex tex;
+		t3v::tex tex; //texture uv-coordinates
+		t3v::texture *texture=NULL; //a pointer to the used texture
 	};
 }

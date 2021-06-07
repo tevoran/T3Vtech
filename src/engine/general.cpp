@@ -58,7 +58,7 @@ void t3v::engine::choose_renderer(int renderer_type)
 }
 
 //render a bunch of vertices
-void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::texture texture)
+void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture)
 {
 	switch(m_renderer_type)
 	{

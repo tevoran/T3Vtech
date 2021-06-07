@@ -17,11 +17,9 @@ namespace t3v
 
 			SDL_Surface *window_surface=NULL;
 
-			t3v::vertex *vertex_ptr=NULL;
-			int num_vertices=0;
 			uint32_t *z_buffer=NULL;
-			t3v::color color={0,0,0,0};
-			t3v::texture texture={2,2, NULL};
+			t3v::texture texture;
+			std::vector<t3v::vertex> *rendering_vertex_buffer_ptr=NULL;
 
 			bool start_rendering=false; //if this is set to true the thread will start the rendering
 
@@ -39,6 +37,9 @@ namespace t3v
 		
 		//Z-Buffer
 		uint32_t *m_z_buffer=NULL;
+
+		//render buffer
+		std::vector<t3v::vertex> m_rendering_vertex_buffer;
 
 		//renderthreads
 		int m_num_cpu_threads=0;
@@ -77,7 +78,7 @@ namespace t3v
 	public:
 		software_rasterizer(SDL_Window *window);
 		~software_rasterizer();
-		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture texture);
+		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture);
 		void update();
 	};
 }

@@ -93,12 +93,15 @@ int main()
 	t3v::engine& te=t3v::engine::get();
 	te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
-	t3v::texture tex=t3v::load_texture("../assets/mexican_tile.png");
+	t3v::texture tex=t3v::load_texture("../assets/mexican_tile.jpg");
+	t3v::texture wood=t3v::load_texture("../assets/wood.jpg");
 	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		te.render(vertex, 9, tex);
+		te.render(vertex, 3, &tex);
+		te.render(vertex+3, 3, &tex);
+		te.render(vertex+6, 3, &wood);
 		te.update();
 	}
 
@@ -119,8 +122,8 @@ int main()
 
 	t_end=std::chrono::steady_clock::now();
 	t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_end-t_begin);
-	std::cout << "Time needed for " << 10 <<" frames: " << t_delta.count() << "s" << std::endl;
-	std::cout << "Which is " << t_delta.count()*1000/10 << "ms per frame" << std::endl;
+	std::cout << "Time needed for " << 1000 <<" frames: " << t_delta.count() << "s" << std::endl;
+	std::cout << "Which is " << t_delta.count()*1000/1000 << "ms per frame" << std::endl;
 
 	//SDL_Delay(1000);
 	return 0;
