@@ -7,20 +7,6 @@ void t3v::software_rasterizer::rasterize_triangle(
 	render_thread_data *data)
 {
 
-	//sorting vertices along y-axis
-	if(vertex1.pos.y > vertex2.pos.y)
-	{
-		std::swap(vertex1, vertex2);
-	}
-	if(vertex2.pos.y > vertex3.pos.y)
-	{
-		std::swap(vertex2, vertex3);
-	}
-	if(vertex1.pos.y > vertex2.pos.y)
-	{
-		std::swap(vertex1, vertex2);
-	}
-
 	//converting vertices from clip space to screen space
 	glm::ivec2 vertex1_screen{vertex1.pos.x*data->resx+0.5,vertex1.pos.y*data->resy+0.5};
 	glm::ivec2 vertex2_screen{vertex2.pos.x*data->resx+0.5,vertex2.pos.y*data->resy+0.5};
