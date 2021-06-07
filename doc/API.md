@@ -36,6 +36,15 @@ te.get_resx(); //will return the resolution for the x-axis as an int
 te.get_resy(); //will return the resolution for the y-axis as an int
 ```
 
+## Assets
+
+### Loading textures
+
+Textures can be different file formats (at least BMP, JPG and PNG) and can be quite easily loaded and used.
+
+```cpp
+t3v::texture& load_texture(const char *path);
+```
 
 ## Rendering
 
@@ -47,14 +56,15 @@ for the next frame as well.
 te.update();
 ```
 
+
 ### Render mesh / vertices
 
 To render any number of vertices you have to give a pointer of the vertices and their number
 to the render function.
 
 ```cpp
-void render(t3v::vertex *vertices, const int num_vertices); //the function definition
+void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture); // function declaration
 
-te.render(vertex, 6); //sample usage
+te.render(vertex, 6, &tex); //sample usage
 ```
 

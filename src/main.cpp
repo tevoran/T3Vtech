@@ -115,15 +115,15 @@ int main()
 
 	t_begin=std::chrono::steady_clock::now();
 
-	for(int i=0; i<5; i++)
+	for(int i=0; i<10; i++)
 	{
 		te.update();
 	}
 
 	t_end=std::chrono::steady_clock::now();
 	t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_end-t_begin);
-	std::cout << "Time needed for " << 1000 <<" frames: " << t_delta.count() << "s" << std::endl;
-	std::cout << "Which is " << t_delta.count()*1000/1000 << "ms per frame" << std::endl;
+	std::cout << "Time needed for " << 10 <<" frames: " << t_delta.count() << "s" << std::endl;
+	std::cout << "Which is " << t_delta.count()*1000/10 << "ms per frame" << std::endl;
 
 	//SDL_Delay(1000);
 	return 0;
