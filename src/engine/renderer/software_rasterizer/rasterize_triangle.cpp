@@ -1,9 +1,9 @@
 #include <te.hpp>
 
 void t3v::software_rasterizer::rasterize_triangle(
-	t3v::vertex vertex1,
-	t3v::vertex vertex2,
-	t3v::vertex vertex3,
+	t3v::vertex& vertex1,
+	t3v::vertex& vertex2,
+	t3v::vertex& vertex3,
 	render_thread_data *data)
 {
 

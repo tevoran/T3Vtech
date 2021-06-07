@@ -1,6 +1,8 @@
 #pragma once
 #include <te.hpp>
 
+#define PI 3.141596
+
 namespace t3v
 {
 	void barycentric_interpolation(
@@ -53,4 +55,7 @@ namespace t3v
 		float& delta_b,
 		float& delta_c
 		);
+
+	//perspective divide
+	t3v::vertex perspective_divide(t3v::vertex& vertex_in);
 } 	

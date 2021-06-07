@@ -21,7 +21,31 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 	m_z_buffer = new uint32_t[m_resx*m_resx];
 	memset(m_z_buffer, 0xFF, m_resx*m_resy*sizeof(uint32_t)); //writes MAX_INT32 to each entry in the z-buffer
 
+	//setting up projection matrix
+	std::cout << m_fov << std::endl;
+	std::cout << (float)tan(0.5*(PI-m_fov)) << std::endl;
+	m_projection_mat[0].x=(float)tan(0.5*(PI-m_fov));
+	m_projection_mat[0].y=0;
+	m_projection_mat[0].z=0;
+	m_projection_mat[0].w=0;
 
+	m_projection_mat[1].x=0;
+	m_projection_mat[1].y=((float)m_resx/(float)m_resy)*(float)tan(0.5*PI-0.5*m_fov);
+	m_projection_mat[1].z=0;
+	m_projection_mat[1].w=0;
+
+	m_projection_mat[2].x=0;
+	m_projection_mat[2].y=0;
+	m_projection_mat[2].z=(1-m_near_z_clip)/(m_far_z_clip-m_near_z_clip);
+	m_projection_mat[2].w=0;
+
+	m_projection_mat[3].x=0;
+	m_projection_mat[3].y=0;
+	m_projection_mat[3].z=0;
+	m_projection_mat[3].w=1;
+
+	std::cout << "projection matrix: " << glm::to_string(m_projection_mat)<< std::endl;	
+	std::cout << "TAN(1) " << tan(1) << std::endl;
 	//creating render threads
 	m_num_cpu_threads=std::thread::hardware_concurrency();
 
@@ -86,7 +110,7 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 	//writing to rendering vertex buffer
 	for(int i=0; i<num_vertices/3; i++)
 	{
-		//sorting vertices along y-axis
+		//adding texture
 		t3v::vertex vertex1 = vertices[i*3];
 			vertex1.texture=texture;
 		t3v::vertex vertex2 = vertices[i*3+1];
@@ -94,6 +118,7 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		t3v::vertex vertex3 = vertices[i*3+2];
 			vertex3.texture=texture;
 
+		//sorting vertices along y-axis
 		if(vertex1.pos.y > vertex2.pos.y)
 		{
 			std::swap(vertex1, vertex2);
@@ -106,6 +131,11 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		{
 			std::swap(vertex1, vertex2);
 		}
+
+		//applying vertexshader
+		vertex_shader(vertex1);
+		vertex_shader(vertex2);
+		vertex_shader(vertex3);
 
 		m_rendering_vertex_buffer.push_back(vertex1);
 		m_rendering_vertex_buffer.push_back(vertex2);

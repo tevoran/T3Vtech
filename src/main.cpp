@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 1000
+#define FRAMES 10000
 
 
 
@@ -7,27 +7,27 @@ int main()
 {
 	t3v::vertex vertex[9];
 	//first triangle
-	vertex[0].pos.x=0.1;
-	vertex[0].pos.y=0.05;
-	vertex[0].pos.z=0.1;
+	vertex[0].pos.x=-10;
+	vertex[0].pos.y=-5.;
+	vertex[0].pos.z=1;
 	vertex[0].color.r=200;
 	vertex[0].color.g=200;
 	vertex[0].color.b=0;
 	vertex[0].tex.u=0;
 	vertex[0].tex.v=0;
 
-	vertex[1].pos.x=0.99;
+	vertex[1].pos.x=19.99;
 	vertex[1].pos.y=0.16;
-	vertex[1].pos.z=0.1;
+	vertex[1].pos.z=1;
 	vertex[1].color.r=200;
 	vertex[1].color.g=200;
 	vertex[1].color.b=0;
 	vertex[1].tex.u=1;
 	vertex[1].tex.v=0;
 
-	vertex[2].pos.x=0.8;
-	vertex[2].pos.y=0.9;
-	vertex[2].pos.z=0.1;
+	vertex[2].pos.x=8;
+	vertex[2].pos.y=9;
+	vertex[2].pos.z=1;
 	vertex[2].color.r=200;
 	vertex[2].color.g=200;
 	vertex[2].color.b=0;
@@ -35,9 +35,9 @@ int main()
 	vertex[2].tex.v=1;
 
 	//second triangle
-	vertex[3].pos.x=0.1;
+	vertex[3].pos.x=-0.1;
 	vertex[3].pos.y=0.5;
-	vertex[3].pos.z=0.2;
+	vertex[3].pos.z=2;
 	vertex[3].color.r=50;
 	vertex[3].color.g=5;
 	vertex[3].color.b=0;
@@ -46,7 +46,7 @@ int main()
 
 	vertex[4].pos.x=0.8;
 	vertex[4].pos.y=0.5;
-	vertex[4].pos.z=0.07;
+	vertex[4].pos.z=8;
 	vertex[4].color.r=50;
 	vertex[4].color.g=5;
 	vertex[4].color.b=0;
@@ -55,7 +55,7 @@ int main()
 
 	vertex[5].pos.x=0.03;
 	vertex[5].pos.y=0.9;
-	vertex[5].pos.z=0.2;
+	vertex[5].pos.z=2;
 	vertex[5].color.r=50;
 	vertex[5].color.g=5;
 	vertex[5].color.b=0;
@@ -100,8 +100,11 @@ int main()
 	for(int i=0; i<FRAMES; i++)
 	{
 		te.render(vertex, 3, &tex);
-		te.render(vertex+3, 3, &tex);
-		te.render(vertex+6, 3, &wood);
+		vertex[0].pos.z=vertex[0].pos.z+0.01;
+		vertex[1].pos.z=vertex[1].pos.z+0.01;
+		vertex[2].pos.z=vertex[2].pos.z+0.01;
+		//te.render(vertex+3, 3, &tex);
+		//te.render(vertex+6, 3, &wood);
 		te.update();
 	}
 

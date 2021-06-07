@@ -52,6 +52,7 @@ namespace t3v
 			}
 
 	private:
+		void vertex_shader(t3v::vertex& vertex);
 		static t3v::color texture_mapping(float u, float v, t3v::texture *texture);
 		void draw_pixel_basic(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast(uint32_t* pixel_ptr, const uint8_t r,	const uint8_t g, const uint8_t b);
@@ -69,9 +70,9 @@ namespace t3v
 
 		static void render_thread(render_thread_data *data);
 		static void rasterize_triangle(
-			t3v::vertex vertex1,
-			t3v::vertex vertex2,
-			t3v::vertex vertex3,
+			t3v::vertex& vertex1,
+			t3v::vertex& vertex2,
+			t3v::vertex& vertex3,
 			render_thread_data *data);
 
 	public:

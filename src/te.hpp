@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <glm/glm.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 //stdlib
 #include <iostream>
@@ -18,8 +19,8 @@
 
 //engine headers
 #include <definitions.hpp>
-#include <engine/math/math.hpp>
 #include <engine/renderer/renderer_data_types.hpp>
+#include <engine/math/math.hpp>
 #include <engine/assets/assets.hpp>
 #include <engine/renderer/renderer.hpp>
 #include <engine/renderer/software_rasterizer/software_rasterizer.hpp>
