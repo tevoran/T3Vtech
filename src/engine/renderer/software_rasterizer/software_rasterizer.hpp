@@ -18,7 +18,6 @@ namespace t3v
 			SDL_Surface *window_surface=NULL;
 
 			uint32_t *z_buffer=NULL;
-			t3v::texture texture;
 			std::vector<t3v::vertex> *rendering_vertex_buffer_ptr=NULL;
 
 			bool start_rendering=false; //if this is set to true the thread will start the rendering

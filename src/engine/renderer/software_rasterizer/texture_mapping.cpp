@@ -11,7 +11,7 @@ t3v::color t3v::software_rasterizer::texture_mapping(float u, float v, t3v::text
 	//texture mapping
 	int u_int=u*(float)texture->w;
 	int v_int=v*(float)texture->h;
-	int offset=(u_int+v_int*texture->w)*4; //colordepth is 4 bytes
+	int offset=(u_int+v_int*texture->w)*TE_COLORDEPTH; //colordepth is 4 bytes
 
 	pixel_color.r=texture->data[offset];
 	offset++;

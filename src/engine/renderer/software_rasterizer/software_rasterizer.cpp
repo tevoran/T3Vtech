@@ -84,26 +84,35 @@ t3v::software_rasterizer::~software_rasterizer()
 void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture)
 {
 	//writing to rendering vertex buffer
-	for(int i=0; i<num_vertices; i++)
+	for(int i=0; i<num_vertices/3; i++)
 	{
-		m_rendering_vertex_buffer.push_back(*(vertices+i));
-		m_rendering_vertex_buffer.back().texture=texture;
+		//sorting vertices along y-axis
+		t3v::vertex vertex1 = vertices[i*3];
+			vertex1.texture=texture;
+		t3v::vertex vertex2 = vertices[i*3+1];
+			vertex2.texture=texture;
+		t3v::vertex vertex3 = vertices[i*3+2];
+			vertex3.texture=texture;
+
+		if(vertex1.pos.y > vertex2.pos.y)
+		{
+			std::swap(vertex1, vertex2);
+		}
+		if(vertex2.pos.y > vertex3.pos.y)
+		{
+			std::swap(vertex2, vertex3);
+		}
+		if(vertex1.pos.y > vertex2.pos.y)
+		{
+			std::swap(vertex1, vertex2);
+		}
+
+		m_rendering_vertex_buffer.push_back(vertex1);
+		m_rendering_vertex_buffer.push_back(vertex2);
+		m_rendering_vertex_buffer.push_back(vertex3);
 	}
 
 	m_update_necessary=true;
-	//multithreaded
-	if(m_num_render_threads>0)
-	{
-		for(int i=0; i<m_num_cpu_threads; i++)
-		{
-			m_thread_data[i].texture=*texture;
-		}
-	}
-	//singlethreaded
-	else
-	{
-		m_thread_data[0].texture=*texture;
-	}
 }
 
 void t3v::software_rasterizer::update()
