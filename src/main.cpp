@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 10000
+#define FRAMES 1000
 
 
 
@@ -7,8 +7,8 @@ int main()
 {
 	t3v::vertex vertex[9];
 	//first triangle
-	vertex[0].pos.x=-10;
-	vertex[0].pos.y=-5.;
+	vertex[0].pos.x=-0.1;
+	vertex[0].pos.y=0.1;
 	vertex[0].pos.z=1;
 	vertex[0].color.r=200;
 	vertex[0].color.g=200;
@@ -16,8 +16,8 @@ int main()
 	vertex[0].tex.u=0;
 	vertex[0].tex.v=0;
 
-	vertex[1].pos.x=19.99;
-	vertex[1].pos.y=0.16;
+	vertex[1].pos.x=0.1;
+	vertex[1].pos.y=0.1;
 	vertex[1].pos.z=1;
 	vertex[1].color.r=200;
 	vertex[1].color.g=200;
@@ -25,8 +25,8 @@ int main()
 	vertex[1].tex.u=1;
 	vertex[1].tex.v=0;
 
-	vertex[2].pos.x=8;
-	vertex[2].pos.y=9;
+	vertex[2].pos.x=0.1;
+	vertex[2].pos.y=-0.1;
 	vertex[2].pos.z=1;
 	vertex[2].color.r=200;
 	vertex[2].color.g=200;
@@ -108,6 +108,7 @@ int main()
 		te.update();
 	}
 
+	SDL_Delay(1000);
 	std::chrono::steady_clock::time_point t_end=std::chrono::steady_clock::now();
 	std::chrono::duration<float> t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_end-t_begin);
 	std::cout << "Time needed for " << FRAMES <<" frames: " << t_delta.count() << "s" << std::endl;

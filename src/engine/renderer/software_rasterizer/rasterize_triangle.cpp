@@ -6,11 +6,10 @@ void t3v::software_rasterizer::rasterize_triangle(
 	t3v::vertex& vertex3,
 	render_thread_data *data)
 {
-
 	//converting vertices from clip space to screen space
-	glm::ivec2 vertex1_screen{vertex1.pos.x*data->resx+0.5,vertex1.pos.y*data->resy+0.5};
-	glm::ivec2 vertex2_screen{vertex2.pos.x*data->resx+0.5,vertex2.pos.y*data->resy+0.5};
-	glm::ivec2 vertex3_screen{vertex3.pos.x*data->resx+0.5,vertex3.pos.y*data->resy+0.5};
+	glm::i32vec2 vertex1_screen{vertex1.pos.x*data->resx+0.5,vertex1.pos.y*data->resy+0.5};
+	glm::i32vec2 vertex2_screen{vertex2.pos.x*data->resx+0.5,vertex2.pos.y*data->resy+0.5};
+	glm::i32vec2 vertex3_screen{vertex3.pos.x*data->resx+0.5,vertex3.pos.y*data->resy+0.5};
 
 
 	//determining bounding box for the render loop
@@ -94,6 +93,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 		uint32_t z=z_tmp_1*INT32_MAX; //calculating line beginning
 
 		float z_tmp_2=t3v::barycentric_interpolate_value(a+d_a,b+d_b,c+d_c,vertex1.pos.z,vertex2.pos.z,vertex3.pos.z);
+
 		uint32_t z_tmp_int_2=z_tmp_2*INT32_MAX;
 
 		uint32_t z_delta=z_tmp_int_2-z; //calculating difference for each following pixel in a line

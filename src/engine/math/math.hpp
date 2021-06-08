@@ -56,6 +56,4 @@ namespace t3v
 		float& delta_c
 		);
 
-	//perspective divide
-	t3v::vertex perspective_divide(t3v::vertex& vertex_in);
 } 	
