@@ -22,28 +22,9 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 	memset(m_z_buffer, 0xFF, m_resx*m_resy*sizeof(uint32_t)); //writes MAX_INT32 to each entry in the z-buffer
 
 	//setting up projection matrix
-	m_projection_mat[0].x=tan(0.5*PI-0.5*m_fov);
-	m_projection_mat[0].y=0;
-	m_projection_mat[0].z=0;
-	m_projection_mat[0].w=0;
+	m_projection_mat = glm::perspective(m_fov, (float)m_resx/(float)m_resy, m_near_z_clip, m_far_z_clip);
 
-	m_projection_mat[1].x=0;
-	m_projection_mat[1].y=((float)m_resx/(float)m_resy)*tan(0.5*PI-0.5*m_fov);
-	m_projection_mat[1].z=0;
-	m_projection_mat[1].w=0;
 
-	m_projection_mat[2].x=0;
-	m_projection_mat[2].y=0;
-	m_projection_mat[2].z=(1.0-m_near_z_clip)/(m_far_z_clip-m_near_z_clip);
-	m_projection_mat[2].w=0;
-
-	m_projection_mat[3].x=0;
-	m_projection_mat[3].y=0;
-	m_projection_mat[3].z=0;
-	m_projection_mat[3].w=1;
-
-	m_projection_mat = glm::perspective(m_fov, (float)m_resx/(float)m_resy, 0.1f, 150.0f);
-	std::cout << glm::to_string(m_projection_mat) << std::endl;
 	//creating render threads
 	m_num_cpu_threads=std::thread::hardware_concurrency();
 

@@ -62,33 +62,6 @@ int main()
 	vertex[5].tex.u=0;
 	vertex[5].tex.v=10;
 
-	//third triangle
-	vertex[6].pos.x=-10.1;
-	vertex[6].pos.y=-0.5;
-	vertex[6].pos.z=0.25;
-	vertex[6].color.r=50;
-	vertex[6].color.g=5;
-	vertex[6].color.b=0;
-	vertex[6].tex.u=0;
-	vertex[6].tex.v=0;
-
-	vertex[7].pos.x=10.8;
-	vertex[7].pos.y=-0.5;
-	vertex[7].pos.z=0.27;
-	vertex[7].color.r=50;
-	vertex[7].color.g=5;
-	vertex[7].color.b=0;
-	vertex[7].tex.u=100;
-	vertex[7].tex.v=0;
-
-	vertex[8].pos.x=0.03;
-	vertex[8].pos.y=20.9;
-	vertex[8].pos.z=0.29;
-	vertex[8].color.r=50;
-	vertex[8].color.g=5;
-	vertex[8].color.b=0;
-	vertex[8].tex.u=0;
-	vertex[8].tex.v=100;
 
 	t3v::engine& te=t3v::engine::get();
 	te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
@@ -97,14 +70,13 @@ int main()
 	t3v::texture wood=t3v::load_texture("../assets/wood.jpg");
 	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
+	t3v::object3d test_obj;
+	test_obj.use_vertices(vertex, 3);
+	test_obj.use_texture(&wood);
+
 	for(int i=0; i<FRAMES; i++)
 	{
-		te.render(vertex, 3, &tex);
-		vertex[0].pos.z=vertex[0].pos.z+0.01;
-		vertex[1].pos.z=vertex[1].pos.z+0.01;
-		vertex[2].pos.z=vertex[2].pos.z+0.01;
-		//te.render(vertex+3, 3, &tex);
-		//te.render(vertex+6, 3, &wood);
+		test_obj.render();
 		te.update();
 	}
 

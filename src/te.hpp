@@ -25,3 +25,4 @@
 #include <engine/renderer/renderer.hpp>
 #include <engine/renderer/software_rasterizer/software_rasterizer.hpp>
 #include <engine/general.hpp>
+#include <engine/renderer/object3d.hpp>
