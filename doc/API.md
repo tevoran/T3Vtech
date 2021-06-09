@@ -68,3 +68,26 @@ void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture
 te.render(vertex, 6, &tex); //sample usage
 ```
 
+### Object3D class
+
+This is a class used for representing 3d objects. It 
+
+```cpp
+class object3d // the class name
+```
+
+It is possible to give a pointer of a bunch of vertices with the number of vertices to the class.
+
+```cpp
+void use_vertices(t3v::vertex *vertices_in, const int num_vertices);
+```
+
+The same thing is possible with a texture. A previously loaded texture can be given via a pointer to the class.
+```cpp
+void use_texture(t3v::texture *texture_in);
+```
+
+And finally an object can be rendered with its render method.
+```cpp
+void render();
+```
