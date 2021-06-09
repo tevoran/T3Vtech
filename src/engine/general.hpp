@@ -27,6 +27,7 @@ namespace t3v
 		//rendering stuff
 		void choose_renderer(int renderer_type);
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture); //render a bunch of vertices
+		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos); //render a bunch of vertices at a certain location
 		void update();
 
 

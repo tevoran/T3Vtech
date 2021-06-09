@@ -24,5 +24,5 @@ void t3v::object3d::use_texture(t3v::texture *texture_in)
 void t3v::object3d::render()
 {
 	t3v::engine& te=t3v::engine::get();
-	te.render(m_vertices, m_num_vertices, m_texture);
+	te.render(m_vertices, m_num_vertices, m_texture, pos);
 }

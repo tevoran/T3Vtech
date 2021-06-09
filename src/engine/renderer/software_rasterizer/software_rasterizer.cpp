@@ -84,7 +84,7 @@ t3v::software_rasterizer::~software_rasterizer()
 }
 
 
-void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture)
+void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos)
 {
 	//writing to rendering vertex buffer
 	for(int i=0; i<num_vertices/3; i++)
@@ -98,27 +98,33 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 			vertex3.texture=texture;
 
 		//applying vertexshader
-		vertex_shader(vertex1);
-		vertex_shader(vertex2);
-		vertex_shader(vertex3);
+		vertex_shader(vertex1, pos);
+		vertex_shader(vertex2, pos);
+		vertex_shader(vertex3, pos);
 
-		//sorting vertices along y-axis
-		if(vertex1.pos.y > vertex2.pos.y)
+		//don't draw negative only z-stuff
+		if(!(vertex1.pos.z<0 && vertex2.pos.z<0 && vertex3.pos.z<0))
 		{
-			std::swap(vertex1, vertex2);
-		}
-		if(vertex2.pos.y > vertex3.pos.y)
-		{
-			std::swap(vertex2, vertex3);
-		}
-		if(vertex1.pos.y > vertex2.pos.y)
-		{
-			std::swap(vertex1, vertex2);
-		}
+			//sorting vertices along y-axis
+			if(vertex1.pos.y > vertex2.pos.y)
+			{
+				std::swap(vertex1, vertex2);
+			}
+			if(vertex2.pos.y > vertex3.pos.y)
+			{
+				std::swap(vertex2, vertex3);
+			}
+			if(vertex1.pos.y > vertex2.pos.y)
+			{
+				std::swap(vertex1, vertex2);
+			}
 
-		m_rendering_vertex_buffer.push_back(vertex1);
-		m_rendering_vertex_buffer.push_back(vertex2);
-		m_rendering_vertex_buffer.push_back(vertex3);
+			//putting vertices into drawing buffer
+			//they are drawn when the update function is executed
+			m_rendering_vertex_buffer.push_back(vertex1);
+			m_rendering_vertex_buffer.push_back(vertex2);
+			m_rendering_vertex_buffer.push_back(vertex3);
+		}
 	}
 
 	m_update_necessary=true;

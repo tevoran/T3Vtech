@@ -10,6 +10,9 @@ namespace t3v
 		uint32_t m_num_vertices;
 		t3v::texture *m_texture=NULL;
 	public:
+		glm::vec3 pos={0,0,0};
+
+	public:
 		object3d();
 		~object3d();
 

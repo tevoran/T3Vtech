@@ -63,7 +63,24 @@ void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::tex
 	switch(m_renderer_type)
 	{
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
-			m_software_rasterizer->render(vertices, num_vertices, texture);
+		{
+			glm::vec3 pos={0,0,0};
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos);
+			break;
+		}
+		default:
+			m_renderer.render();
+			break;
+	}
+}
+
+//render a bunch of vertices at a certain location
+void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos)
+{
+	switch(m_renderer_type)
+	{
+		case TE_RENDERER_SOFTWARE_RASTERIZER:
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos);
 			break;
 
 		default:
@@ -71,6 +88,7 @@ void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::tex
 			break;
 	}
 }
+
 void t3v::engine::update()
 {
 	switch(m_renderer_type)

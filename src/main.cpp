@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 1000
+#define FRAMES 3000
 
 
 
@@ -76,11 +76,11 @@ int main()
 
 	for(int i=0; i<FRAMES; i++)
 	{
+		test_obj.pos.z=59*sin((float)i/60)+60;
 		test_obj.render();
 		te.update();
 	}
 
-	SDL_Delay(1000);
 	std::chrono::steady_clock::time_point t_end=std::chrono::steady_clock::now();
 	std::chrono::duration<float> t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_end-t_begin);
 	std::cout << "Time needed for " << FRAMES <<" frames: " << t_delta.count() << "s" << std::endl;
