@@ -84,7 +84,7 @@ t3v::software_rasterizer::~software_rasterizer()
 }
 
 
-void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos)
+void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat)
 {
 	//writing to rendering vertex buffer
 	for(int i=0; i<num_vertices/3; i++)
@@ -98,9 +98,9 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 			vertex3.texture=texture;
 
 		//applying vertexshader
-		vertex_shader(vertex1, pos);
-		vertex_shader(vertex2, pos);
-		vertex_shader(vertex3, pos);
+		vertex_shader(vertex1, pos, rotation_mat);
+		vertex_shader(vertex2, pos, rotation_mat);
+		vertex_shader(vertex3, pos, rotation_mat);
 
 		//don't draw negative only z-stuff
 		if(!(vertex1.pos.z<0 && vertex2.pos.z<0 && vertex3.pos.z<0))

@@ -64,8 +64,9 @@ void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::tex
 	{
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
 		{
+			glm::mat4 ident_mat=glm::mat4(1.0f);
 			glm::vec3 pos={0,0,0};
-			m_software_rasterizer->render(vertices, num_vertices, texture, pos);
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos, ident_mat);
 			break;
 		}
 		default:
@@ -80,7 +81,25 @@ void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::tex
 	switch(m_renderer_type)
 	{
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
-			m_software_rasterizer->render(vertices, num_vertices, texture, pos);
+		{
+			glm::mat4 ident_mat=glm::mat4(1.0f);
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos, ident_mat);
+		}
+			break;
+
+		default:
+			m_renderer.render();
+			break;
+	}
+}
+
+//render a bunch of vertices at a certain location with a certain rotation
+void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat)
+{
+	switch(m_renderer_type)
+	{
+		case TE_RENDERER_SOFTWARE_RASTERIZER:
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos, rotation_mat);
 			break;
 
 		default:

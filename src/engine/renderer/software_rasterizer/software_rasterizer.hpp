@@ -52,7 +52,7 @@ namespace t3v
 			}
 
 	private:
-		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos);
+		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat);
 		static t3v::color texture_mapping(float u, float v, t3v::texture *texture);
 		void draw_pixel_basic(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast(uint32_t* pixel_ptr, const uint8_t r,	const uint8_t g, const uint8_t b);
@@ -78,7 +78,9 @@ namespace t3v
 	public:
 		software_rasterizer(SDL_Window *window);
 		~software_rasterizer();
-		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos); //render a bunch of vertices at a certain location
+
+		//render a bunch of vertices at a certain location
+		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat);
 		void update();
 	};
 }

@@ -1,13 +1,13 @@
 #include <te.hpp>
 
-void t3v::software_rasterizer::vertex_shader(t3v::vertex& vertex, glm::vec3& pos)
+void t3v::software_rasterizer::vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat)
 {
-	vertex.pos+=glm::vec4(pos,1.0); // adding the mesh position
-
-	glm::vec4 vertex4 = vertex.pos;
 
 
-	vertex4=m_projection_mat * vertex4;
+	glm::vec4 vertex4 = rotation_mat * vertex.pos;
+	vertex4 = vertex4 + glm::vec4(pos, 0.0);
+	vertex4 = m_projection_mat * vertex4;
+
 
 
 	//perspective divide

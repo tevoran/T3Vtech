@@ -56,4 +56,9 @@ namespace t3v
 		float& delta_c
 		);
 
+
+	//rotation stuff
+	glm::mat4 rotation_quaternion(glm::mat4& rotation_mat_in, glm::vec3& rotation_axis, float rotation_degrees);
+
+
 } 	

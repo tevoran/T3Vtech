@@ -9,7 +9,7 @@ int main()
 	//first triangle
 	vertex[0].pos.x=-0.1;
 	vertex[0].pos.y=0.1;
-	vertex[0].pos.z=1;
+	vertex[0].pos.z=0;
 	vertex[0].color.r=200;
 	vertex[0].color.g=200;
 	vertex[0].color.b=0;
@@ -18,7 +18,7 @@ int main()
 
 	vertex[1].pos.x=0.1;
 	vertex[1].pos.y=0.1;
-	vertex[1].pos.z=1;
+	vertex[1].pos.z=0;
 	vertex[1].color.r=200;
 	vertex[1].color.g=200;
 	vertex[1].color.b=0;
@@ -27,40 +27,13 @@ int main()
 
 	vertex[2].pos.x=0.1;
 	vertex[2].pos.y=-0.1;
-	vertex[2].pos.z=1;
+	vertex[2].pos.z=0;
 	vertex[2].color.r=200;
 	vertex[2].color.g=200;
 	vertex[2].color.b=0;
 	vertex[2].tex.u=1;
 	vertex[2].tex.v=1;
 
-	//second triangle
-	vertex[3].pos.x=-0.1;
-	vertex[3].pos.y=0.5;
-	vertex[3].pos.z=2;
-	vertex[3].color.r=50;
-	vertex[3].color.g=5;
-	vertex[3].color.b=0;
-	vertex[3].tex.u=0;
-	vertex[3].tex.v=0;
-
-	vertex[4].pos.x=0.8;
-	vertex[4].pos.y=0.5;
-	vertex[4].pos.z=8;
-	vertex[4].color.r=50;
-	vertex[4].color.g=5;
-	vertex[4].color.b=0;
-	vertex[4].tex.u=10;
-	vertex[4].tex.v=0;
-
-	vertex[5].pos.x=0.03;
-	vertex[5].pos.y=0.9;
-	vertex[5].pos.z=2;
-	vertex[5].color.r=50;
-	vertex[5].color.g=5;
-	vertex[5].color.b=0;
-	vertex[5].tex.u=0;
-	vertex[5].tex.v=10;
 
 
 	t3v::engine& te=t3v::engine::get();
@@ -76,7 +49,8 @@ int main()
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		test_obj.pos.z=59*sin((float)i/60)+60;
+		test_obj.pos.z=2;//59*sin((float)i/60)+60;
+		test_obj.rotate(glm::vec3(0,1,0), 0.25);
 		test_obj.render();
 		te.update();
 	}
