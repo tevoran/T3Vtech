@@ -53,6 +53,14 @@ namespace t3v
 
 	private:
 		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat);
+
+		//clipping functions
+		void near_z_clip_double(t3v::vertex& vertex_clipped, const t3v::vertex& vertex_non_clipped);
+		t3v::vertex near_z_clip_single(
+			t3v::vertex& vertex_clipped, 
+			const t3v::vertex& vertex_non_clipped_1, 
+			const t3v::vertex& vertex_non_clipped_2);
+
 		static t3v::color texture_mapping(float u, float v, t3v::texture *texture);
 		void draw_pixel_basic(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast(uint32_t* pixel_ptr, const uint8_t r,	const uint8_t g, const uint8_t b);

@@ -12,7 +12,7 @@ namespace t3v
 	public:
 		//projection matrix
 		glm::mat4 m_projection_mat;
-		float m_fov=75; // field of view in degrees
+		float m_fov=90; // field of view in degrees
 		float m_near_z_clip=0.1;
 		float m_far_z_clip=1000;
 
