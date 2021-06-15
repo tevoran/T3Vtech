@@ -96,13 +96,13 @@ void t3v::software_rasterizer::rasterize_triangle(
 
 		uint32_t z_tmp_int_2=z_tmp_2*INT32_MAX;
 
-		uint32_t z_delta=z_tmp_int_2-z; //calculating difference for each following pixel in a line
+		int32_t z_delta=z_tmp_int_2-z; //calculating difference for each following pixel in a line
 		int offset=x_bounding_start+iy*data->resx; //pixel offset in the z-buffer
 
 		//rendering a line
 		for(int ix=x_bounding_start; ix<x_bounding_end; ix++)
 		{
-			if(a>0 && b>0 && c>0)
+			if(a>0 && b>0 && c>0 && z<INT32_MAX) //z value buffer overflow check for clipping
 			{
 				//z-buffer check
 				if(z < data->z_buffer[offset])
@@ -144,6 +144,15 @@ void t3v::software_rasterizer::rasterize_triangle(
 
 			//z-buffer line increments
 			z+=z_delta;
+
+			//near plane clipping
+			//if z is only going negative for the line then end line
+			if(z_delta<0 && ((int32_t)z+z_delta)<0)
+			{
+				break;
+			}
+
+			//pixel pointer increment
 			offset++;
 
 			//texture coordinates increment;

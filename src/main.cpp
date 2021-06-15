@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 5000
+#define FRAMES 2000
 
 
 
@@ -8,8 +8,8 @@ int main()
 	t3v::vertex vertex[3];
 	//first triangle
 	vertex[0].pos.x=-0.1;
-	vertex[0].pos.y=0;
-	vertex[0].pos.z=0.1;
+	vertex[0].pos.y=0.1;
+	vertex[0].pos.z=0;
 	vertex[0].color.r=200;
 	vertex[0].color.g=200;
 	vertex[0].color.b=0;
@@ -17,8 +17,8 @@ int main()
 	vertex[0].tex.v=0;
 
 	vertex[1].pos.x=0.1;
-	vertex[1].pos.y=0;
-	vertex[1].pos.z=0.1;
+	vertex[1].pos.y=0.1;
+	vertex[1].pos.z=0;
 	vertex[1].color.r=200;
 	vertex[1].color.g=200;
 	vertex[1].color.b=0;
@@ -26,8 +26,8 @@ int main()
 	vertex[1].tex.v=0;
 
 	vertex[2].pos.x=0.1;
-	vertex[2].pos.y=0;
-	vertex[2].pos.z=-0.1;
+	vertex[2].pos.y=-0.1;
+	vertex[2].pos.z=0;
 	vertex[2].color.r=200;
 	vertex[2].color.g=200;
 	vertex[2].color.b=0;
@@ -50,7 +50,7 @@ int main()
 	for(int i=0; i<FRAMES; i++)
 	{
 		test_obj.pos.z=0.25;
-		test_obj.rotate(glm::vec3(1,0,0), 0.3);
+		test_obj.rotate(glm::vec3(1,1,0), 0.1);
 		test_obj.render();
 		te.update();
 	}
