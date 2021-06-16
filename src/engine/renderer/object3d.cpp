@@ -32,3 +32,8 @@ void t3v::object3d::render()
 	t3v::engine& te=t3v::engine::get();
 	te.render(m_vertices, m_num_vertices, m_texture, pos, m_current_rotation);
 }
+
+void t3v::object3d::position(glm::vec3 position)
+{
+	pos=position;
+}
