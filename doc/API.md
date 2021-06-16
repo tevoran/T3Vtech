@@ -118,3 +118,10 @@ If you want to scale an object there are two caling functions available.
 One is used for scaling an object along each of the three axes and the other one can be used for different
 scaling values along different axes.
 
+```cpp
+void scale(float scale);  //uniform scaling
+void scale(glm::vec3 scale); //more complex scaling
+
+test_obj.scale(1.9);  //uniform scaling
+test_obj.scale({1.3,1.2,1.5}); //more complex scaling
+```
