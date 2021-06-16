@@ -95,3 +95,20 @@ And finally an object can be rendered with its render method.
 ```cpp
 void render();
 ```
+
+#### Transformations
+
+The object can be placed anywhere in the world with
+
+```cpp
+void position(glm::vec3 position);
+
+test_obj.position({0,0,100}); //this would place the object at 0,0,100
+```
+
+Rotation can be used with the rotate function
+```cpp
+void rotate(glm::vec3 axis, float rotation_degrees);
+
+test_obj.rotate({1,0,0}, 45); //This rotates an object 45 degrees around its x-axis
+```
