@@ -1,6 +1,6 @@
 #include <te.hpp>
 
-void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat)
+void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale)
 {
 	//writing to rendering vertex buffer
 	for(int i=0; i<num_vertices/3; i++)
@@ -15,9 +15,9 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 
 
 		//applying vertexshader
-		vertex_shader(vertex1, pos, rotation_mat);
-		vertex_shader(vertex2, pos, rotation_mat);
-		vertex_shader(vertex3, pos, rotation_mat);
+		vertex_shader(vertex1, pos, rotation_mat, scale);
+		vertex_shader(vertex2, pos, rotation_mat, scale);
+		vertex_shader(vertex3, pos, rotation_mat, scale);
 
 
 		//don't draw negative only z-stuff

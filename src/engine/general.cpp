@@ -66,7 +66,8 @@ void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::tex
 		{
 			glm::mat4 ident_mat=glm::mat4(1.0f);
 			glm::vec3 pos={0,0,0};
-			m_software_rasterizer->render(vertices, num_vertices, texture, pos, ident_mat);
+			glm::vec3 scale={1,1,1};
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos, ident_mat, scale);
 			break;
 		}
 		default:
@@ -83,7 +84,8 @@ void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::tex
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
 		{
 			glm::mat4 ident_mat=glm::mat4(1.0f);
-			m_software_rasterizer->render(vertices, num_vertices, texture, pos, ident_mat);
+			glm::vec3 scale={1,1,1};
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos, ident_mat, scale);
 		}
 			break;
 
@@ -99,7 +101,25 @@ void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::tex
 	switch(m_renderer_type)
 	{
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
-			m_software_rasterizer->render(vertices, num_vertices, texture, pos, rotation_mat);
+		{
+			glm::vec3 scale={1,1,1};
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos, rotation_mat, scale);
+		}
+			break;
+
+		default:
+			m_renderer.render();
+			break;
+	}
+}
+
+//render a bunch of vertices at a certain location with a certain rotation and scaling
+void t3v::engine::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale)
+{
+	switch(m_renderer_type)
+	{
+		case TE_RENDERER_SOFTWARE_RASTERIZER:
+			m_software_rasterizer->render(vertices, num_vertices, texture, pos, rotation_mat, scale);
 			break;
 
 		default:

@@ -29,6 +29,7 @@ namespace t3v
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture); //render a bunch of vertices
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos); //render a bunch of vertices at a certain location
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat); //also at a certain location
+		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale); //with scaling
 
 		void update();
 

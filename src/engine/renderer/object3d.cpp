@@ -30,10 +30,15 @@ void t3v::object3d::rotate(glm::vec3 axis, float rotation_degrees)
 void t3v::object3d::render()
 {
 	t3v::engine& te=t3v::engine::get();
-	te.render(m_vertices, m_num_vertices, m_texture, pos, m_current_rotation);
+	te.render(m_vertices, m_num_vertices, m_texture, m_pos, m_current_rotation, m_scale);
 }
 
 void t3v::object3d::position(glm::vec3 position)
 {
-	pos=position;
+	m_pos=position;
+}
+
+void t3v::object3d::scale(float scale)
+{
+	m_scale=glm::vec3(scale, scale, scale);
 }

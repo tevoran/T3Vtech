@@ -52,7 +52,7 @@ namespace t3v
 			}
 
 	private:
-		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat);
+		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
 
 		//clipping functions
 		void near_z_clip_double(t3v::vertex& vertex_clipped, const t3v::vertex& vertex_non_clipped);
@@ -88,7 +88,7 @@ namespace t3v
 		~software_rasterizer();
 
 		//render a bunch of vertices at a certain location
-		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat);
+		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
 		void update();
 	};
 }

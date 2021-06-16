@@ -49,8 +49,9 @@ int main()
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		test_obj.position({0,0,0.25});
+		test_obj.position({0,0,10});
 		test_obj.rotate({1,0,0}, 0.3);
+		test_obj.scale((float)i*100/(float)FRAMES);
 		test_obj.render();
 		te.update();
 	}
