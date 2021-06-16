@@ -52,6 +52,10 @@ t3v::texture& load_texture(const char *path);
 For showing the current frame the engine's update function is used. It clears the screen to black
 for the next frame as well.
 
+It is important to note that the software renderer only starts to render when the update function is reached.
+The regular object render calls just put the vertices into the waiting queue. This arises as a necessity as
+synchronizing the render threads has a certain cost.
+
 ```cpp
 te.update();
 ```

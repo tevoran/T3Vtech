@@ -50,7 +50,7 @@ int main()
 	for(int i=0; i<FRAMES; i++)
 	{
 		test_obj.pos.z=0.25;
-		test_obj.rotate(glm::vec3(1,1,0), 0.1);
+		test_obj.rotate({1,0,0}, 0.1);
 		test_obj.render();
 		te.update();
 	}

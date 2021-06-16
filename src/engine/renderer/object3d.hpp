@@ -21,6 +21,7 @@ namespace t3v
 		void use_vertices(t3v::vertex *vertices_in, const int num_vertices);
 		void use_texture(t3v::texture *texture_in);
 		void rotate(glm::vec3 axis, float rotation_degrees);
+		void position();
 		void render();
 	};
 }
