@@ -12,10 +12,12 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 		std::cout << "[ERROR] software rasterizer can't get the window surface to draw on" << std::endl;
 		exit(0);
 	}
-	memset(m_window_surface->pixels, 0, m_resx*m_resy*sizeof(uint32_t)); //clearing the screen to black
 
 	m_resx=m_window_surface->w;
 	m_resy=m_window_surface->h;
+
+	//clearing screen
+	memset(m_window_surface->pixels, 0, m_resx*m_resy*sizeof(uint32_t)); //clearing the screen to black
 
 	//creating z-buffer
 	m_z_buffer = new uint32_t[m_resx*m_resx];

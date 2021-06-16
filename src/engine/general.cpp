@@ -17,13 +17,6 @@ t3v::engine::engine()
 		exit(0);
 	}
 
-	m_window=SDL_CreateWindow("T3V-ENGINE test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, 0);
-	if(m_window==NULL)
-	{
-		std::cout << "[ERROR] SDL2 couldn't create a window" << std::endl;
-		std::cout << "SDL2 error message:" << std::endl << SDL_GetError() << std::endl;
-		exit(0);
-	}
 	std::cout << "done" << std::endl;
 
 	//getting SDL2_image working
@@ -31,8 +24,6 @@ t3v::engine::engine()
 	//might be better to use something different later on
 	IMG_Init(IMG_INIT_PNG || IMG_INIT_JPG || IMG_INIT_TIF);
 	std::cout << "SDL2_image initialized" << std::endl;
-
-	std::cout << "Using resolution " << m_resx << "x" << m_resy << std::endl;
 
 	std::cout << "T3V-engine successfully initialized" << std::endl;
 
@@ -44,8 +35,26 @@ t3v::engine::~engine()
 	SDL_Quit();
 }
 
-void t3v::engine::choose_renderer(int renderer_type)
+void t3v::engine::start_renderer(int renderer_type)
 {
+	//creating the window for the renderer
+	if(m_is_fullscreen==true)
+	{
+		m_window=SDL_CreateWindow("T3Vtech test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, SDL_WINDOW_FULLSCREEN);
+	}
+	else
+	{
+		m_window=SDL_CreateWindow("T3Vtech test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, 0);
+	}
+	if(m_window==NULL)
+	{
+		std::cout << "[ERROR] SDL2 couldn't create a window" << std::endl;
+		std::cout << "SDL2 error message:" << std::endl << SDL_GetError() << std::endl;
+		exit(0);
+	}
+
+	std::cout << "Using resolution " << m_resx << "x" << m_resy << std::endl;
+
 	m_renderer_type=renderer_type;
 
 	//creating the right renderer

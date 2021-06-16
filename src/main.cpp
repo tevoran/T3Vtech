@@ -37,7 +37,12 @@ int main()
 
 
 	t3v::engine& te=t3v::engine::get();
-	te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
+	//setting properties
+	te.set_resx(1920);
+	te.set_resy(1080);
+	//te.set_fullscreen(true);
+
+	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
 	t3v::texture tex=t3v::load_texture("../assets/mexican_tile.jpg");
 	t3v::texture wood=t3v::load_texture("../assets/wood.jpg");
@@ -49,9 +54,8 @@ int main()
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		test_obj.position({0,0,10});
+		test_obj.position({0,0,4});
 		test_obj.rotate({1,0,0}, 0.3);
-		test_obj.scale({100,2,0.4});
 		test_obj.render();
 		te.update();
 	}
