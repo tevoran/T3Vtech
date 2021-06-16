@@ -28,6 +28,33 @@ as its flag.
 Once there are more renderers implemented, it is possible to switch your renderer on the fly.
 
 
+### Engine properties
+
+Between getting the engine reference and starting the engine there is the possibility to configure the
+according to the users needs. Although some of them might be overwritten later, as the player might add
+an extern engine configuration to make a game runnable on an old computer.
+
+#### Window properties
+
+To set the resolution of the window the following two functions can be used.
+```cpp
+void set_resx(int resx);
+void set_resy(int resy);
+
+//example
+te.set_resx(1920);
+te.set_resy(1080);
+```
+
+And to toggle fullscreen the set_fullscreen() function is used.
+
+```cpp
+void set_fullscreen(bool set_fullscreen);
+
+//example
+te.set_fullscreen(true);
+```
+
 ## Using the API for information
 
 ### Getting current resolution
