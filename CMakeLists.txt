@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project("T3V-engine")
+project("T3Vtech")
 
 #BASICALLY REALEASE MODE
 SET(CMAKE_CXX_FLAGS  "-m64 -Ofast -flto -march=native -funroll-loops -ffast-math -std=c++2a")
@@ -24,10 +24,10 @@ include_directories(vendor/glm/)
 
 #creating the executable of the engine test
 include_directories(src/)
-file(GLOB_RECURSE "T3V-engine" SRC src/*.cpp)
-add_executable(T3V-engine ${T3V-engine})
+file(GLOB_RECURSE "T3Vtech" SRC src/*.cpp)
+add_executable(T3Vtech ${T3Vtech})
 
-target_link_libraries(T3V-engine LINK_PRIVATE "${SDL2}")
-target_link_libraries(T3V-engine LINK_PRIVATE "${SDL2_ttf}")
-target_link_libraries(T3V-engine LINK_PRIVATE "${SDL2_image}")
-target_link_libraries(T3V-engine LINK_PRIVATE Threads::Threads)
+target_link_libraries(T3Vtech LINK_PRIVATE "${SDL2}")
+target_link_libraries(T3Vtech LINK_PRIVATE "${SDL2_ttf}")
+target_link_libraries(T3Vtech LINK_PRIVATE "${SDL2_image}")
+target_link_libraries(T3Vtech LINK_PRIVATE Threads::Threads)

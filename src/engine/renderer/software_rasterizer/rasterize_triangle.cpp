@@ -147,10 +147,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 
 			//near plane clipping
 			//if z is only going negative for the line then end line
-			if(z_delta<0 && ((int32_t)z+z_delta)<0)
-			{
-				break;
-			}
+
 
 			//pixel pointer increment
 			offset++;
