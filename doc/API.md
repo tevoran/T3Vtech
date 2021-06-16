@@ -9,11 +9,12 @@ be used with a reference in such a way
 t3v::engine& te=t3v::engine::get();
 ```
 
-Once you have retrieved the engine class object then you have to choose a renderer.
-If you don't choose one you will get error messages.
+Once you have retrieved the engine class object then you have to choose and start a renderer.
+If you don't choose one you will get error messages. And it is possible to choose different properties
+of the engine until this point. You will activate them by starting the renderer
 
 ```cpp
-te.choose_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
+te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 ```
 
 ### Renderer flags
@@ -112,3 +113,8 @@ void rotate(glm::vec3 axis, float rotation_degrees);
 
 test_obj.rotate({1,0,0}, 45); //This rotates an object 45 degrees around its x-axis
 ```
+
+If you want to scale an object there are two caling functions available.
+One is used for scaling an object along each of the three axes and the other one can be used for different
+scaling values along different axes.
+
