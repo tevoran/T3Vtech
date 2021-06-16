@@ -42,3 +42,8 @@ void t3v::object3d::scale(float scale)
 {
 	m_scale=glm::vec3(scale, scale, scale);
 }
+
+void t3v::object3d::scale(glm::vec3 scale)
+{
+	m_scale=scale;
+}

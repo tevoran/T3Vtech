@@ -22,6 +22,7 @@ namespace t3v
 		void rotate(glm::vec3 axis, float rotation_degrees);
 		void position(glm::vec3 position);
 		void scale(float scale);
+		void scale(glm::vec3 scale);
 		void render();
 	};
 }

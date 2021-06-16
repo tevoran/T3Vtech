@@ -51,7 +51,7 @@ int main()
 	{
 		test_obj.position({0,0,10});
 		test_obj.rotate({1,0,0}, 0.3);
-		test_obj.scale((float)i*100/(float)FRAMES);
+		test_obj.scale({100,2,0.4});
 		test_obj.render();
 		te.update();
 	}
