@@ -17,15 +17,23 @@ int main()
 	t3v::texture crate=t3v::load_texture("../assets/wooden_crate_small.jpg");
 	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
-	t3v::object3d test_obj;
-	test_obj.make_cube(1);
-	test_obj.use_texture(&crate);
+	int num_cubes=100;
+	t3v::object3d test_obj[num_cubes];
+
+	for(int i=0; i<num_cubes; i++)
+	{
+		test_obj[i].make_cube(1);
+		test_obj[i].use_texture(&crate);
+		test_obj[i].position({(float)i*3*cos(i),(float)i*1.5*sin((float)i*PI*2/5),i*2+2});
+	}
 
 	for(int i=0; i<FRAMES; i++)
 	{
-		test_obj.position({0,0,2});
-		test_obj.rotate({0,1,0}, 0.3);
-		test_obj.render();
+		test_obj[0].rotate({0,1,0}, 0.3);
+		for(int i=0; i<num_cubes; i++)
+		{
+			test_obj[i].render();
+		}
 		te.update();
 	}
 
