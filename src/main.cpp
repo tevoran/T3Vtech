@@ -14,12 +14,12 @@ int main()
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
-	t3v::texture smiley=t3v::load_texture("../assets/smiley.jpg");
+	t3v::texture crate=t3v::load_texture("../assets/wooden_crate_small.jpg");
 	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
 	t3v::object3d test_obj;
 	test_obj.make_cube(1);
-	test_obj.use_texture(&smiley);
+	test_obj.use_texture(&crate);
 
 	for(int i=0; i<FRAMES; i++)
 	{
