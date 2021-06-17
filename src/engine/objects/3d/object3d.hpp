@@ -27,5 +27,6 @@ namespace t3v
 
 		//meshes
 		void make_quad(float width, float height); //creating quad primitive
+		void make_cube(float size); //create simple cube
 	};
 }

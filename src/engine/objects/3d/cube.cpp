@@ -1,62 +1,110 @@
 #include <te.hpp>
 
-	struct vertex
-	{
-		glm::vec4 pos={0,0,0,1};
-		t3v::color color;
-		t3v::tex tex; //texture uv-coordinates
-		t3v::texture *texture=NULL; //a pointer to the used texture
-	};
-
-void t3v::object3d::make_quad(float width, float height) //creating quad primitive
+namespace t3v
 {
-	m_num_vertices=6; //a quad needs 6 vertices
+	namespace helper
+	{
+		void make_cube_face(
+			t3v::vertex *vertices, 
+			glm::vec3 left_top, 
+			glm::vec3 right_top, 
+			glm::vec3 left_bottom, 
+			glm::vec3 right_bottom)
+		{
+			//first triangle
+			//first vertex
+			vertices[0].pos=glm::vec4(left_top, 1.0);
 
-	t3v::vertex *vertices = new t3v::vertex[m_num_vertices];
-	m_vertices = vertices;
+			vertices[0].tex.u=1;
+			vertices[0].tex.v=1;
 
-	//first triangle
-	//first vertex
-	vertices[0].pos.x=-0.5*width;
-	vertices[0].pos.y=0.5*height;
+			//second vertex
+			vertices[1].pos=glm::vec4(right_top, 1.0);
 
-	vertices[0].tex.u=0;
-	vertices[0].tex.v=0;
+			vertices[1].tex.u=0;
+			vertices[1].tex.v=1;
 
-	//second vertex
-	vertices[1].pos.x=0.5*width;
-	vertices[1].pos.y=0.5*height;
+			//third vertex
+			vertices[2].pos=glm::vec4(left_bottom, 1.0);
 
-	vertices[1].tex.u=1;
-	vertices[1].tex.v=0;
-
-	//third vertex
-	vertices[2].pos.x=-0.5*width;
-	vertices[2].pos.y=-0.5*height;
-
-	vertices[2].tex.u=0;
-	vertices[2].tex.v=1;
+			vertices[2].tex.u=1;
+			vertices[2].tex.v=0;
 
 
-	//second triangle
-	//first vertex
-	vertices[3].pos.x=0.5*width;
-	vertices[3].pos.y=0.5*height;
+			//second triangle
+			//first vertex
+			vertices[3].pos=glm::vec4(right_top, 1.0);
 
-	vertices[3].tex.u=1;
-	vertices[3].tex.v=0;
+			vertices[3].tex.u=0;
+			vertices[3].tex.v=1;
 
-	//second vertex
-	vertices[4].pos.x=0.5*width;
-	vertices[4].pos.y=-0.5*height;
+			//second vertex
+			vertices[4].pos=glm::vec4(right_bottom, 1.0);
 
-	vertices[4].tex.u=1;
-	vertices[4].tex.v=1;
+			vertices[4].tex.u=0;
+			vertices[4].tex.v=0;
 
-	//third vertex
-	vertices[5].pos.x=-0.5*width;
-	vertices[5].pos.y=-0.5*height;
+			//third vertex
+			vertices[5].pos=glm::vec4(left_bottom, 1.0);
 
-	vertices[5].tex.u=0;
-	vertices[5].tex.v=1;
+			vertices[5].tex.u=1;
+			vertices[5].tex.v=0;
+		}
+	}
+}
+
+void t3v::object3d::make_cube(float size)
+{
+	m_num_vertices=36;
+
+	t3v::vertex *vertices=new t3v::vertex[m_num_vertices];
+	m_vertices=vertices;
+
+	//front face
+	t3v::helper::make_cube_face(
+		vertices, 
+		{-0.5*size, 0.5*size, -0.5*size}, 
+		{0.5*size, 0.5*size, -0.5*size}, 
+		{-0.5*size, -0.5*size, -0.5*size}, 
+		{0.5*size, -0.5*size, -0.5*size});
+
+	//back face
+	t3v::helper::make_cube_face(
+		vertices+6, 
+		{0.5*size, 0.5*size, 0.5*size}, 
+		{-0.5*size, 0.5*size, 0.5*size}, 
+		{0.5*size, -0.5*size, 0.5*size}, 
+		{-0.5*size, -0.5*size, 0.5*size});
+
+	//top face
+	t3v::helper::make_cube_face(
+		vertices+12, 
+		{0.5*size, 0.5*size, -0.5*size}, 
+		{-0.5*size, 0.5*size, -0.5*size}, 
+		{0.5*size, 0.5*size, 0.5*size}, 
+		{-0.5*size, 0.5*size, 0.5*size});
+
+	//bottom face
+	t3v::helper::make_cube_face(
+		vertices+18, 
+		{-0.5*size, -0.5*size, -0.5*size}, 
+		{0.5*size, -0.5*size, -0.5*size}, 
+		{-0.5*size, -0.5*size, 0.5*size}, 
+		{0.5*size, -0.5*size, 0.5*size});
+
+	//left face
+	t3v::helper::make_cube_face(
+		vertices+24, 
+		{-0.5*size, 0.5*size, -0.5*size}, 
+		{-0.5*size, 0.5*size, 0.5*size}, 
+		{-0.5*size, -0.5*size, -0.5*size}, 
+		{-0.5*size, -0.5*size, 0.5*size});
+
+	//le face
+	t3v::helper::make_cube_face(
+		vertices+30, 
+		{0.5*size, 0.5*size, 0.5*size}, 
+		{0.5*size, 0.5*size, -0.5*size}, 
+		{0.5*size, -0.5*size, 0.5*size}, 
+		{0.5*size, -0.5*size, -0.5*size});
 }

@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 5000
+#define FRAMES 2000
 
 
 
@@ -14,18 +14,17 @@ int main()
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
-	t3v::texture tex=t3v::load_texture("../assets/mexican_tile.jpg");
-	t3v::texture wood=t3v::load_texture("../assets/wood.jpg");
+	t3v::texture smiley=t3v::load_texture("../assets/smiley.jpg");
 	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
 	t3v::object3d test_obj;
-	test_obj.make_quad(1,1);
-	test_obj.use_texture(&wood);
+	test_obj.make_cube(1);
+	test_obj.use_texture(&smiley);
 
 	for(int i=0; i<FRAMES; i++)
 	{
 		test_obj.position({0,0,2});
-		test_obj.rotate({1,0,0}, 0.3);
+		test_obj.rotate({0,1,0}, 0.3);
 		test_obj.render();
 		te.update();
 	}

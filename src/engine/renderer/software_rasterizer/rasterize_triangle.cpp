@@ -7,10 +7,22 @@ void t3v::software_rasterizer::rasterize_triangle(
 	render_thread_data *data)
 {
 	//converting vertices from clip space to screen space
-	glm::i32vec2 vertex1_screen{vertex1.pos.x*data->resx+0.5,vertex1.pos.y*data->resy+0.5};
-	glm::i32vec2 vertex2_screen{vertex2.pos.x*data->resx+0.5,vertex2.pos.y*data->resy+0.5};
-	glm::i32vec2 vertex3_screen{vertex3.pos.x*data->resx+0.5,vertex3.pos.y*data->resy+0.5};
-
+	//triangle is artificially stretched to avoid empty spaces between adjacent triangles
+	glm::i32vec2 vertex1_screen{vertex1.pos.x*data->resx+0.0,vertex1.pos.y*data->resy+0.0};
+	glm::i32vec2 vertex3_screen{vertex3.pos.x*data->resx+1.0,vertex3.pos.y*data->resy+1.0};
+	glm::i32vec2 vertex2_screen;
+	if(vertex2.pos.x>vertex1.pos.x)
+	{
+		vertex2_screen=glm::i32vec2{vertex2.pos.x*data->resx+1.0,vertex2.pos.y*data->resy+0.0};
+	}
+	else if(vertex2.pos.x<vertex1.pos.x)
+	{
+		vertex2_screen=glm::i32vec2{vertex2.pos.x*data->resx+0.0,vertex2.pos.y*data->resy+1.0};
+	}
+	else
+	{
+		vertex2_screen=glm::i32vec2{vertex2.pos.x*data->resx+0.5,vertex2.pos.y*data->resy+0.5};		
+	}
 
 	//determining bounding box for the render loop
 	//this includes the drawing area for this thread
@@ -144,10 +156,6 @@ void t3v::software_rasterizer::rasterize_triangle(
 
 			//z-buffer line increments
 			z+=z_delta;
-
-			//near plane clipping
-			//if z is only going negative for the line then end line
-
 
 			//pixel pointer increment
 			offset++;
