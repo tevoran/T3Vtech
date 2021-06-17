@@ -25,7 +25,7 @@ t3v::engine::engine()
 	IMG_Init(IMG_INIT_PNG || IMG_INIT_JPG || IMG_INIT_TIF);
 	std::cout << "SDL2_image initialized" << std::endl;
 
-	std::cout << "T3V-engine successfully initialized" << std::endl;
+	std::cout << "T3Vtech engine successfully initialized" << std::endl;
 
 }
 
