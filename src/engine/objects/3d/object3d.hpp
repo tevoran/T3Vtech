@@ -24,5 +24,8 @@ namespace t3v
 		void scale(float scale);
 		void scale(glm::vec3 scale);
 		void render();
+
+		//meshes
+		void make_quad(float width, float height); //creating quad primitive
 	};
 }

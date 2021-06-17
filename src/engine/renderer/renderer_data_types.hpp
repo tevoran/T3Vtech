@@ -31,6 +31,6 @@ namespace t3v
 		glm::vec4 pos={0,0,0,1};
 		t3v::color color;
 		t3v::tex tex; //texture uv-coordinates
-		t3v::texture *texture=NULL; //a pointer to the used texture
+		t3v::texture *texture=NULL; //a pointer to the used texture and gets set by the renderer
 	};
 }

@@ -102,7 +102,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 		//rendering a line
 		for(int ix=x_bounding_start; ix<x_bounding_end; ix++)
 		{
-			if(a>0 && b>0 && c>0 && z<INT32_MAX) //z value buffer overflow check for clipping
+			if(a>=0 && b>=0 && c>=0 && z<INT32_MAX) //z value buffer overflow check for clipping
 			{
 				//z-buffer check
 				if(z < data->z_buffer[offset])
