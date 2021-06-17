@@ -13,7 +13,7 @@ C++-20. I use G++-11 but others will work as well.
 For the first time compilation you need the following commands:
 
 ```
-git clone git@github.com:tevoran/T3V-engine.git
+git clone git@github.com:tevoran/T3Vtech.git
 git submodule update --init --recursive
 mkdir build
 cd build
