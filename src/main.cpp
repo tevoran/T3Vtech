@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 2000
+#define FRAMES 15000
 
 
 
