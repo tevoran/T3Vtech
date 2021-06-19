@@ -10,7 +10,7 @@ int main()
 	//setting properties
 	te.set_resx(1920);
 	te.set_resy(1080);
-	te.set_fullscreen(true);
+	te.set_fullscreen(false);
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 

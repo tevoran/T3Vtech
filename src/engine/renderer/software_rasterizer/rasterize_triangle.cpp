@@ -79,6 +79,9 @@ void t3v::software_rasterizer::rasterize_triangle(
 	float u_tmp, v_tmp;
 	float u_delta, v_delta;
 
+	//perspective correct interpolation
+
+
 	//rasterizing loop
 	for(int iy = y_bounding_start; iy < y_bounding_end; iy++)
 	{
@@ -98,6 +101,10 @@ void t3v::software_rasterizer::rasterize_triangle(
 			div_const,
 			a, b, c,
 			d_a, d_b, d_c);
+
+		//perspective correct interpolation line preparation
+
+
 
 		//z-buffering line preparation
 		//INT32_MAX is my max used z-buffer value for optimal clipping
@@ -135,7 +142,9 @@ void t3v::software_rasterizer::rasterize_triangle(
 						v_delta=v_tmp-v;
 					}
 
-					t3v::color pixel_color=texture_mapping(u, v, vertex1.texture);
+					float w=t3v::barycentric_interpolate_value(a,b,c,vertex1.pos.w,vertex2.pos.w,vertex3.pos.w);
+					w=1/w;
+					t3v::color pixel_color=texture_mapping(u*w, v*w, vertex1.texture);
 					has_drawn=true;
 					draw_pixel_fast_simple(pixel_ptr, pixel_color);
 				}
@@ -159,6 +168,8 @@ void t3v::software_rasterizer::rasterize_triangle(
 
 			//pixel pointer increment
 			offset++;
+
+			//perspective correction increment
 
 			//texture coordinates increment;
 			u+=u_delta;
