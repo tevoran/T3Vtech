@@ -80,7 +80,8 @@ void t3v::software_rasterizer::rasterize_triangle(
 	float u_delta, v_delta;
 
 	//perspective correct interpolation
-
+	float w_inv;
+	float w_inv_delta;
 
 	//rasterizing loop
 	for(int iy = y_bounding_start; iy < y_bounding_end; iy++)
@@ -103,7 +104,9 @@ void t3v::software_rasterizer::rasterize_triangle(
 			d_a, d_b, d_c);
 
 		//perspective correct interpolation line preparation
-
+		w_inv=t3v::barycentric_interpolate_value(a,b,c,vertex1.pos.w,vertex2.pos.w,vertex3.pos.w);
+		float w_tmp=t3v::barycentric_interpolate_value(a+d_a,b+d_b,c+d_c,vertex1.pos.w,vertex2.pos.w,vertex3.pos.w);
+		w_inv_delta=w_tmp-w_inv;
 
 
 		//z-buffering line preparation
@@ -142,8 +145,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 						v_delta=v_tmp-v;
 					}
 
-					float w=t3v::barycentric_interpolate_value(a,b,c,vertex1.pos.w,vertex2.pos.w,vertex3.pos.w);
-					w=1/w;
+					float w=1/w_inv;
 					t3v::color pixel_color=texture_mapping(u*w, v*w, vertex1.texture);
 					has_drawn=true;
 					draw_pixel_fast_simple(pixel_ptr, pixel_color);
@@ -170,6 +172,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 			offset++;
 
 			//perspective correction increment
+			w_inv+=w_inv_delta;
 
 			//texture coordinates increment;
 			u+=u_delta;
