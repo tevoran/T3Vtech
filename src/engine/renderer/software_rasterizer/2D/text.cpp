@@ -6,7 +6,7 @@ void t3v::software_rasterizer::print(char *text, t3v::font& font, t3v::color col
 	if(font_size>=TE_FONT_MIN_SIZE && font_size<=TE_FONT_MAX_SIZE)
 	{
 		t3v::software_rasterizer::text_queue_entry tmp_text;
-		SDL_Color color={color_in.r, color_in.g, color_in.b, color_in.a};
+		SDL_Color color={color_in.b, color_in.g, color_in.r, color_in.a};
 		tmp_text.text_surface = TTF_RenderText_Solid(font.font_size[font_size-TE_FONT_MIN_SIZE], text, color);
 		tmp_text.dst_rect.w=tmp_text.text_surface->w;
 		tmp_text.dst_rect.h=tmp_text.text_surface->h;

@@ -10,7 +10,7 @@ int main()
 	//setting properties
 	te.set_resx(1920);
 	te.set_resy(1080);
-	te.set_fullscreen(false);
+	te.set_fullscreen(true);
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
@@ -30,7 +30,8 @@ int main()
 		test_obj[i].position({(float)i*3*cos(i),(float)i*1.5*sin((float)i*PI*2/5),i*2+2});
 	}
 
-		te.print("HALLO", font, {10,240,10, 255}, 108, 100, 100);
+		te.print("HALLO", font, {10,240,10, 255}, 108, 100, 140);
+		te.print("HANNA", font, {240,24,10, 255}, 80, 120, 170);
 
 	for(int i=0; i<FRAMES; i++)
 	{
