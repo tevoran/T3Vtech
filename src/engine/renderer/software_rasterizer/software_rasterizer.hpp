@@ -27,6 +27,12 @@ namespace t3v
 			bool is_main_thread=false;
 		};
 
+		struct text_queue_entry
+		{
+			SDL_Rect dst_rect;
+			SDL_Surface *text_surface=NULL;
+		};
+
 	private:
 		bool m_update_necessary=false; //indicate if the update function needs to do something
 
@@ -39,6 +45,9 @@ namespace t3v
 
 		//render buffer
 		std::vector<t3v::vertex> m_rendering_vertex_buffer;
+
+		//text render buffer
+		std::vector<t3v::software_rasterizer::text_queue_entry> m_text_queue;
 
 		//renderthreads
 		int m_num_cpu_threads=0;
@@ -88,6 +97,7 @@ namespace t3v
 		~software_rasterizer();
 
 		//render a bunch of vertices at a certain location
+		void print(char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
 		void update();
 	};

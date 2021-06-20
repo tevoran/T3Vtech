@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 15000
+#define FRAMES 2000
 
 
 
@@ -14,18 +14,23 @@ int main()
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
-	t3v::texture crate=t3v::load_texture("../assets/wooden_crate_small.jpg");
+	t3v::texture *crate=t3v::load_texture("../assets/wooden_crate_small.jpg");
 	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
-	int num_cubes=100;
+	//reading test font
+	t3v::font font("../assets/a.ttf");
+
+	int num_cubes=1000;
 	t3v::object3d test_obj[num_cubes];
 
 	for(int i=0; i<num_cubes; i++)
 	{
 		test_obj[i].make_cube(1);
-		test_obj[i].use_texture(&crate);
+		test_obj[i].use_texture(crate);
 		test_obj[i].position({(float)i*3*cos(i),(float)i*1.5*sin((float)i*PI*2/5),i*2+2});
 	}
+
+		te.print("HALLO", font, {10,240,10, 255}, 108, 100, 100);
 
 	for(int i=0; i<FRAMES; i++)
 	{
@@ -57,6 +62,7 @@ int main()
 	std::cout << "Time needed for " << 10 <<" frames: " << t_delta.count() << "s" << std::endl;
 	std::cout << "Which is " << t_delta.count()*1000/10 << "ms per frame" << std::endl;
 
+	t3v::free_texture(crate);
 	//SDL_Delay(1000);
 	return 0;
 }

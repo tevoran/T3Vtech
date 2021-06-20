@@ -2,7 +2,7 @@
 
 
 
-t3v::texture& t3v::load_texture(const char *path)
+t3v::texture* t3v::load_texture(const char *path)
 {
 	t3v::texture *texture=new t3v::texture;
 
@@ -72,7 +72,14 @@ t3v::texture& t3v::load_texture(const char *path)
 
 
 	std::cout << "width: " << texture->w << " height: " << texture->h << std::endl;
+	std::cout << "[WARNING] Textures currently have to be freed manually" << std::endl;
 
 	SDL_FreeSurface(tmp_surface);
-	return *texture;
+	return texture;
+}
+
+void t3v::free_texture(t3v::texture *texture)
+{
+	delete [] texture->data;
+	delete texture;
 }

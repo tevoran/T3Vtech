@@ -8,13 +8,31 @@ t3v::object3d::object3d()
 
 t3v::object3d::~object3d()
 {
-	
+	switch(m_data_type)
+	{
+
+		case TE_OBJECT3D_EXTERN_VERTICES:
+		{
+			std::cout << "[WARNING] As you used an external set of vertices"
+			<< "you are responsible for removing them from memory yourself." << std::endl;
+			break;
+		}
+		case TE_OBJECT3D_QUAD:
+		{
+			delete [] m_vertices;
+		}
+		case TE_OBJECT3D_CUBE:
+		{
+			delete [] m_vertices;
+		}
+	};
 }
 
 void t3v::object3d::use_vertices(t3v::vertex *vertices_in, const int num_vertices)
 {
 	m_vertices=vertices_in;
 	m_num_vertices=num_vertices;
+	m_data_type=TE_OBJECT3D_EXTERN_VERTICES;
 }
 
 void t3v::object3d::use_texture(t3v::texture *texture_in)

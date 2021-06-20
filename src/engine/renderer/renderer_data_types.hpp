@@ -11,15 +11,16 @@ namespace t3v
 		uint8_t a;
 	};
 
+
+	//texture
 	struct texture
 	{
 		int w;
 		int h;
 		uint8_t *data=NULL;
 	};
-
-
-	//vertex
+	
+	//texture coordinates for a vertex
 	struct tex
 	{
 		float u;

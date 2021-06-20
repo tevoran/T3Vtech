@@ -33,12 +33,18 @@ namespace t3v
 		void set_resy(int resy){m_resy=resy;}
 		void set_fullscreen(bool set_fullscreen){m_is_fullscreen=set_fullscreen;}
 
-		//rendering stuff
+		//starting the engine with a renderer
 		void start_renderer(int renderer_type);
+
+		//3d rendering stuff
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture); //render a bunch of vertices
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos); //render a bunch of vertices at a certain location
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat); //also at a certain location
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale); //with scaling
+
+		//2d stuff
+		void print(char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+
 
 		void update();
 

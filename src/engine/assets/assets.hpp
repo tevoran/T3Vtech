@@ -5,10 +5,19 @@
 
 namespace t3v
 {
+	//font
+	//it is possible to use font sizes between 6pt and 108pt
+	class font
+	{
+	public:
+		TTF_Font *font_size[TE_FONT_MAX_SIZE-TE_FONT_MIN_SIZE+1];
 
-t3v::texture& load_texture(const char *path);
+		font(const char *path);
+		~font();
+	};
 
-
+t3v::texture* load_texture(const char *path);
+void free_texture(t3v::texture *texture);
 }
 
  

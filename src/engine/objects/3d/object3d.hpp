@@ -1,5 +1,9 @@
 #include <te.hpp>
 
+#define TE_OBJECT3D_NONE 0
+#define TE_OBJECT3D_EXTERN_VERTICES 1
+#define TE_OBJECT3D_QUAD 2
+#define TE_OBJECT3D_CUBE 3
 
 namespace t3v
 {
@@ -12,6 +16,8 @@ namespace t3v
 		glm::mat4 m_current_rotation;
 		glm::vec3 m_pos={0,0,0};
 		glm::vec3 m_scale={1,1,1}; //starts with no scaling
+
+		int m_data_type=TE_OBJECT3D_NONE; //necessary for destructor
 
 	public:
 		object3d();

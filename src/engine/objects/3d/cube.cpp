@@ -55,6 +55,7 @@ namespace t3v
 
 void t3v::object3d::make_cube(float size)
 {
+	m_data_type=TE_OBJECT3D_CUBE;
 	m_num_vertices=36;
 
 	t3v::vertex *vertices=new t3v::vertex[m_num_vertices];

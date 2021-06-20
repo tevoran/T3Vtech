@@ -6,7 +6,7 @@
 //engine initialization
 t3v::engine::engine()
 {
-	std::cout << "Initializing T3V-engine" << std::endl;
+	std::cout << "Initializing T3Vtech engine" << std::endl;
 
 	//getting SDL2 working
 	std::cout << "Initializing SDL2...";
@@ -25,12 +25,21 @@ t3v::engine::engine()
 	IMG_Init(IMG_INIT_PNG || IMG_INIT_JPG || IMG_INIT_TIF);
 	std::cout << "SDL2_image initialized" << std::endl;
 
+	//starting SDL2_ttf
+	if(TTF_Init()!=0)
+	{
+		std::cout << "[ERROR] error while initializing SDL2_ttf" << std::endl;
+		exit(0);
+	}
+	std::cout << "SDL2_ttf initialized" << std::endl;
+
 	std::cout << "T3Vtech engine successfully initialized" << std::endl;
 
 }
 
 t3v::engine::~engine()
 {
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
@@ -147,6 +156,20 @@ void t3v::engine::update()
 
 		default:
 			m_renderer.update();
+			break;		
+	}
+}
+
+void t3v::engine::print(char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y)
+{
+	switch(m_renderer_type)
+	{
+		case TE_RENDERER_SOFTWARE_RASTERIZER:
+			m_software_rasterizer->print(text, font, color_in, font_size, x, y);
+			break;
+
+		default:
+			std::cout << "[ERROR] no renderer is active yet" << std::endl;
 			break;		
 	}
 }

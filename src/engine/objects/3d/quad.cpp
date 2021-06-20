@@ -2,6 +2,8 @@
 
 void t3v::object3d::make_quad(float width, float height) //creating quad primitive
 {
+	m_data_type=TE_OBJECT3D_QUAD;
+	
 	m_num_vertices=6; //a quad needs 6 vertices
 
 	t3v::vertex *vertices = new t3v::vertex[m_num_vertices];

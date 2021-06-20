@@ -88,6 +88,7 @@ t3v::software_rasterizer::~software_rasterizer()
 
 void t3v::software_rasterizer::update()
 {
+	//rendering 3D stuff
 	if(m_update_necessary==true) //if update is necessary then render everything
 	{
 		if(m_num_cpu_threads>0)
@@ -109,6 +110,12 @@ void t3v::software_rasterizer::update()
 		}
 	}
 	m_update_necessary=false;
+
+	//rendering text queue
+	for(int i=0; i<m_text_queue.size(); i++)
+	{
+		SDL_BlitSurface(m_text_queue[i].text_surface, NULL, m_window_surface, &m_text_queue[i].dst_rect);
+	}
 
 	if(SDL_UpdateWindowSurface(m_window)!=0)
 	{
