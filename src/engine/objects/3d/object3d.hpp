@@ -1,3 +1,4 @@
+#pragma once
 #include <te.hpp>
 
 #define TE_OBJECT3D_NONE 0

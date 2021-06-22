@@ -124,6 +124,27 @@ And finally an object can be rendered with its render method.
 void render();
 ```
 
+#### Primitives
+
+Primitives are the objects that the engine can generate without relying on extern meshes.
+They can be created once a an Object3D object is created. Its properties or its texture can be set
+afterwards in the regular way of doing things.
+
+##### Quad
+
+```cpp
+void make_quad(float width, float height); //creating quad primitive
+
+test_obj.make_quad(float width, float height); //creating quad primitive
+```
+##### Cube
+
+```cpp
+void make_cube(float size); //create simple cube
+
+test_obj.make_cube(float size); //creating simple cube
+```
+
 #### Transformations
 
 The object can be placed anywhere in the world with

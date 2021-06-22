@@ -30,10 +30,9 @@ int main()
 		test_obj[i].position({(float)i*3*cos(i),(float)i*1.5*sin((float)i*PI*2/5),i*2+2});
 	}
 
-		te.print("HALLO", font, {10,240,10, 255}, 108, 100, 140);
-		te.print("HANNA", font, {240,24,10, 255}, 80, 120, 170);
+	te.print("T3Vtech - software renderer", font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
 
-	for(int i=0; i<FRAMES; i++)
+	for(int i=0; i<FRAMES; i=i)
 	{
 		test_obj[0].rotate({0,1,0}, 0.3);
 		for(int i=0; i<num_cubes; i++)
