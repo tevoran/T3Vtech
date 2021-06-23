@@ -1,7 +1,7 @@
 #include <te.hpp>
 
 
-void t3v::software_rasterizer::print(char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y)
+void t3v::software_rasterizer::print_single_frame(const char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y)
 {
 	if(font_size>=TE_FONT_MIN_SIZE && font_size<=TE_FONT_MAX_SIZE)
 	{
@@ -13,7 +13,7 @@ void t3v::software_rasterizer::print(char *text, t3v::font& font, t3v::color col
 		tmp_text.dst_rect.x=x;
 		tmp_text.dst_rect.y=y;
 
-		m_text_queue.push_back(tmp_text);
+		m_text_single_frame_queue.push_back(tmp_text);
 	}
 	else
 	{

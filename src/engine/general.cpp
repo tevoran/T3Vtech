@@ -160,12 +160,12 @@ void t3v::engine::update()
 	}
 }
 
-void t3v::engine::print(char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y)
+void t3v::engine::print_single_frame(const char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y)
 {
 	switch(m_renderer_type)
 	{
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
-			m_software_rasterizer->print(text, font, color_in, font_size, x, y);
+			m_software_rasterizer->print_single_frame(text, font, color_in, font_size, x, y);
 			break;
 
 		default:

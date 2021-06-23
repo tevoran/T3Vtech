@@ -15,7 +15,6 @@ int main()
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
 	t3v::texture *crate=t3v::load_texture("../assets/wooden_crate_small.jpg");
-	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
 	//reading test font
 	t3v::font font("../assets/fonts/OpenSans-Regular.ttf");
@@ -32,36 +31,32 @@ int main()
 	ground.rotate({1,0,0}, 90);
 	ground.use_texture(road_tex);
 
-	te.print("T3Vtech - software renderer", font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
 
 	for(int i=0; i<FRAMES; i++)
 	{
 		box.render();
 		ground.render();
+
+		te.print_single_frame("T3Vtech - software renderer", font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
+
+		//FPS counter
+		static std::chrono::steady_clock::time_point t_old=std::chrono::steady_clock::now();
+		std::chrono::steady_clock::time_point t_new=std::chrono::steady_clock::now();
+		std::chrono::duration<float> t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_new-t_old);
+		t_old=t_new;
+
+		std::string FPS_count = std::to_string(1/t_delta.count());
+		std::string FPS_count_add = " FPS";
+		FPS_count = FPS_count + FPS_count_add;
+		te.print_single_frame(FPS_count.c_str(), font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-96);
+
 		te.update();
 	}
 
-	std::chrono::steady_clock::time_point t_end=std::chrono::steady_clock::now();
-	std::chrono::duration<float> t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_end-t_begin);
-	std::cout << "Time needed for " << FRAMES <<" frames: " << t_delta.count() << "s" << std::endl;
-	std::cout << "Which is " << t_delta.count()*1000/FRAMES << "ms per frame" << std::endl;
-	std::cout << "Which is " << FRAMES/t_delta.count() << " FPS on average" << std::endl;
 
-
-
-	t_begin=std::chrono::steady_clock::now();
-
-	for(int i=0; i<10; i++)
-	{
-		te.update();
-	}
-
-	t_end=std::chrono::steady_clock::now();
-	t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_end-t_begin);
-	std::cout << "Time needed for " << 10 <<" frames: " << t_delta.count() << "s" << std::endl;
-	std::cout << "Which is " << t_delta.count()*1000/10 << "ms per frame" << std::endl;
 
 	t3v::free_texture(crate);
+	t3v::free_texture(road_tex);
 	//SDL_Delay(1000);
 	return 0;
 }

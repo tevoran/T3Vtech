@@ -47,7 +47,7 @@ namespace t3v
 		std::vector<t3v::vertex> m_rendering_vertex_buffer;
 
 		//text render buffer
-		std::vector<t3v::software_rasterizer::text_queue_entry> m_text_queue;
+		std::vector<t3v::software_rasterizer::text_queue_entry> m_text_single_frame_queue;
 
 		//renderthreads
 		int m_num_cpu_threads=0;
@@ -97,7 +97,7 @@ namespace t3v
 		~software_rasterizer();
 
 		//render a bunch of vertices at a certain location
-		void print(char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+		void print_single_frame(const char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
 		void update();
 	};

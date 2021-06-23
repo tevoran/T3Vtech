@@ -15,6 +15,7 @@
 #include <barrier>
 #include <chrono>
 #include <cmath>
+#include <string>
 #include <algorithm>
 #include <limits>
 

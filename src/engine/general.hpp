@@ -43,7 +43,7 @@ namespace t3v
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale); //with scaling
 
 		//2d stuff
-		void print(char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+		void print_single_frame(const char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
 
 
 		void update();

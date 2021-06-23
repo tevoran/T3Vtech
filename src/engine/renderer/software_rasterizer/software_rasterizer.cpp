@@ -112,10 +112,12 @@ void t3v::software_rasterizer::update()
 	m_update_necessary=false;
 
 	//rendering text queue
-	for(int i=0; i<m_text_queue.size(); i++)
+	//single frame
+	for(int i=0; i<m_text_single_frame_queue.size(); i++)
 	{
-		SDL_BlitSurface(m_text_queue[i].text_surface, NULL, m_window_surface, &m_text_queue[i].dst_rect);
+		SDL_BlitSurface(m_text_single_frame_queue[i].text_surface, NULL, m_window_surface, &m_text_single_frame_queue[i].dst_rect);
 	}
+	m_text_single_frame_queue.erase(m_text_single_frame_queue.begin(), m_text_single_frame_queue.begin()+m_text_single_frame_queue.size());
 
 	if(SDL_UpdateWindowSurface(m_window)!=0)
 	{
