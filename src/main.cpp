@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 2000
+#define FRAMES 1000
 
 
 
@@ -18,27 +18,26 @@ int main()
 	std::chrono::steady_clock::time_point t_begin=std::chrono::steady_clock::now();
 
 	//reading test font
-	t3v::font font("../assets/a.ttf");
+	t3v::font font("../assets/fonts/OpenSans-Regular.ttf");
 
-	int num_cubes=1000;
-	t3v::object3d test_obj[num_cubes];
+	t3v::object3d box;
+	box.make_cube(3);
+	box.position({-2.5,0,4});
+	box.use_texture(crate);
 
-	for(int i=0; i<num_cubes; i++)
-	{
-		test_obj[i].make_cube(1);
-		test_obj[i].use_texture(crate);
-		test_obj[i].position({(float)i*3*cos(i),(float)i*1.5*sin((float)i*PI*2/5),i*2+2});
-	}
+	t3v::texture *road_tex=t3v::load_texture("../assets/road.jpg");
+	t3v::object3d ground;
+	ground.make_quad(20, 20);
+	ground.position({0,-1.5,10.1});
+	ground.rotate({1,0,0}, 90);
+	ground.use_texture(road_tex);
 
 	te.print("T3Vtech - software renderer", font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
 
-	for(int i=0; i<FRAMES; i=i)
+	for(int i=0; i<FRAMES; i++)
 	{
-		test_obj[0].rotate({0,1,0}, 0.3);
-		for(int i=0; i<num_cubes; i++)
-		{
-			test_obj[i].render();
-		}
+		box.render();
+		ground.render();
 		te.update();
 	}
 
