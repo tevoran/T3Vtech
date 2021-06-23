@@ -20,10 +20,12 @@ t3v::object3d::~object3d()
 		case TE_OBJECT3D_QUAD:
 		{
 			delete [] m_vertices;
+			break;
 		}
 		case TE_OBJECT3D_CUBE:
 		{
 			delete [] m_vertices;
+			break;
 		}
 	};
 }
