@@ -88,7 +88,6 @@ synchronizing the render threads has a certain cost.
 te.update();
 ```
 
-
 ### Render mesh / vertices
 
 To render any number of vertices you have to give a pointer of the vertices and their number
@@ -172,4 +171,21 @@ void scale(glm::vec3 scale); //more complex scaling
 
 test_obj.scale(1.9);  //uniform scaling
 test_obj.scale({1.3,1.2,1.5}); //more complex scaling
+```
+
+## 2D Stuff
+
+### Text
+
+It is possible to print text that stays on the screen for exactly one frame. It is helpful for printing always changing information onto the screen.
+
+### Loading Font
+
+To be able to print text. It is first necessary to create a font object. Otherwise the engine is not able to print anything.
+
+```cpp
+t3v::font font(const char *path_to_font); //example
+
+t3v::font font("../assets/fonts/OpenSans-Regular.ttf"); //example
+
 ```
