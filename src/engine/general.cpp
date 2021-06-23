@@ -173,3 +173,17 @@ void t3v::engine::print_single_frame(std::string text, t3v::font& font, t3v::col
 			break;		
 	}
 }
+
+void t3v::engine::activate_fps_counter(bool active, t3v::font *font)
+{
+	switch(m_renderer_type)
+	{
+		case TE_RENDERER_SOFTWARE_RASTERIZER:
+			m_software_rasterizer->activate_fps_counter(active, font);
+			break;
+
+		default:
+			std::cout << "[ERROR] no renderer is active yet" << std::endl;
+			break;		
+	}
+}

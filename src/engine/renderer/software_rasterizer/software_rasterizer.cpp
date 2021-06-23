@@ -112,6 +112,20 @@ void t3v::software_rasterizer::update()
 	m_update_necessary=false;
 
 	//rendering text queue
+	//rendering FPS counter
+	if(m_is_fps_counter_active==true)
+	{
+		static std::chrono::steady_clock::time_point t_old=std::chrono::steady_clock::now();
+		std::chrono::steady_clock::time_point t_new=std::chrono::steady_clock::now();
+		std::chrono::duration<float> t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_new-t_old);
+		t_old=t_new;
+
+		std::string FPS_count = std::to_string(1/t_delta.count());
+		std::string FPS_count_add = " FPS";
+		FPS_count = FPS_count + FPS_count_add;
+		print_single_frame(FPS_count, *m_font, {10,240,10, 255}, 32, m_resx-430, m_resy-96);
+	}
+
 	//single frame
 	for(int i=0; i<m_text_single_frame_queue.size(); i++)
 	{

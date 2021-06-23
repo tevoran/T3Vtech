@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 1000
+#define FRAMES 2000
 
 
 
@@ -31,7 +31,7 @@ int main()
 	ground.rotate({1,0,0}, 90);
 	ground.use_texture(road_tex);
 
-
+	te.activate_fps_counter(true, &font);
 	for(int i=0; i<FRAMES; i++)
 	{
 		box.render();
@@ -39,17 +39,6 @@ int main()
 
 		
 		te.print_single_frame("T3Vtech - software renderer", font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
-
-		//FPS counter
-		static std::chrono::steady_clock::time_point t_old=std::chrono::steady_clock::now();
-		std::chrono::steady_clock::time_point t_new=std::chrono::steady_clock::now();
-		std::chrono::duration<float> t_delta=std::chrono::duration_cast<std::chrono::duration<float>>(t_new-t_old);
-		t_old=t_new;
-
-		std::string FPS_count = std::to_string(1/t_delta.count());
-		std::string FPS_count_add = " FPS";
-		FPS_count = FPS_count + FPS_count_add;
-		te.print_single_frame(FPS_count, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-96);
 
 		te.update();
 	}

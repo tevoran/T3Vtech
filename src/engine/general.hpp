@@ -32,6 +32,7 @@ namespace t3v
 		void set_resx(int resx){m_resx=resx;}
 		void set_resy(int resy){m_resy=resy;}
 		void set_fullscreen(bool set_fullscreen){m_is_fullscreen=set_fullscreen;}
+		void activate_fps_counter(bool active, t3v::font *font);
 
 		//starting the engine with a renderer
 		void start_renderer(int renderer_type);

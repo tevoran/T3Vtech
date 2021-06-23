@@ -48,6 +48,7 @@ namespace t3v
 
 		//text render buffer
 		std::vector<t3v::software_rasterizer::text_queue_entry> m_text_single_frame_queue;
+		t3v::font *m_font=NULL;
 
 		//renderthreads
 		int m_num_cpu_threads=0;
@@ -59,6 +60,9 @@ namespace t3v
 				static std::barrier sync_point(num_threads, []{});
 				return &sync_point;
 			}
+
+		//settings set by the user
+		bool m_is_fps_counter_active=false;
 
 	private:
 		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
@@ -96,8 +100,13 @@ namespace t3v
 		software_rasterizer(SDL_Window *window);
 		~software_rasterizer();
 
-		//render a bunch of vertices at a certain location
+		//settings
+		void activate_fps_counter(bool active, t3v::font *font){m_is_fps_counter_active=active; m_font=font;}
+
+		//2D stuff
 		void print_single_frame(std::string text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+
+		//render a bunch of vertices at a certain location
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
 		void update();
 	};
