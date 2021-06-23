@@ -97,7 +97,7 @@ namespace t3v
 		~software_rasterizer();
 
 		//render a bunch of vertices at a certain location
-		void print_single_frame(const char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+		void print_single_frame(std::string text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
 		void update();
 	};

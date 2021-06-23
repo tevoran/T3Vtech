@@ -8,9 +8,9 @@ int main()
 	t3v::engine& te=t3v::engine::get();
 	
 	//setting properties
-	te.set_resx(1920);
-	te.set_resy(1080);
-	te.set_fullscreen(true);
+	te.set_resx(1366);
+	te.set_resy(768);
+	te.set_fullscreen(false);
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
@@ -37,6 +37,7 @@ int main()
 		box.render();
 		ground.render();
 
+		
 		te.print_single_frame("T3Vtech - software renderer", font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
 
 		//FPS counter
@@ -48,7 +49,7 @@ int main()
 		std::string FPS_count = std::to_string(1/t_delta.count());
 		std::string FPS_count_add = " FPS";
 		FPS_count = FPS_count + FPS_count_add;
-		te.print_single_frame(FPS_count.c_str(), font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-96);
+		te.print_single_frame(FPS_count, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-96);
 
 		te.update();
 	}

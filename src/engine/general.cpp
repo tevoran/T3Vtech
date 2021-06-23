@@ -160,7 +160,7 @@ void t3v::engine::update()
 	}
 }
 
-void t3v::engine::print_single_frame(const char *text, t3v::font& font, t3v::color color_in, int font_size, int x, int y)
+void t3v::engine::print_single_frame(std::string text, t3v::font& font, t3v::color color_in, int font_size, int x, int y)
 {
 	switch(m_renderer_type)
 	{
