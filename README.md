@@ -9,7 +9,7 @@ The software rasterizer supports multithreading and single threading.
 
 This is an example rendered with the software rasterizer of the engine.
 
-![image info](screenshots/21.06.19-perspective-correct-texture-mapping.gif)
+![image info](screenshots/21.06.23-some-sky.png)
 
 ## Compilation
 
