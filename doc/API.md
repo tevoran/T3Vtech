@@ -189,3 +189,19 @@ t3v::font font(const char *path_to_font); //example
 t3v::font font("../assets/fonts/OpenSans-Regular.ttf"); //example
 
 ```
+
+### Printing a Single Frame Text
+
+The print_single_frame function is used when you have to put something on the screen but the text needs to change often.
+An example would be an FPS counter or other fast changing data.
+
+```cpp
+void print_single_frame(std::string text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+
+
+//example
+//the function belongs to the engine class
+//and take care to use the previously loaded font
+te.print_single_frame("T3Vtech - software renderer", font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
+
+```
