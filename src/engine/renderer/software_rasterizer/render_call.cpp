@@ -19,12 +19,6 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		vertex_shader(vertex2, pos, rotation_mat, scale);
 		vertex_shader(vertex3, pos, rotation_mat, scale);
 
-		//clipping
-		if(clipping(vertex1, vertex2, vertex3)==NULL)
-		{
-			std::cout << "no clipping" << std::endl;
-		}
-
 		std::cout << "Vertex 1: pre" << std::endl;
 		std::cout << vertex1.pos.x << std::endl;
 		std::cout << vertex1.pos.y << std::endl;
@@ -42,6 +36,25 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		std::cout << vertex3.pos.y << std::endl;
 		std::cout << vertex3.pos.z << std::endl;
 		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
+
+		//drop triangle if it's completely behind the near-z clipping plane
+		if(	vertex1.pos.z > -m_near_z_clip &&
+			vertex2.pos.z > -m_near_z_clip &&
+			vertex3.pos.z > -m_near_z_clip)
+		{
+			continue;
+		}
+
+		//clipping
+		if(clipping(vertex1, vertex2, vertex3)==NULL)
+		{
+			std::cout << "no clipping" << std::endl;
+		}
+		else
+		{
+			std::cout << "CLIPPING NECESSARY" << std::endl;
+		}
+
 
 
 
@@ -67,12 +80,6 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		std::cout << vertex3.pos.y << std::endl;
 		std::cout << vertex3.pos.z << std::endl;
 		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
-
-		//don't draw negative only z-stuff
-		if(vertex1.pos.z<0 && vertex2.pos.z<0 && vertex3.pos.z<0)
-		{
-			continue;
-		}
 
 		//don't draw stuff beyound far clipping plane
 		if(vertex1.pos.z>1 && vertex2.pos.z>1 && vertex3.pos.z>1)

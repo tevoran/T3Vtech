@@ -27,7 +27,8 @@ int main()
 	t3v::texture *road_tex=t3v::load_texture("../assets/road.png");
 	t3v::object3d ground;
 	ground.make_quad(20, 20);
-	ground.position({0,-1.5,10.0});
+	ground.position({0,-1.5,20.0});
+	ground.rotate({0,1,0}, 45);
 	ground.rotate({1,0,0}, 90);
 	ground.use_texture(road_tex);
 
