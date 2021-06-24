@@ -1,6 +1,6 @@
 # T3Vtech
 
-This is my personal 3D game engine.
+This is a 3D game engine.
 
 Currently I am developing its basics and its first renderer, which happens to be a software rasterizer.
 The software rasterizer supports multithreading and single threading.
@@ -9,7 +9,7 @@ The software rasterizer supports multithreading and single threading.
 
 This is an example rendered with the software rasterizer of the engine.
 
-![image info](screenshots/21.06.19-perspective-correct-texture-mapping.gif)
+![image info](screenshots/21.06.23-some-sky.png)
 
 ## Compilation
 
