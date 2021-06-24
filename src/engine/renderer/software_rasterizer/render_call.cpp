@@ -19,6 +19,54 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		vertex_shader(vertex2, pos, rotation_mat, scale);
 		vertex_shader(vertex3, pos, rotation_mat, scale);
 
+		//clipping
+		if(clipping(vertex1, vertex2, vertex3)==NULL)
+		{
+			std::cout << "no clipping" << std::endl;
+		}
+
+		std::cout << "Vertex 1: pre" << std::endl;
+		std::cout << vertex1.pos.x << std::endl;
+		std::cout << vertex1.pos.y << std::endl;
+		std::cout << vertex1.pos.z << std::endl;
+		std::cout << vertex1.pos.w << std::endl << std::endl;
+
+		std::cout << "Vertex 2: pre" << std::endl;
+		std::cout << vertex2.pos.x << std::endl;
+		std::cout << vertex2.pos.y << std::endl;
+		std::cout << vertex2.pos.z << std::endl;
+		std::cout << vertex2.pos.w << std::endl << std::endl;
+
+		std::cout << "Vertex 3: pre" << std::endl;
+		std::cout << vertex3.pos.x << std::endl;
+		std::cout << vertex3.pos.y << std::endl;
+		std::cout << vertex3.pos.z << std::endl;
+		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
+
+
+
+		//perspective divide
+		perspective_divide(vertex1);
+		perspective_divide(vertex2);
+		perspective_divide(vertex3);
+
+		std::cout << "Vertex 1: post" << std::endl;
+		std::cout << vertex1.pos.x << std::endl;
+		std::cout << vertex1.pos.y << std::endl;
+		std::cout << vertex1.pos.z << std::endl;
+		std::cout << vertex1.pos.w << std::endl << std::endl;
+
+		std::cout << "Vertex 2: post" << std::endl;
+		std::cout << vertex2.pos.x << std::endl;
+		std::cout << vertex2.pos.y << std::endl;
+		std::cout << vertex2.pos.z << std::endl;
+		std::cout << vertex2.pos.w << std::endl << std::endl;
+
+		std::cout << "Vertex 3: post" << std::endl;
+		std::cout << vertex3.pos.x << std::endl;
+		std::cout << vertex3.pos.y << std::endl;
+		std::cout << vertex3.pos.z << std::endl;
+		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
 
 		//don't draw negative only z-stuff
 		if(vertex1.pos.z<0 && vertex2.pos.z<0 && vertex3.pos.z<0)
@@ -51,6 +99,7 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		m_rendering_vertex_buffer.push_back(vertex1);
 		m_rendering_vertex_buffer.push_back(vertex2);
 		m_rendering_vertex_buffer.push_back(vertex3);
+
 	}
 
 	m_update_necessary=true;

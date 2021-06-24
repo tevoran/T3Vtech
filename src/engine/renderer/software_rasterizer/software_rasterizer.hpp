@@ -65,14 +65,11 @@ namespace t3v
 		bool m_is_fps_counter_active=false;
 
 	private:
+		//render pipeline functions
 		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
+		void perspective_divide(t3v::vertex& vertex);
+		t3v::vertex* clipping(t3v::vertex& vertex1, t3v::vertex& vertex2, t3v::vertex& vertex3); //gives an array of vertices if clipping was necessary
 
-		//clipping functions
-		void near_z_clip_double(t3v::vertex& vertex_clipped, const t3v::vertex& vertex_non_clipped);
-		t3v::vertex near_z_clip_single(
-			t3v::vertex& vertex_clipped, 
-			const t3v::vertex& vertex_non_clipped_1, 
-			const t3v::vertex& vertex_non_clipped_2);
 
 		static t3v::color texture_mapping(float u, float v, t3v::texture *texture);
 		void draw_pixel_basic(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b);

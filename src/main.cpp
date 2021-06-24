@@ -1,5 +1,5 @@
 #include "te.hpp"
-#define FRAMES 2000
+#define FRAMES 100
 
 
 
@@ -8,9 +8,9 @@ int main()
 	t3v::engine& te=t3v::engine::get();
 	
 	//setting properties
-	te.set_resx(1366);
-	te.set_resy(768);
-	te.set_fullscreen(false);
+	te.set_resx(1920);
+	te.set_resy(1080);
+	te.set_fullscreen(true);
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
@@ -27,7 +27,7 @@ int main()
 	t3v::texture *road_tex=t3v::load_texture("../assets/road.png");
 	t3v::object3d ground;
 	ground.make_quad(20, 20);
-	ground.position({0,-1.5,10.1});
+	ground.position({0,-1.5,10.0});
 	ground.rotate({1,0,0}, 90);
 	ground.use_texture(road_tex);
 
@@ -40,9 +40,9 @@ int main()
 	te.activate_fps_counter(true, &font);
 	for(int i=0; i<FRAMES; i++)
 	{
-		box.render();
+		//box.render();
 		ground.render();
-		sky.render();
+		//sky.render();
 
 		std::string text="T3Vtech - software renderer";
 		te.print_single_frame(text, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
