@@ -19,6 +19,7 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		vertex_shader(vertex2, pos, rotation_mat, scale);
 		vertex_shader(vertex3, pos, rotation_mat, scale);
 
+/*
 		std::cout << "Vertex 1: pre" << std::endl;
 		std::cout << vertex1.pos.x << std::endl;
 		std::cout << vertex1.pos.y << std::endl;
@@ -36,6 +37,7 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		std::cout << vertex3.pos.y << std::endl;
 		std::cout << vertex3.pos.z << std::endl;
 		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
+*/
 
 		//drop triangle if it's completely behind the near-z clipping plane
 		if(	vertex1.pos.z > -m_near_z_clip &&
@@ -46,23 +48,44 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		}
 
 		//clipping
-		if(clipping(vertex1, vertex2, vertex3)==NULL)
-		{
-			std::cout << "no clipping" << std::endl;
-		}
-		else
-		{
-			std::cout << "CLIPPING NECESSARY" << std::endl;
-		}
-
-
-
+		t3v::software_rasterizer::clipping_vertices clipped_vertices=clipping(vertex1, vertex2, vertex3);
+		std::cout << clipped_vertices.num_vertices << std::endl;
 
 		//perspective divide
-		perspective_divide(vertex1);
-		perspective_divide(vertex2);
-		perspective_divide(vertex3);
+		for(int i=0; i<clipped_vertices.num_vertices; i++)
+		{
+			std::cout << clipped_vertices.vertex[i].pos.x << std::endl;
+			std::cout << clipped_vertices.vertex[i].pos.y << std::endl;
+			std::cout << clipped_vertices.vertex[i].pos.z << std::endl;
+			std::cout << clipped_vertices.vertex[i].pos.w << std::endl << std::endl;
 
+			perspective_divide(clipped_vertices.vertex[i]);
+		}
+
+		for(int i=0; i<clipped_vertices.num_vertices; i=i+3) //looping through complete triangles
+		{
+			//sorting vertices along y-axis
+			if(clipped_vertices.vertex[i].pos.y > clipped_vertices.vertex[i+1].pos.y)
+			{
+				std::swap(clipped_vertices.vertex[i], clipped_vertices.vertex[i+1]);
+			}
+			if(clipped_vertices.vertex[i+1].pos.y > clipped_vertices.vertex[i+2].pos.y)
+			{
+				std::swap(clipped_vertices.vertex[i+1], clipped_vertices.vertex[i+2]);
+			}
+			if(clipped_vertices.vertex[i].pos.y > clipped_vertices.vertex[i+1].pos.y)
+			{
+				std::swap(clipped_vertices.vertex[i], clipped_vertices.vertex[i+1]);
+			}
+
+			//putting vertices into drawing buffer
+			//they are drawn when the update function is executed
+			m_rendering_vertex_buffer.push_back(clipped_vertices.vertex[i]);
+			m_rendering_vertex_buffer.push_back(clipped_vertices.vertex[i+1]);
+			m_rendering_vertex_buffer.push_back(clipped_vertices.vertex[i+2]);
+		}
+
+/*
 		std::cout << "Vertex 1: post" << std::endl;
 		std::cout << vertex1.pos.x << std::endl;
 		std::cout << vertex1.pos.y << std::endl;
@@ -80,32 +103,7 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		std::cout << vertex3.pos.y << std::endl;
 		std::cout << vertex3.pos.z << std::endl;
 		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
-
-		//don't draw stuff beyound far clipping plane
-		if(vertex1.pos.z>1 && vertex2.pos.z>1 && vertex3.pos.z>1)
-		{
-			continue;
-		}
-
-		//sorting vertices along y-axis
-		if(vertex1.pos.y > vertex2.pos.y)
-		{
-			std::swap(vertex1, vertex2);
-		}
-		if(vertex2.pos.y > vertex3.pos.y)
-		{
-			std::swap(vertex2, vertex3);
-		}
-		if(vertex1.pos.y > vertex2.pos.y)
-		{
-			std::swap(vertex1, vertex2);
-		}
-
-		//putting vertices into drawing buffer
-		//they are drawn when the update function is executed
-		m_rendering_vertex_buffer.push_back(vertex1);
-		m_rendering_vertex_buffer.push_back(vertex2);
-		m_rendering_vertex_buffer.push_back(vertex3);
+*/
 
 	}
 

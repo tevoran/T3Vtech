@@ -33,6 +33,12 @@ namespace t3v
 			SDL_Surface *text_surface=NULL;
 		};
 
+		struct clipping_vertices
+		{
+			int num_vertices=0;
+			t3v::vertex vertex[6]; //6 is max possible numbers of vertices
+		};
+
 	private:
 		bool m_update_necessary=false; //indicate if the update function needs to do something
 
@@ -68,7 +74,12 @@ namespace t3v
 		//render pipeline functions
 		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);
 		void perspective_divide(t3v::vertex& vertex);
-		t3v::vertex* clipping(t3v::vertex& vertex1, t3v::vertex& vertex2, t3v::vertex& vertex3); //gives an array of vertices if clipping was necessary
+
+		//gives an array of vertices if clipping was necessary
+		t3v::software_rasterizer::clipping_vertices clipping(
+			t3v::vertex& vertex1,
+			t3v::vertex& vertex2,
+			t3v::vertex& vertex3); 
 
 
 		static t3v::color texture_mapping(float u, float v, t3v::texture *texture);

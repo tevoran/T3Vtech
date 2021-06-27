@@ -27,8 +27,7 @@ int main()
 	t3v::texture *road_tex=t3v::load_texture("../assets/road.png");
 	t3v::object3d ground;
 	ground.make_quad(20, 20);
-	ground.position({0,-1.5,20.0});
-	ground.rotate({0,1,0}, 45);
+	ground.position({0,-1.5,5.0});
 	ground.rotate({1,0,0}, 90);
 	ground.use_texture(road_tex);
 
@@ -39,14 +38,21 @@ int main()
 	sky.use_texture(sky_tex);
 
 	te.activate_fps_counter(true, &font);
+
+	float z=20;
 	for(int i=0; i<FRAMES; i++)
 	{
 		//box.render();
 		ground.render();
+
+		z=20-20*((float)i/(float)FRAMES);
+		ground.position( {0,-1.5, z});
 		//sky.render();
 
 		std::string text="T3Vtech - software renderer";
 		te.print_single_frame(text, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
+
+		SDL_Delay(25);
 
 		te.update();
 	}
