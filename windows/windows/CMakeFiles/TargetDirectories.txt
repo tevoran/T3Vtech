@@ -1,0 +1,3 @@
+/home/johannespfeiffer/Code/haeschen-und-woelfchen/windows/CMakeFiles/rebuild_cache.dir
+/home/johannespfeiffer/Code/haeschen-und-woelfchen/windows/CMakeFiles/edit_cache.dir
+/home/johannespfeiffer/Code/haeschen-und-woelfchen/windows/CMakeFiles/huw.dir

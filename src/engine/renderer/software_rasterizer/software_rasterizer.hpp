@@ -63,7 +63,7 @@ namespace t3v
 		render_thread_data *m_thread_data=NULL;
 		static auto sync_point(int num_threads)
 			{
-				static std::barrier sync_point(num_threads, []{});
+				static yamc::barrier sync_point(num_threads, []{});
 				return &sync_point;
 			}
 

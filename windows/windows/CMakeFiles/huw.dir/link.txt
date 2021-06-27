@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/huw.dir/src/game.cpp.o CMakeFiles/huw.dir/src/main.cpp.o CMakeFiles/huw.dir/src/sprite.cpp.o  -o huw  /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so /usr/lib/x86_64-linux-gnu/libSDL2_image.so 

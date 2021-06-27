@@ -10,7 +10,14 @@ t3v::engine::engine()
 
 	//getting SDL2 working
 	std::cout << "Initializing SDL2...";
-	if(SDL_Init(SDL_INIT_EVERYTHING)!=0)
+	if(SDL_Init(
+		SDL_INIT_TIMER |
+		SDL_INIT_AUDIO |
+		SDL_INIT_VIDEO | 
+		SDL_INIT_EVENTS |
+		SDL_INIT_JOYSTICK |
+		SDL_INIT_HAPTIC |
+		SDL_INIT_GAMECONTROLLER)!=0)
 	{
 		std::cout << "[ERROR] SDL2 couldn't be initialized" << std::endl;
 		std::cout << "SDL2 error message:" << std::endl << SDL_GetError() << std::endl;

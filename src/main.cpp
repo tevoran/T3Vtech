@@ -1,6 +1,7 @@
 #include "te.hpp"
-#define FRAMES 100
-
+#define FRAMES 3000
+ 
+  
 
 
 int main()
@@ -8,9 +9,9 @@ int main()
 	t3v::engine& te=t3v::engine::get();
 	
 	//setting properties
-	te.set_resx(1920);
-	te.set_resy(1080);
-	te.set_fullscreen(true);
+	te.set_resx(1366);
+	te.set_resy(768);
+	te.set_fullscreen(false);
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
@@ -27,7 +28,7 @@ int main()
 	t3v::texture *road_tex=t3v::load_texture("../assets/road.png");
 	t3v::object3d ground;
 	ground.make_quad(20, 20);
-	ground.position({0,-1.5,5.0});
+	ground.position({0,-1.5,10.1});
 	ground.rotate({1,0,0}, 90);
 	ground.use_texture(road_tex);
 
@@ -42,17 +43,15 @@ int main()
 	float z=20;
 	for(int i=0; i<FRAMES; i++)
 	{
-		//box.render();
+		box.render();
 		ground.render();
 
-		z=20-20*((float)i/(float)FRAMES);
-		ground.position( {0,-1.5, z});
-		//sky.render();
+		//z=20-20*((float)i/(float)FRAMES);
+		//ground.position( {0,-1.5, z});
+		sky.render();
 
 		std::string text="T3Vtech - software renderer";
 		te.print_single_frame(text, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
-
-		SDL_Delay(25);
 
 		te.update();
 	}
@@ -61,6 +60,7 @@ int main()
 
 	t3v::free_texture(crate);
 	t3v::free_texture(road_tex);
+	t3v::free_texture(sky_tex);
 	//SDL_Delay(1000);
 	return 0;
 }

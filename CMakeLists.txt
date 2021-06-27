@@ -6,7 +6,7 @@ project("T3Vtech")
 
 #DEBUGMODE
 #SET(CMAKE_CXX_FLAGS "-g -ggdb -fsanitize=address -std=c++2a")
-SET(CMAKE_CXX_FLAGS "-g -std=c++2a")
+SET(CMAKE_CXX_FLAGS "-g")
 
 #PROFILERMODE
 #SET(CMAKE_CXX_FLAGS "-g -pg -std=c++2a")
@@ -21,6 +21,7 @@ find_library(SDL2_image SDL2_image)
 find_package(SDL2_image REQUIRED)
 find_package(Threads REQUIRED)
 include_directories(vendor/glm/)
+include_directories(vendor/yamc/include/)
 
 #creating the executable of the engine test
 include_directories(src/)

@@ -9,13 +9,13 @@
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <yamc_barrier.hpp>
 
 //stdlib
 #include <iostream>
 #include <cstring>
-#include <thread>
+#include <thread> 
 #include <vector>
-#include <barrier>
 #include <chrono>
 #include <cmath>
 #include <string>
@@ -31,3 +31,5 @@
 #include <engine/renderer/software_rasterizer/software_rasterizer.hpp>
 #include <engine/general.hpp>
 #include <engine/objects/3d/object3d.hpp>
+
+#undef main
