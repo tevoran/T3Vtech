@@ -1,7 +1,5 @@
 #include "te.hpp"
-#define FRAMES 3000
- 
-  
+
 
 
 int main()
@@ -41,7 +39,9 @@ int main()
 	te.activate_fps_counter(true, &font);
 
 	float z=20;
-	for(int i=0; i<FRAMES; i++)
+
+	bool quit=false;
+	while(!quit)
 	{
 		box.render();
 		ground.render();
@@ -54,13 +54,17 @@ int main()
 		te.print_single_frame(text, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
 
 		te.update();
-	}
 
+		te.update_input();
+		if(te.key_is_pressed(SDL_SCANCODE_ESCAPE))
+		{
+			quit=true;
+		}
+	}
 
 
 	t3v::free_texture(crate);
 	t3v::free_texture(road_tex);
 	t3v::free_texture(sky_tex);
-	//SDL_Delay(1000);
 	return 0;
 }

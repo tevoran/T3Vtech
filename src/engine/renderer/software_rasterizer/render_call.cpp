@@ -49,15 +49,15 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 
 		//clipping
 		t3v::software_rasterizer::clipping_vertices clipped_vertices=clipping(vertex1, vertex2, vertex3);
-		std::cout << clipped_vertices.num_vertices << std::endl;
+//		std::cout << clipped_vertices.num_vertices << std::endl;
 
 		//perspective divide
 		for(int i=0; i<clipped_vertices.num_vertices; i++)
 		{
-			std::cout << clipped_vertices.vertex[i].pos.x << std::endl;
-			std::cout << clipped_vertices.vertex[i].pos.y << std::endl;
-			std::cout << clipped_vertices.vertex[i].pos.z << std::endl;
-			std::cout << clipped_vertices.vertex[i].pos.w << std::endl << std::endl;
+//			std::cout << clipped_vertices.vertex[i].pos.x << std::endl;
+//			std::cout << clipped_vertices.vertex[i].pos.y << std::endl;
+//			std::cout << clipped_vertices.vertex[i].pos.z << std::endl;
+//			std::cout << clipped_vertices.vertex[i].pos.w << std::endl << std::endl;
 
 			perspective_divide(clipped_vertices.vertex[i]);
 		}

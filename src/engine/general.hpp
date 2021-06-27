@@ -20,6 +20,10 @@ namespace t3v
 		//SDL stuff
 		SDL_Window *m_window=NULL;
 
+		//input
+		SDL_Event m_event;
+		uint8_t* m_keyboard_state=NULL;
+
 		engine();
 		~engine();
 
@@ -45,6 +49,10 @@ namespace t3v
 
 		//2d stuff
 		void print_single_frame(std::string text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+
+		//input
+		void update_input();
+		bool key_is_pressed(uint8_t scancode); 
 
 
 		void update();
