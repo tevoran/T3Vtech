@@ -6,7 +6,7 @@ project("T3Vtech")
 
 #DEBUGMODE
 #SET(CMAKE_CXX_FLAGS "-g -ggdb -fsanitize=address")
-SET(CMAKE_CXX_FLAGS "-g -ggdb")
+SET(CMAKE_CXX_FLAGS "-g -ggdb -std=c++2a")
 
 #PROFILERMODE
 #SET(CMAKE_CXX_FLAGS "-g -pg -std=c++2a")

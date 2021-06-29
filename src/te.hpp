@@ -16,6 +16,7 @@
 #include <cstring>
 #include <thread>
 #include <atomic>
+#include <barrier>
 #include <mutex>
 #include <vector>
 #include <chrono>
