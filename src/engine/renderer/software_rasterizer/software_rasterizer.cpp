@@ -34,7 +34,6 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 
 	std::cout << "Using " << m_num_cpu_threads << " thread(s) for software rasterizing" << std::endl;
 	m_thread_data= new render_thread_data[m_num_cpu_threads];
-	//sync_point(m_num_cpu_threads); //creating barrier
 
 	//creating barrier
 	static t3v::thread::barrier new_barrier(m_num_cpu_threads);
@@ -57,10 +56,7 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 
 			m_thread.push_back(std::thread(render_thread, &m_thread_data[i]));
 		}
-		//sync_point(0)->arrive_and_wait(); //synchronizing threads
-		//m_render_sync_point->arrive_and_wait();
-		//m_render_sync_point->arrive(m_arrival_token);
-		m_render_sync_point->wait(m_arrival_token);
+		m_render_sync_point->arrive_and_wait();
 	}
 	//single threaded
 	else
@@ -109,20 +105,13 @@ void t3v::software_rasterizer::update()
 				m_thread_data[i].rendering_vertex_buffer_ptr=&m_rendering_vertex_buffer;
 				m_thread_data[i].start_rendering=true;
 			}
-			//m_render_sync_point->arrive(m_arrival_token);
-			//m_render_sync_point->wait(m_arrival_token);
-			m_render_sync_point->arrive_and_wait();
-
-			//sync_point(0)->arrive_and_wait(); //let the threads work
+			m_render_sync_point->arrive_and_wait(); //let the render threads work
 
 			//let main thread render alongside the other threads
 			m_thread_data[m_num_cpu_threads-1].is_main_thread=true;
 			render_thread(&m_thread_data[m_num_cpu_threads-1]);
 
-			//m_render_sync_point->arrive(m_arrival_token);
-			//m_render_sync_point->wait(m_arrival_token);
-			m_render_sync_point->arrive_and_wait();
-			//sync_point(0)->arrive_and_wait(); //continue 
+			m_render_sync_point->arrive_and_wait(); //continue
 		}
 	}
 	m_update_necessary=false;

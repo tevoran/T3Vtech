@@ -12,7 +12,6 @@ bool t3v::thread::barrier::arrive()
 	m_mutex.lock();
 	bool arrival_token=!m_release;
 	m_count++;
-	std::cout << m_count << std::endl;
 	if(m_count==m_num_threads)
 	{	
 		m_count=0;
