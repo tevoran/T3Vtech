@@ -25,6 +25,9 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 			return;
 		}
 		//synchronizing with the other render threads
-		sync_point(0)->arrive_and_wait();
+
+		data->render_sync_point->arrive_and_wait();
+
+		//sync_point(0)->arrive_and_wait();
 	}
 }

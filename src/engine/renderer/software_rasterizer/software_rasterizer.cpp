@@ -34,7 +34,11 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 
 	std::cout << "Using " << m_num_cpu_threads << " thread(s) for software rasterizing" << std::endl;
 	m_thread_data= new render_thread_data[m_num_cpu_threads];
-	sync_point(m_num_cpu_threads); //creating barrier
+//	sync_point(m_num_cpu_threads); //creating barrier
+
+	//creating barrier
+	static t3v::thread::barrier new_barrier(m_num_cpu_threads);
+	m_render_sync_point=&new_barrier;
 
 	//multithreaded
 	if(m_num_cpu_threads>1)
@@ -48,11 +52,13 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 			m_thread_data[i].window_surface=m_window_surface;
 			m_thread_data[i].start_rendering=false;
 			m_thread_data[i].rendering_vertex_buffer_ptr=&m_rendering_vertex_buffer;
+			m_thread_data[i].render_sync_point=m_render_sync_point;
 
 
 			m_thread.push_back(std::thread(render_thread, &m_thread_data[i]));
 		}
-		sync_point(0)->arrive_and_wait(); //synchronizing threads
+		//sync_point(0)->arrive_and_wait(); //synchronizing threads
+		m_render_sync_point->arrive_and_wait();
 	}
 	//single threaded
 	else
@@ -64,6 +70,7 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 		m_thread_data[0].window_surface=m_window_surface;
 		m_thread_data[0].start_rendering=false;
 		m_thread_data[0].rendering_vertex_buffer_ptr=&m_rendering_vertex_buffer;
+		m_thread_data[0].render_sync_point=m_render_sync_point;
 
 	}
 
@@ -98,15 +105,18 @@ void t3v::software_rasterizer::update()
 				m_thread_data[i].start_rendering=true;
 				m_thread_data[i].z_buffer=m_z_buffer;
 				m_thread_data[i].rendering_vertex_buffer_ptr=&m_rendering_vertex_buffer;
-				m_thread_data[i].start_rendering=true;	
+				m_thread_data[i].start_rendering=true;
 			}
-			sync_point(0)->arrive_and_wait(); //let the threads work
+			m_render_sync_point->arrive_and_wait();
+
+			//sync_point(0)->arrive_and_wait(); //let the threads work
 
 			//let main thread render alongside the other threads
 			m_thread_data[m_num_cpu_threads-1].is_main_thread=true;
 			render_thread(&m_thread_data[m_num_cpu_threads-1]);
 
-			sync_point(0)->arrive_and_wait(); //continue 
+			m_render_sync_point->arrive_and_wait();
+			//sync_point(0)->arrive_and_wait(); //continue 
 		}
 	}
 	m_update_necessary=false;

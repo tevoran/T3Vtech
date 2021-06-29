@@ -22,6 +22,7 @@ namespace t3v
 
 			bool start_rendering=false; //if this is set to true the thread will start the rendering
 
+			t3v::thread::barrier *render_sync_point=NULL;
 
 			//render function variables
 			bool is_main_thread=false;
@@ -61,6 +62,7 @@ namespace t3v
 		int m_num_render_threads=0;
 		std::vector<std::thread> m_thread;
 		render_thread_data *m_thread_data=NULL;
+		t3v::thread::barrier *m_render_sync_point=NULL;
 		static auto sync_point(int num_threads)
 			{
 				static yamc::barrier sync_point(num_threads, []{});

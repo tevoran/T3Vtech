@@ -46,6 +46,11 @@ t3v::engine::engine()
 
 t3v::engine::~engine()
 {
+
+/*	if(m_software_rasterizer!=NULL)
+	{
+		delete m_software_rasterizer;
+	}*/
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();

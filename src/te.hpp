@@ -14,7 +14,9 @@
 //stdlib
 #include <iostream>
 #include <cstring>
-#include <thread> 
+#include <thread>
+#include <atomic>
+#include <mutex>
 #include <vector>
 #include <chrono>
 #include <cmath>
@@ -24,6 +26,7 @@
 
 //engine headers
 #include <definitions.hpp>
+#include <engine/multithreading.hpp>
 #include <engine/renderer/renderer_data_types.hpp>
 #include <engine/math/math.hpp>
 #include <engine/assets/assets.hpp>
@@ -32,4 +35,4 @@
 #include <engine/general.hpp>
 #include <engine/objects/3d/object3d.hpp>
 
-#undef main
+//#undef main

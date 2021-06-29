@@ -5,8 +5,8 @@ project("T3Vtech")
 #SET(CMAKE_CXX_FLAGS  "-m64 -Ofast -flto -march=native -funroll-loops -ffast-math -finline-functions")
 
 #DEBUGMODE
-SET(CMAKE_CXX_FLAGS "-g -ggdb -fsanitize=address")
-#SET(CMAKE_CXX_FLAGS "-g")
+#SET(CMAKE_CXX_FLAGS "-g -ggdb -fsanitize=address")
+SET(CMAKE_CXX_FLAGS "-g -ggdb")
 
 #PROFILERMODE
 #SET(CMAKE_CXX_FLAGS "-g -pg -std=c++2a")
