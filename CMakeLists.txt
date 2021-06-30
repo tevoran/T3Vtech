@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.16)
 project("T3Vtech")
 
 #BASICALLY REALEASE MODE
-#SET(CMAKE_CXX_FLAGS  "-m64 -Ofast -flto -march=native -funroll-loops -ffast-math -finline-functions")
+SET(CMAKE_CXX_FLAGS  "-m64 -Ofast -flto -march=native -funroll-loops -ffast-math -finline-functions")
 
 #DEBUGMODE
 #SET(CMAKE_CXX_FLAGS "-g -ggdb -fsanitize=address")
-SET(CMAKE_CXX_FLAGS "-g -ggdb")
+#SET(CMAKE_CXX_FLAGS "-g")
 
 #PROFILERMODE
 #SET(CMAKE_CXX_FLAGS "-g -pg -std=c++2a")

@@ -29,6 +29,7 @@ void t3v::thread::barrier::wait(bool arrival_token)
 	while(m_release!=arrival_token)
 	{
 		m_mutex.unlock();
+		std::this_thread::yield();
 		m_mutex.lock();
 	}
 	std::atomic_thread_fence(std::memory_order_acquire);

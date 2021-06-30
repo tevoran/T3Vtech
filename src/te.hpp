@@ -15,7 +15,6 @@
 #include <cstring>
 #include <thread>
 #include <atomic>
-#include <barrier>
 #include <mutex>
 #include <vector>
 #include <chrono>
@@ -36,4 +35,6 @@
 #include <engine/general.hpp>
 #include <engine/objects/3d/object3d.hpp>
 
-//#undef main
+#ifdef __MINGW32__
+	#undef main
+#endif
