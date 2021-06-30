@@ -2,6 +2,7 @@
 
 void t3v::software_rasterizer::render_thread(render_thread_data *data)
 {
+
 	while(true)
 	{
 		//rendering when thread is commanded to render
@@ -27,4 +28,5 @@ void t3v::software_rasterizer::render_thread(render_thread_data *data)
 		//synchronizing with the other render threads
 		data->render_sync_point->arrive_and_wait();
 	}
+
 }

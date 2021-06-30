@@ -9,7 +9,6 @@
 #include <glm/vec4.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <yamc_barrier.hpp>
 
 //stdlib
 #include <iostream>
@@ -24,6 +23,7 @@
 #include <string>
 #include <algorithm>
 #include <limits>
+
 
 //engine headers
 #include <definitions.hpp>

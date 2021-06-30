@@ -53,8 +53,10 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 			m_thread_data[i].rendering_vertex_buffer_ptr=&m_rendering_vertex_buffer;
 			m_thread_data[i].render_sync_point=m_render_sync_point;
 
-
-			m_thread.push_back(std::thread(render_thread, &m_thread_data[i]));
+			if(i<m_num_render_threads)
+			{
+				m_thread.push_back(std::thread(render_thread, &m_thread_data[i]));
+			}
 		}
 		m_render_sync_point->arrive_and_wait();
 	}
