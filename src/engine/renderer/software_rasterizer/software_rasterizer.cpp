@@ -133,10 +133,11 @@ void t3v::software_rasterizer::update()
 		print_single_frame(FPS_count, *m_font, {10,240,10, 255}, 32, m_resx-430, m_resy-96);
 	}
 
-	//single frame
+	//single frame text
 	for(int i=0; i<m_text_single_frame_queue.size(); i++)
 	{
 		SDL_BlitSurface(m_text_single_frame_queue[i].text_surface, NULL, m_window_surface, &m_text_single_frame_queue[i].dst_rect);
+		SDL_FreeSurface(m_text_single_frame_queue[i].text_surface); //free the surface after usage
 	}
 	m_text_single_frame_queue.erase(m_text_single_frame_queue.begin(), m_text_single_frame_queue.begin()+m_text_single_frame_queue.size());
 
