@@ -65,9 +65,6 @@ namespace t3v
 		render_thread_data *m_thread_data=NULL;
 		t3v::thread::barrier *m_render_sync_point=NULL;
 
-		//settings set by the user
-		bool m_is_fps_counter_active=false;
-
 	private:
 		//render pipeline functions
 		void vertex_shader(t3v::vertex& vertex, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);

@@ -43,15 +43,15 @@ int main()
 	bool quit=false;
 	while(!quit)
 	{
-		box.render();
-		ground.render();
+//		box.render();
+//		ground.render();
 
 		//z=20-20*((float)i/(float)FRAMES);
 		//ground.position( {0,-1.5, z});
-		sky.render();
+//		sky.render();
 
 		std::string text="T3Vtech - software renderer";
-		te.print_single_frame(text, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
+//		te.print_single_frame(text, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
 
 		te.update();
 

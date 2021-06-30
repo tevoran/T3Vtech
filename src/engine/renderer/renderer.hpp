@@ -19,6 +19,9 @@ namespace t3v
 		int m_resx=0;
 		int m_resy=0;
 
+		//settings set by the user
+		bool m_is_fps_counter_active=false;
+
 		renderer();
 		~renderer();
 
