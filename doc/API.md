@@ -21,7 +21,8 @@ te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
 The software renderer uses
 ```cpp
-TE_RENDERER_SOFTWARE_RASTERIZER
+TE_RENDERER_SOFTWARE_RASTERIZER //for using all available cpu threads (useful for 3D)
+TE_RENDERER_SOFTWARE_RASTERIZER_SINGLE_THREAD //for using only one cpu thread (useful for 2D only)
 ```
 as its flag.
 
@@ -33,6 +34,19 @@ Once there are more renderers implemented, it is possible to switch your rendere
 Between getting the engine reference and starting the engine there is the possibility to configure the
 according to the users needs. Although some of them might be overwritten later, as the player might add
 an extern engine configuration to make a game runnable on an old computer.
+
+#### FPS Counter
+
+It is possible and sometimes useful to activate an FPS counter.
+This can be done after retrieving the engine singleton with the function
+
+```cpp
+te.activate_fps_counter(true, &font);
+
+```
+
+Although you have to take of previously loading a font otherwise the render can't render the counter.
+This means as well that the counter can only be activated after the start of the renderer.
 
 #### Window properties
 
@@ -46,7 +60,7 @@ te.set_resx(1920);
 te.set_resy(1080);
 ```
 
-And to toggle fullscreen the set_fullscreen() function is used.
+And to toggle fullscreen mode the set_fullscreen() function is used.
 
 ```cpp
 void set_fullscreen(bool set_fullscreen);
@@ -205,3 +219,5 @@ void print_single_frame(std::string text, t3v::font& font, t3v::color color_in, 
 te.print_single_frame("T3Vtech - software renderer", font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
 
 ```
+
+### Object2D Class
