@@ -16,7 +16,7 @@ namespace t3v
 		object2d();
 		~object2d();
 
-		void load_sprite(const char* path);
+		void use_sprite(t3v::sprite& sprite);
 		void position(const int x, const int y);
 		void scale(const float scale);
 		void render();

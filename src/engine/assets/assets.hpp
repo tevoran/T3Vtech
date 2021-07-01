@@ -16,8 +16,18 @@ namespace t3v
 		~font();
 	};
 
-t3v::texture* load_texture(const char *path);
-void free_texture(t3v::texture *texture);
+	//sprite
+	class sprite
+	{
+	public:
+		SDL_Surface *surface=NULL;
+		sprite(const char *path);
+		~sprite();
+	};
+
+	//texture handling
+	t3v::texture* load_texture(const char *path);
+	void free_texture(t3v::texture *texture);
 }
 
  

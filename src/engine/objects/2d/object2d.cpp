@@ -7,24 +7,11 @@ t3v::object2d::object2d()
 
 t3v::object2d::~object2d()
 {
-	if(m_surface!=NULL)
-	{
-		SDL_FreeSurface(m_surface);
-	}
 }
 
-void t3v::object2d::load_sprite(const char* path)
+void t3v::object2d::use_sprite(t3v::sprite& sprite)
 {
-	m_surface=IMG_Load(path);
-	if(m_surface!=NULL)
-	{
-		std::cout << "Sprite from " << path << " has been loaded successfully" << std::endl;
-	}
-	else
-	{
-		std::cout << "[ERROR] couldn't load sprite from " << path << std::endl;
-		std::cout << "The asset might be missing or SDL2_image might have an issue." << std::endl;
-	}
+	m_surface=sprite.surface;
 
 	m_dst_rect.w=m_surface->w;
 	m_dst_rect.h=m_surface->h;
