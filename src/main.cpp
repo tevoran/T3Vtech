@@ -11,7 +11,7 @@ int main()
 	te.set_resy(1080);
 	te.set_fullscreen(true);
 
-	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
+	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER_SINGLE_THREAD);
 
 	//reading test font
 	t3v::font font("../assets/fonts/OpenSans-Regular.ttf");

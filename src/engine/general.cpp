@@ -82,9 +82,15 @@ void t3v::engine::start_renderer(int renderer_type)
 	switch(renderer_type)
 	{
 		case TE_RENDERER_SOFTWARE_RASTERIZER:
-			m_software_rasterizer = new t3v::software_rasterizer(m_window);
+			m_software_rasterizer = new t3v::software_rasterizer(m_window, 0);
+			break;
+
+		case TE_RENDERER_SOFTWARE_RASTERIZER_SINGLE_THREAD:
+			m_software_rasterizer = new t3v::software_rasterizer(m_window, 1);
+			m_renderer_type=TE_RENDERER_SOFTWARE_RASTERIZER;
 			break;
 	}
+
 }
 
 //render a bunch of vertices

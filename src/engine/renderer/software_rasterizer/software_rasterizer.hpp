@@ -110,7 +110,7 @@ namespace t3v
 			render_thread_data *data);
 
 	public:
-		software_rasterizer(SDL_Window *window);
+		software_rasterizer(SDL_Window *window, int num_desired_threads);
 		~software_rasterizer();
 
 		//settings

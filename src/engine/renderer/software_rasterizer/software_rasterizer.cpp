@@ -1,7 +1,7 @@
 #include <te.hpp>
 
 
-t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
+t3v::software_rasterizer::software_rasterizer(SDL_Window *window, int num_desired_threads)
 {
 	std::cout << "Initializing software rasterizer" << std::endl;
 
@@ -29,7 +29,11 @@ t3v::software_rasterizer::software_rasterizer(SDL_Window *window)
 
 	//creating render threads
 	m_num_cpu_threads=std::thread::hardware_concurrency();
-
+	if(num_desired_threads>0 && num_desired_threads<m_num_cpu_threads)
+	{
+		m_num_cpu_threads=num_desired_threads;
+	}
+	
 	m_num_render_threads=m_num_cpu_threads-1;		
 
 	std::cout << "Using " << m_num_cpu_threads << " thread(s) for software rasterizing" << std::endl;
