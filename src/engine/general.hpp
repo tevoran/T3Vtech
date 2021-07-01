@@ -49,6 +49,7 @@ namespace t3v
 
 		//2d stuff
 		void print_single_frame(std::string text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+		void render2D(SDL_Surface *surface, SDL_Rect& src_rect, SDL_Rect& dst_rect);
 
 		//input
 		void update_input();

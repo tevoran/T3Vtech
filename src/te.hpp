@@ -31,6 +31,7 @@
 #include <engine/math/math.hpp>
 #include <engine/assets/assets.hpp>
 #include <engine/renderer/renderer.hpp>
+#include <engine/objects/2d/object2d.hpp>
 #include <engine/renderer/software_rasterizer/software_rasterizer.hpp>
 #include <engine/general.hpp>
 #include <engine/objects/3d/object3d.hpp>

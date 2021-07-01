@@ -133,6 +133,13 @@ void t3v::software_rasterizer::update()
 		print_single_frame(FPS_count, *m_font, {10,240,10, 255}, 32, 0, 0);
 	}
 
+	//sprite render queue
+	for(int i=0; i<m_sprite_render_queue.size(); i++)
+	{
+		SDL_BlitScaled(m_sprite_render_queue[i].surface, &m_sprite_render_queue[i].src_rect, m_window_surface, &m_sprite_render_queue[i].dst_rect);
+	}
+	m_sprite_render_queue.erase(m_sprite_render_queue.begin(), m_sprite_render_queue.begin()+m_sprite_render_queue.size());
+
 	//single frame text
 	for(int i=0; i<m_text_single_frame_queue.size(); i++)
 	{

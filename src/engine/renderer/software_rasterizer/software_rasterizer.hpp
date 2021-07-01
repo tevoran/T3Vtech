@@ -29,6 +29,13 @@ namespace t3v
 			bool is_main_thread=false;
 		};
 
+		struct sprite_queue_entry
+		{
+			SDL_Rect src_rect;
+			SDL_Rect dst_rect;
+			SDL_Surface *surface=NULL;
+		};
+
 		struct text_queue_entry
 		{
 			SDL_Rect dst_rect;
@@ -53,6 +60,9 @@ namespace t3v
 
 		//render buffer
 		std::vector<t3v::vertex> m_rendering_vertex_buffer;
+
+		//sprite render buffer
+		std::vector<t3v::software_rasterizer::sprite_queue_entry> m_sprite_render_queue;
 
 		//text render buffer
 		std::vector<t3v::software_rasterizer::text_queue_entry> m_text_single_frame_queue;
@@ -108,6 +118,7 @@ namespace t3v
 
 		//2D stuff
 		void print_single_frame(std::string text, t3v::font& font, t3v::color color_in, int font_size, int x, int y);
+		void render2D(SDL_Surface *surface, SDL_Rect& src_rect, SDL_Rect& dst_rect);
 
 		//render a bunch of vertices at a certain location
 		void render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale);

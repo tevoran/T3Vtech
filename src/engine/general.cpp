@@ -172,6 +172,7 @@ void t3v::engine::update()
 	}
 }
 
+//2D stuff
 void t3v::engine::print_single_frame(std::string text, t3v::font& font, t3v::color color_in, int font_size, int x, int y)
 {
 	switch(m_renderer_type)
@@ -185,6 +186,21 @@ void t3v::engine::print_single_frame(std::string text, t3v::font& font, t3v::col
 			break;		
 	}
 }
+
+void t3v::engine::render2D(SDL_Surface *surface, SDL_Rect& src_rect, SDL_Rect& dst_rect)
+{
+	switch(m_renderer_type)
+	{
+		case TE_RENDERER_SOFTWARE_RASTERIZER:
+			m_software_rasterizer->render2D(surface, src_rect, dst_rect);
+			break;
+
+		default:
+			std::cout << "[ERROR] no renderer is active yet" << std::endl;
+			break;		
+	}
+}
+
 
 void t3v::engine::activate_fps_counter(bool active, t3v::font *font)
 {
