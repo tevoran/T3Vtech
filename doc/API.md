@@ -221,3 +221,52 @@ te.print_single_frame("T3Vtech - software renderer", font, {10,240,10, 255}, 32,
 ```
 
 ### Object2D Class
+
+The object2d class is used for 2d sprites. They can be copied if desired.
+
+An instance of this class can be created by using the following code.
+
+```cpp
+t3v::object2d cat;
+```
+
+As this wouldn't be renderable by itself, you need to add some more data.
+
+#### Loading Sprite from Disk
+
+It is necessary to load an image file from disk if the instance is not copied.
+This can be done by calling the object2D's load_sprite method.
+
+```cpp
+cat.load_sprite("../assets/cat.png");
+```
+
+Usable image file formats are at least BMP, JPG and PNG.
+
+#### Position
+
+The sprite can be positioned on the screen in absolute screen coordinates (pixels)
+by using the position method. It simply takes two integers as its parameters.
+
+```cpp
+cat.position(100, 200); //Draw the cat at the location 100x200 on the screen
+```
+
+#### Scaling
+
+If the image's base size doesn't fit your needs you can rescale it. The scaling
+happens relative to the image's base size and takes a float paremeter.
+
+```cpp
+cat.scale(4.5); //the cat is now 4.5 times it's original size
+```
+
+#### Rendering the Sprite
+
+And finally if everything necessary is set then sprite can be rendered onto the
+screen by calling its render method.
+
+```cpp
+cat.render(); //show the cat
+
+```
