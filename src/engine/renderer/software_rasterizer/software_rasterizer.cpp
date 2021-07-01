@@ -130,7 +130,7 @@ void t3v::software_rasterizer::update()
 		std::string FPS_count = std::to_string(1/t_delta.count());
 		std::string FPS_count_add = " FPS";
 		FPS_count = FPS_count + FPS_count_add;
-		print_single_frame(FPS_count, *m_font, {10,240,10, 255}, 32, m_resx-430, m_resy-96);
+		print_single_frame(FPS_count, *m_font, {10,240,10, 255}, 32, 0, 0);
 	}
 
 	//single frame text
