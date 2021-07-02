@@ -234,14 +234,28 @@ As this wouldn't be renderable by itself, you need to add some more data.
 
 #### Loading Sprite from Disk
 
-It is necessary to load an image file from disk if the instance is not copied.
-This can be done by calling the object2D's load_sprite method.
+It is necessary to load an image file from the disk. It is a seperate object from
+the object2D class. But can be used in as many instances of object2D as necessary. 
 
 ```cpp
-cat.load_sprite("../assets/cat.png");
+t3v::sprite cat_sprite("../assets/cat.png");
 ```
 
 Usable image file formats are at least BMP, JPG and PNG.
+
+After the sprite is loaded it can be connected with an object2D by using the following
+code.
+
+```cpp
+cat.use_sprite(cat_sprite);
+
+```
+
+If the object is copied afterwards the same sprite will be used in the copy as well.
+It is not necessary to reload it again.
+
+If the sprite exists at the end of its scope then the used data will be free'd 
+automatically.
 
 #### Position
 
