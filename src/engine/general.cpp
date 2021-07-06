@@ -80,6 +80,7 @@ void t3v::engine::start_renderer(int renderer_type)
 			m_software_rasterizer = new t3v::software_rasterizer(m_window, 0);
 			break;
 
+		//starting with only one thread and then using the regular software renderer flag
 		case TE_RENDERER_SOFTWARE_RASTERIZER_SINGLE_THREAD:
 			m_software_rasterizer = new t3v::software_rasterizer(m_window, 1);
 			m_renderer_type=TE_RENDERER_SOFTWARE_RASTERIZER;
