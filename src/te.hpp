@@ -22,6 +22,7 @@
 #include <string>
 #include <algorithm>
 #include <limits>
+#include <cassert>
 
 
 //engine headers

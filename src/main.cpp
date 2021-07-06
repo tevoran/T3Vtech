@@ -18,11 +18,11 @@ int main()
 
 
 	t3v::object3d box;
-	box.make_quad(0.3,0.3);
-	box.position({0,0,0.5});
+	box.make_cube(10.3);
+	box.position({0,-1.5,3.100});
 	t3v::texture *box_tex=t3v::load_texture("../assets/wooden_crate_small.jpg");
 	box.use_texture(box_tex);
-
+	box.rotate({1,0,0},90);
 
 	te.activate_fps_counter(true, &font);
 
@@ -30,9 +30,8 @@ int main()
 	bool quit=false;
 	while(!quit)
 	{
-		box.rotate({1,0,0},0.4);
 		box.render();
-
+		box.rotate({1,0,0},0.4);
 		te.print_single_frame(text, font, {10,240,10, 255}, 32, te.get_resx()-430, te.get_resy()-48);
 
 		te.update();

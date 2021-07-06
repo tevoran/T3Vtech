@@ -2,6 +2,11 @@
 
 void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_vertices, t3v::texture *texture, glm::vec3& pos, glm::mat4& rotation_mat, glm::vec3& scale)
 {
+	//temporary vertices if an additional clipping triangle is created
+	t3v::vertex clip_tri_vert1;
+	t3v::vertex clip_tri_vert2;
+	t3v::vertex clip_tri_vert3;
+
 	//writing to rendering vertex buffer
 	for(int i=0; i<num_vertices/3; i++)
 	{
@@ -20,47 +25,29 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 		vertex_shader(vertex3, pos, rotation_mat, scale);
 
 
-		std::cout << "Vertex 1: pre" << std::endl;
-		std::cout << vertex1.pos.x << std::endl;
-		std::cout << vertex1.pos.y << std::endl;
-		std::cout << vertex1.pos.z << std::endl;
-		std::cout << vertex1.pos.w << std::endl << std::endl;
+		//clipping against the z-near-plane
+		//if three vertices are behind the clipping plane then drop them
+		float clip_w=m_near_z_clip*(-2.001);
+		if(	vertex1.pos.w>clip_w &&
+			vertex2.pos.w>clip_w &&
+			vertex3.pos.w>clip_w)
+		{
+			continue;
+		}
 
-		std::cout << "Vertex 2: pre" << std::endl;
-		std::cout << vertex2.pos.x << std::endl;
-		std::cout << vertex2.pos.y << std::endl;
-		std::cout << vertex2.pos.z << std::endl;
-		std::cout << vertex2.pos.w << std::endl << std::endl;
+		bool clip_tri_is_created=false;
+		clipping_new(
+			vertex1,
+			vertex2,
+			vertex3,
+			clip_tri_is_created,
+			clip_tri_vert1,
+			clip_tri_vert2,
+			clip_tri_vert3);
 
-		std::cout << "Vertex 3: pre" << std::endl;
-		std::cout << vertex3.pos.x << std::endl;
-		std::cout << vertex3.pos.y << std::endl;
-		std::cout << vertex3.pos.z << std::endl;
-		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
-
-
-			perspective_divide(vertex1);
-			perspective_divide(vertex2);
-			perspective_divide(vertex3);
-
-		std::cout << "Vertex 1: post" << std::endl;
-		std::cout << vertex1.pos.x << std::endl;
-		std::cout << vertex1.pos.y << std::endl;
-		std::cout << vertex1.pos.z << std::endl;
-		std::cout << vertex1.pos.w << std::endl << std::endl;
-
-		std::cout << "Vertex 2: post" << std::endl;
-		std::cout << vertex2.pos.x << std::endl;
-		std::cout << vertex2.pos.y << std::endl;
-		std::cout << vertex2.pos.z << std::endl;
-		std::cout << vertex2.pos.w << std::endl << std::endl;
-
-		std::cout << "Vertex 3: post" << std::endl;
-		std::cout << vertex3.pos.x << std::endl;
-		std::cout << vertex3.pos.y << std::endl;
-		std::cout << vertex3.pos.z << std::endl;
-		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
-
+		perspective_divide(vertex1);
+		perspective_divide(vertex2);
+		perspective_divide(vertex3);
 
 		//sorting the vertices along the y-axis
 		if(vertex1.pos.y>vertex2.pos.y)
@@ -76,67 +63,37 @@ void t3v::software_rasterizer::render(t3v::vertex *vertices, const int num_verti
 			std::swap(vertex1, vertex2);
 		}
 
-			m_rendering_vertex_buffer.push_back(vertex1);
-			m_rendering_vertex_buffer.push_back(vertex2);
-			m_rendering_vertex_buffer.push_back(vertex3);
-		//clipping
-//		t3v::software_rasterizer::clipping_vertices clipped_vertices=clipping(vertex1, vertex2, vertex3);
-//		std::cout << clipped_vertices.num_vertices << std::endl;
+		//putting the vertices into the render buffer
+		m_rendering_vertex_buffer.push_back(vertex1);
+		m_rendering_vertex_buffer.push_back(vertex2);
+		m_rendering_vertex_buffer.push_back(vertex3);
 
-		//perspective divide
-/*		for(int i=0; i<clipped_vertices.num_vertices; i++)
+		if(clip_tri_is_created==true)
 		{
-//			std::cout << clipped_vertices.vertex[i].pos.x << std::endl;
-//			std::cout << clipped_vertices.vertex[i].pos.y << std::endl;
-//			std::cout << clipped_vertices.vertex[i].pos.z << std::endl;
-//			std::cout << clipped_vertices.vertex[i].pos.w << std::endl << std::endl;
+			perspective_divide(clip_tri_vert1);
+			perspective_divide(clip_tri_vert2);
+			perspective_divide(clip_tri_vert3);
 
-			perspective_divide(clipped_vertices.vertex[i]);
+
+			//sorting the vertices along the y-axis
+			if(clip_tri_vert1.pos.y>clip_tri_vert2.pos.y)
+			{
+				std::swap(clip_tri_vert1, clip_tri_vert2);
+			}
+			if(clip_tri_vert2.pos.y>clip_tri_vert3.pos.y)
+			{
+				std::swap(clip_tri_vert2, clip_tri_vert3);
+			}
+			if(clip_tri_vert1.pos.y>clip_tri_vert2.pos.y)
+			{
+				std::swap(clip_tri_vert1, clip_tri_vert2);
+			}
+
+			//putting the vertices into the render buffer
+			m_rendering_vertex_buffer.push_back(clip_tri_vert1);
+			m_rendering_vertex_buffer.push_back(clip_tri_vert2);
+			m_rendering_vertex_buffer.push_back(clip_tri_vert3);
 		}
-*/
-/*		for(int i=0; i<clipped_vertices.num_vertices; i=i+3) //looping through complete triangles
-		{
-			//sorting vertices along y-axis
-			if(clipped_vertices.vertex[i].pos.y > clipped_vertices.vertex[i+1].pos.y)
-			{
-				std::swap(clipped_vertices.vertex[i], clipped_vertices.vertex[i+1]);
-			}
-			if(clipped_vertices.vertex[i+1].pos.y > clipped_vertices.vertex[i+2].pos.y)
-			{
-				std::swap(clipped_vertices.vertex[i+1], clipped_vertices.vertex[i+2]);
-			}
-			if(clipped_vertices.vertex[i].pos.y > clipped_vertices.vertex[i+1].pos.y)
-			{
-				std::swap(clipped_vertices.vertex[i], clipped_vertices.vertex[i+1]);
-			}
-*/
-			//putting vertices into drawing buffer
-			//they are drawn when the update function is executed
-/*			m_rendering_vertex_buffer.push_back(clipped_vertices.vertex[i]);
-			m_rendering_vertex_buffer.push_back(clipped_vertices.vertex[i+1]);
-			m_rendering_vertex_buffer.push_back(clipped_vertices.vertex[i+2]);
-		}
-*/
-/*
-		std::cout << "Vertex 1: post" << std::endl;
-		std::cout << vertex1.pos.x << std::endl;
-		std::cout << vertex1.pos.y << std::endl;
-		std::cout << vertex1.pos.z << std::endl;
-		std::cout << vertex1.pos.w << std::endl << std::endl;
-
-		std::cout << "Vertex 2: post" << std::endl;
-		std::cout << vertex2.pos.x << std::endl;
-		std::cout << vertex2.pos.y << std::endl;
-		std::cout << vertex2.pos.z << std::endl;
-		std::cout << vertex2.pos.w << std::endl << std::endl;
-
-		std::cout << "Vertex 3: post" << std::endl;
-		std::cout << vertex3.pos.x << std::endl;
-		std::cout << vertex3.pos.y << std::endl;
-		std::cout << vertex3.pos.z << std::endl;
-		std::cout << vertex3.pos.w << std::endl << std::endl << std::endl;
-*/
-
 	}
 
 	m_update_necessary=true;

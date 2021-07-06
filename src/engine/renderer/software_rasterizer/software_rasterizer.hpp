@@ -81,10 +81,15 @@ namespace t3v
 		void perspective_divide(t3v::vertex& vertex);
 
 		//gives an array of vertices if clipping was necessary
-		t3v::software_rasterizer::clipping_vertices clipping(
+		void clipping_new(
 			t3v::vertex& vertex1,
 			t3v::vertex& vertex2,
-			t3v::vertex& vertex3); 
+			t3v::vertex& vertex3, 
+			bool& clip_add_vertices,
+			t3v::vertex& clip_tri_vert1,
+			t3v::vertex& clip_tri_vert2,
+			t3v::vertex& clip_tri_vert3);
+
 
 
 		static t3v::color texture_mapping(float u, float v, t3v::texture *texture);

@@ -39,201 +39,163 @@ namespace t3v
 	}
 }
 
-//clipping is only done for the near z-plane
-t3v::software_rasterizer::clipping_vertices t3v::software_rasterizer::clipping(t3v::vertex& vertex1, t3v::vertex& vertex2, t3v::vertex& vertex3)
+
+void t3v::software_rasterizer::clipping_new(
+	t3v::vertex& vertex1,
+	t3v::vertex& vertex2,
+	t3v::vertex& vertex3, 
+	bool& clip_add_vertices,
+	t3v::vertex& clip_tri_vert1,
+	t3v::vertex& clip_tri_vert2,
+	t3v::vertex& clip_tri_vert3)
 {
-	using namespace t3v::software_rasterizer_helper;
+	float clip_w=m_near_z_clip*(-2.001);
 
-	t3v::software_rasterizer::clipping_vertices clipped_vertices;
+	int num_clipped_vertices=0;
+	bool vertex1_is_clipped=false;
+	bool vertex2_is_clipped=false;
+	bool vertex3_is_clipped=false;
 
-	//avoiding division by zero
-	if(	vertex1.pos.w > TE_SOFTWARE_RENDERER_W_BORDER_MIN &&
-		vertex1.pos.w < TE_SOFTWARE_RENDERER_W_BORDER_MAX)
+	//check the number of clipped vertices
+	if(vertex1.pos.w>clip_w)
 	{
-		vertex1.pos.w=TE_SOFTWARE_RENDERER_W_BORDER_MIN;
+		num_clipped_vertices++;
+		vertex1_is_clipped=true;
 	}
-	if(	vertex2.pos.w > TE_SOFTWARE_RENDERER_W_BORDER_MIN &&
-		vertex2.pos.w < TE_SOFTWARE_RENDERER_W_BORDER_MAX)
+	if(vertex2.pos.w>clip_w)
 	{
-		vertex2.pos.w=TE_SOFTWARE_RENDERER_W_BORDER_MIN;	
+		num_clipped_vertices++;
+		vertex2_is_clipped=true;
 	}
-	if(	vertex3.pos.w > TE_SOFTWARE_RENDERER_W_BORDER_MIN &&
-		vertex3.pos.w < TE_SOFTWARE_RENDERER_W_BORDER_MAX)
+	if(vertex3.pos.w>clip_w)
 	{
-		vertex3.pos.w=TE_SOFTWARE_RENDERER_W_BORDER_MIN;
-	}
-
-	//determining whether it's necessary to clip with the near z plane
-	if(	clip_to_ndc_conversion_z(vertex1.pos.z, vertex1.pos.w) < 0 || 
-		clip_to_ndc_conversion_z(vertex2.pos.z, vertex2.pos.w) < 0 ||
-		clip_to_ndc_conversion_z(vertex3.pos.z, vertex3.pos.w) < 0 ||
-		(vertex1.pos.z>0 && vertex1.pos.w>0) ||
-		(vertex2.pos.z>0 && vertex2.pos.w>0) ||
-		(vertex3.pos.z>0 && vertex3.pos.w>0) )
-	{
-		std::vector<t3v::vertex> list_of_vertices; //necessary for setting up the final configuration of vertices
-
-		//there are always 2 intersection points with the clipping plane
-		t3v::vertex intersection1;
-			intersection1.pos={0, 0, -m_near_z_clip, -1};
-			intersection1.texture=vertex1.texture;
-
-		t3v::vertex intersection2;
-			intersection2.pos={0, 0, -m_near_z_clip, -1};
-			intersection2.texture=vertex1.texture;
-
-		//determining the edges of the triangle that are going through the clipping plane
-		//if equal the vertices don't go through the plane
-		list_of_vertices.push_back(vertex1);
-		if(vertex1.pos.z!=vertex2.pos.z)
-		{
-			float k = (m_near_z_clip-vertex1.pos.z)/(vertex2.pos.z-vertex1.pos.z);
-
-			if(k>0 && k<1) //intersection needs to be between the vertices
-			{
-				intersection1.pos.x = k*(vertex2.pos.x-vertex1.pos.x) + vertex1.pos.x;
-				intersection1.pos.y = k*(vertex2.pos.y-vertex1.pos.y) + vertex1.pos.y;
-
-				intersection1.pos.w = k*(vertex2.pos.w-vertex1.pos.w) + vertex1.pos.w;
-
-				intersection1.tex.u= k*(vertex2.tex.u-vertex1.tex.u) + vertex1.tex.u;
-				intersection1.tex.v = k*(vertex2.tex.v-vertex1.tex.v) + vertex1.tex.v;
-
-				if(intersection1.pos.w>0)
-				{
-					intersection1.pos.w=-intersection1.pos.w;					
-				}
-				list_of_vertices.push_back(intersection1);
-			}
-		}
-
-		list_of_vertices.push_back(vertex2);
-		if(vertex2.pos.z!=vertex3.pos.z)
-		{
-			float k = (m_near_z_clip-vertex2.pos.z)/(vertex3.pos.z-vertex2.pos.z);
-
-			if(k>0 && k<1) //intersection needs to be between the vertices
-			{
-				if(intersection1.pos.x==0 && intersection1.pos.y==0)
-				{
-					intersection1.pos.x = k*(vertex3.pos.x-vertex2.pos.x) + vertex2.pos.x;
-					intersection1.pos.y = k*(vertex3.pos.y-vertex2.pos.y) + vertex2.pos.y;
-
-					intersection1.pos.w = k*(vertex3.pos.w-vertex2.pos.w) + vertex2.pos.w;
-
-					intersection1.tex.u= k*(vertex3.tex.u-vertex2.tex.u) + vertex2.tex.u;
-					intersection1.tex.v = k*(vertex3.tex.v-vertex2.tex.v) + vertex2.tex.v;
-
-					if(intersection1.pos.w>0)
-					{
-						intersection1.pos.w=-intersection1.pos.w;
-					}
-					list_of_vertices.push_back(intersection1);
-				}
-				else
-				{
-					intersection2.pos.x = k*(vertex3.pos.x-vertex2.pos.x) + vertex2.pos.x;
-					intersection2.pos.y = k*(vertex3.pos.y-vertex2.pos.y) + vertex2.pos.y;
-
-					intersection2.pos.w = k*(vertex3.pos.w-vertex2.pos.w) + vertex2.pos.w;
-
-					intersection2.tex.u= k*(vertex3.tex.u-vertex2.tex.u) + vertex2.tex.u;
-					intersection2.tex.v = k*(vertex3.tex.v-vertex2.tex.v) + vertex2.tex.v;
-					if(intersection2.pos.w>0)
-					{
-						intersection2.pos.w=-intersection2.pos.w;
-					}
-					list_of_vertices.push_back(intersection2);
-				}
-			}
-		}
-
-		list_of_vertices.push_back(vertex3);
-		if(vertex3.pos.z!=vertex1.pos.z)
-		{
-			float k = (m_near_z_clip-vertex3.pos.z)/(vertex1.pos.z-vertex3.pos.z);
-
-			if(k>0 && k<1) //intersection needs to be between the vertices
-			{
-				if(intersection1.pos.x==0 && intersection1.pos.y==0)
-				{
-					intersection1.pos.x = k*(vertex1.pos.x-vertex3.pos.x) + vertex3.pos.x;
-					intersection1.pos.y = k*(vertex1.pos.y-vertex3.pos.y) + vertex3.pos.y;
-
-					intersection1.pos.w = k*(vertex1.pos.w-vertex3.pos.w) + vertex3.pos.w;
-
-					intersection1.tex.u= k*(vertex1.tex.u-vertex3.tex.u) + vertex3.tex.u;
-					intersection1.tex.v = k*(vertex1.tex.v-vertex3.tex.v) + vertex3.tex.v;
-
-					if(intersection1.pos.w>0)
-					{
-						intersection1.pos.w=-intersection1.pos.w;
-					}
-					list_of_vertices.push_back(intersection1);
-				}
-				else
-				{
-					intersection2.pos.x = k*(vertex1.pos.x-vertex3.pos.x) + vertex3.pos.x;
-					intersection2.pos.y = k*(vertex1.pos.y-vertex3.pos.y) + vertex3.pos.y;
-
-					intersection2.pos.w = k*(vertex1.pos.w-vertex3.pos.w) + vertex3.pos.w;
-
-					intersection2.tex.u= k*(vertex1.tex.u-vertex3.tex.u) + vertex3.tex.u;
-					intersection2.tex.v = k*(vertex1.tex.v-vertex3.tex.v) + vertex3.tex.v;
-
-					if(intersection2.pos.w>0)
-					{
-						intersection2.pos.w=-intersection2.pos.w;
-					}
-					list_of_vertices.push_back(intersection2);
-				}
-			}
-		}
-
-		//calculating the number of necessary vertices
-		//and using the right vertices that are not behind the plane
-		int i_clipped_tmp=0;
-		t3v::vertex clipped_vertices_tmp[4];
-		for(int i=0; i<list_of_vertices.size(); i++)
-		{
-			if(list_of_vertices[i].pos.z<=0)
-			{
-				clipped_vertices_tmp[i_clipped_tmp]=list_of_vertices[i];
-
-				i_clipped_tmp++;
-			}
-		}
-
-		//building the one or two triangles
-		if(i_clipped_tmp==3) //one triangle
-		{
-			clipped_vertices.num_vertices=3;
-			clipped_vertices.vertex[0]=clipped_vertices_tmp[0];
-			clipped_vertices.vertex[1]=clipped_vertices_tmp[1];
-			clipped_vertices.vertex[2]=clipped_vertices_tmp[2];
-		}
-
-		if(i_clipped_tmp==4) //two triangles
-		{
-			clipped_vertices.num_vertices=6;
-			clipped_vertices.vertex[0]=clipped_vertices_tmp[0];
-			clipped_vertices.vertex[1]=clipped_vertices_tmp[1];
-			clipped_vertices.vertex[2]=clipped_vertices_tmp[2];
-
-			clipped_vertices.vertex[3]=clipped_vertices_tmp[0];
-			clipped_vertices.vertex[4]=clipped_vertices_tmp[2];
-			clipped_vertices.vertex[5]=clipped_vertices_tmp[3];
-		}
-
-		list_of_vertices.erase(list_of_vertices.begin(), list_of_vertices.end());
-	}
-	else
-	{
-		clipped_vertices.num_vertices=3;
-		clipped_vertices.vertex[0]=vertex1;
-		clipped_vertices.vertex[1]=vertex2;
-		clipped_vertices.vertex[2]=vertex3;
+		num_clipped_vertices++;
+		vertex3_is_clipped=true;
 	}
 
-	return clipped_vertices;
+	//if one vertex needs to be clipped
+	if(num_clipped_vertices==1)
+	{
+		//tell the caller of the function that a clipping triangle is created
+		clip_add_vertices=true;
+
+		t3v::vertex *vertex_clip1=NULL;
+		t3v::vertex *vertex_non_clipped1=NULL;
+		t3v::vertex *vertex_non_clipped2=NULL;
+
+		clip_tri_vert1.texture=vertex1.texture;
+		clip_tri_vert2.texture=vertex1.texture;
+		clip_tri_vert3.texture=vertex1.texture;
+
+		//determining which vertex is clipped
+		if(vertex1_is_clipped==true)
+		{
+			vertex_clip1=&vertex1;
+			vertex_non_clipped1=&vertex2;
+			vertex_non_clipped2=&vertex3;
+		}
+		if(vertex2_is_clipped==true)
+		{
+			vertex_clip1=&vertex2;
+			vertex_non_clipped1=&vertex1;
+			vertex_non_clipped2=&vertex3;
+		}
+		if(vertex3_is_clipped==true)
+		{
+			vertex_clip1=&vertex3;
+			vertex_non_clipped1=&vertex1;
+			vertex_non_clipped2=&vertex2;
+		}
+
+		//do the clipping
+		//first clipping vertex
+		float k1 = (clip_w - vertex_clip1->pos.w)/(vertex_non_clipped1->pos.w - vertex_clip1->pos.w);
+
+		clip_tri_vert1.pos.x = k1 * (vertex_non_clipped1->pos.x - vertex_clip1->pos.x) + vertex_clip1->pos.x;
+		clip_tri_vert1.pos.y = k1 * (vertex_non_clipped1->pos.y - vertex_clip1->pos.y) + vertex_clip1->pos.y;
+		clip_tri_vert1.pos.z = k1 * (vertex_non_clipped1->pos.z - vertex_clip1->pos.z) + vertex_clip1->pos.z;
+		clip_tri_vert1.pos.w = clip_w;
+
+		clip_tri_vert1.tex.u = k1 * (vertex_non_clipped1->tex.u - vertex_clip1->tex.u) + vertex_clip1->tex.u;
+		clip_tri_vert1.tex.v = k1 * (vertex_non_clipped1->tex.v - vertex_clip1->tex.v) + vertex_clip1->tex.v;
+
+		//second clipping vertex
+		float k2 = (clip_w - vertex_clip1->pos.w)/(vertex_non_clipped2->pos.w - vertex_clip1->pos.w);
+
+		clip_tri_vert2.pos.x = k2 * (vertex_non_clipped2->pos.x - vertex_clip1->pos.x) + vertex_clip1->pos.x;
+		clip_tri_vert2.pos.y = k2 * (vertex_non_clipped2->pos.y - vertex_clip1->pos.y) + vertex_clip1->pos.y;
+		clip_tri_vert2.pos.z = k2 * (vertex_non_clipped2->pos.z - vertex_clip1->pos.z) + vertex_clip1->pos.z;
+		clip_tri_vert2.pos.w = clip_w;
+
+		clip_tri_vert2.tex.u = k2 * (vertex_non_clipped2->tex.u - vertex_clip1->tex.u) + vertex_clip1->tex.u;
+		clip_tri_vert2.tex.v = k2 * (vertex_non_clipped2->tex.v - vertex_clip1->tex.v) + vertex_clip1->tex.v;
+
+		//making the resulting quad
+		*vertex_clip1=clip_tri_vert1; //first tri -- only one vertex has to move
+
+		clip_tri_vert3=*vertex_non_clipped2; //second tri -- only vertex left
+
+		return;
+	}
+
+	//if two vertices need to be clipped
+	if(num_clipped_vertices==2)
+	{
+		//determining the clipped vertices
+		t3v::vertex *vertex_clip1=NULL;
+		t3v::vertex *vertex_clip2=NULL;
+		t3v::vertex *vertex_non_clipped=NULL;
+
+		if(vertex1_is_clipped==false)
+		{
+			vertex_clip1=&vertex2;
+			vertex_clip2=&vertex3;
+			vertex_non_clipped=&vertex1;
+		}
+
+		if(vertex2_is_clipped==false)
+		{
+			vertex_clip1=&vertex1;
+			vertex_clip2=&vertex3;
+			vertex_non_clipped=&vertex2;
+		}
+
+		if(vertex3_is_clipped==false)
+		{
+			vertex_clip1=&vertex1;
+			vertex_clip2=&vertex2;
+			vertex_non_clipped=&vertex3;
+		}
+
+		//clip vertices
+		//first vertex
+		float k1 = (clip_w - vertex_clip1->pos.w)/(vertex_non_clipped->pos.w - vertex_clip1->pos.w);
+
+		t3v::vertex tmp_vertex;
+		tmp_vertex.pos.w=clip_w;
+		tmp_vertex.texture=vertex1.texture;
+
+		tmp_vertex.pos.x = k1 * (vertex_non_clipped->pos.x - vertex_clip1->pos.x) + vertex_clip1->pos.x;
+		tmp_vertex.pos.y = k1 * (vertex_non_clipped->pos.y - vertex_clip1->pos.y) + vertex_clip1->pos.y;
+		tmp_vertex.pos.z = k1 * (vertex_non_clipped->pos.z - vertex_clip1->pos.z) + vertex_clip1->pos.z;
+
+		tmp_vertex.tex.u = k1 * (vertex_non_clipped->tex.u - vertex_clip1->tex.u) + vertex_clip1->tex.u;
+		tmp_vertex.tex.v = k1 * (vertex_non_clipped->tex.v - vertex_clip1->tex.v) + vertex_clip1->tex.v;
+
+		*vertex_clip1=tmp_vertex;
+
+		//first vertex
+		float k2 = (clip_w - vertex_clip2->pos.w)/(vertex_non_clipped->pos.w - vertex_clip2->pos.w);
+
+		tmp_vertex.pos.x = k2 * (vertex_non_clipped->pos.x - vertex_clip2->pos.x) + vertex_clip2->pos.x;
+		tmp_vertex.pos.y = k2 * (vertex_non_clipped->pos.y - vertex_clip2->pos.y) + vertex_clip2->pos.y;
+		tmp_vertex.pos.z = k2 * (vertex_non_clipped->pos.z - vertex_clip2->pos.z) + vertex_clip2->pos.z;
+
+		tmp_vertex.tex.u = k2 * (vertex_non_clipped->tex.u - vertex_clip2->tex.u) + vertex_clip2->tex.u;
+		tmp_vertex.tex.v = k2 * (vertex_non_clipped->tex.v - vertex_clip2->tex.v) + vertex_clip2->tex.v;
+
+		*vertex_clip2=tmp_vertex;
+
+		return;
+	}
 }
