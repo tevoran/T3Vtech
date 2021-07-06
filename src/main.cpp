@@ -7,9 +7,10 @@ int main()
 	t3v::engine& te=t3v::engine::get();
 	
 	//setting properties
-	te.set_resx(1920);
-	te.set_resy(1080);
-	te.set_fullscreen(true);
+	te.set_resx(1366);
+	te.set_resy(768);
+	te.set_fullscreen(false);
+	te.set_window_title("T3Vtech test window title");
 
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 

@@ -18,6 +18,7 @@ namespace t3v
 		t3v::software_rasterizer *m_software_rasterizer=NULL;
 
 		//SDL stuff
+		std::string m_window_title="T3Vtech";
 		SDL_Window *m_window=NULL;
 
 		//input
@@ -36,6 +37,7 @@ namespace t3v
 		void set_resx(int resx){m_resx=resx;}
 		void set_resy(int resy){m_resy=resy;}
 		void set_fullscreen(bool set_fullscreen){m_is_fullscreen=set_fullscreen;}
+		void set_window_title(std::string window_title){m_window_title=window_title;};
 		void activate_fps_counter(bool active, t3v::font *font);
 
 		//starting the engine with a renderer

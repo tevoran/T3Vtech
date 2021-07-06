@@ -46,11 +46,6 @@ t3v::engine::engine()
 
 t3v::engine::~engine()
 {
-
-/*	if(m_software_rasterizer!=NULL)
-	{
-		delete m_software_rasterizer;
-	}*/
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
@@ -61,11 +56,11 @@ void t3v::engine::start_renderer(int renderer_type)
 	//creating the window for the renderer
 	if(m_is_fullscreen==true)
 	{
-		m_window=SDL_CreateWindow("T3Vtech test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, SDL_WINDOW_FULLSCREEN);
+		m_window=SDL_CreateWindow(m_window_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, SDL_WINDOW_FULLSCREEN);
 	}
 	else
 	{
-		m_window=SDL_CreateWindow("T3Vtech test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, 0);
+		m_window=SDL_CreateWindow(m_window_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, 0);
 	}
 	if(m_window==NULL)
 	{

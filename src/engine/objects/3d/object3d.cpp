@@ -27,7 +27,7 @@ t3v::object3d::~object3d()
 			delete [] m_vertices;
 			break;
 		}
-	};
+	}
 }
 
 void t3v::object3d::use_vertices(t3v::vertex *vertices_in, const int num_vertices)
