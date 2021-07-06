@@ -1,5 +1,6 @@
 #include <te.hpp>
 
+
 void t3v::software_rasterizer::rasterize_triangle(
 	t3v::vertex& vertex1,
 	t3v::vertex& vertex2,

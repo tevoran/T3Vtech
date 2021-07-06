@@ -18,7 +18,7 @@ int main()
 
 
 	t3v::object3d box;
-	box.make_cube(0.1);
+	box.make_quad(0.3,0.3);
 	box.position({0,0,0.5});
 	t3v::texture *box_tex=t3v::load_texture("../assets/wooden_crate_small.jpg");
 	box.use_texture(box_tex);
