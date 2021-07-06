@@ -50,6 +50,8 @@ This means as well that the counter can only be activated after the start of the
 
 #### Window properties
 
+##### Resolution 
+
 To set the resolution of the window the following two functions can be used.
 ```cpp
 void set_resx(int resx);
@@ -60,6 +62,8 @@ te.set_resx(1920);
 te.set_resy(1080);
 ```
 
+##### Fullscreen
+
 And to toggle fullscreen mode the set_fullscreen() function is used.
 
 ```cpp
@@ -68,6 +72,20 @@ void set_fullscreen(bool set_fullscreen);
 //example
 te.set_fullscreen(true);
 ```
+
+##### Window Title
+
+To set the window title the following function is used. But it has to be set before the renderer is started.
+Otherwise it will set a default window title.
+
+```cpp
+void set_window_title(std::string window_title);
+
+
+//example
+te.set_window_title("T3Vtech test window title");
+```
+
 
 ## Using the API for information
 
