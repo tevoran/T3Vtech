@@ -57,6 +57,7 @@ void t3v::engine::start_renderer(int renderer_type)
 	if(m_is_fullscreen==true)
 	{
 		m_window=SDL_CreateWindow(m_window_title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_resx, m_resy, SDL_WINDOW_FULLSCREEN);
+		SDL_ShowCursor(SDL_DISABLE);
 	}
 	else
 	{
