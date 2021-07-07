@@ -18,7 +18,6 @@ t3v::color t3v::software_rasterizer::texture_mapping(float u, float v, t3v::text
 	pixel_color.g=texture->data[offset];
 	offset++;
 	pixel_color.b=texture->data[offset];
-	offset++;
 	pixel_color.a=255;
 
 	return pixel_color;
