@@ -92,7 +92,7 @@ namespace t3v
 
 
 
-		static t3v::color texture_mapping(float u, float v, t3v::texture *texture);
+		static void texture_mapping(float u, float v, t3v::texture *texture, t3v::color& pixel_color);
 		void draw_pixel_basic(const int x, const int y, const uint8_t r, const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast(uint32_t* pixel_ptr, const uint8_t r,	const uint8_t g, const uint8_t b);
 		static void draw_pixel_fast_64(

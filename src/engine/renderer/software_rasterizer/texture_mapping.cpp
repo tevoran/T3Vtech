@@ -1,9 +1,8 @@
 #include <te.hpp>
 
-t3v::color t3v::software_rasterizer::texture_mapping(float u, float v, t3v::texture *texture)
+//doesn't support transparency
+void t3v::software_rasterizer::texture_mapping(float u, float v, t3v::texture *texture, t3v::color& pixel_color)
 {
-	t3v::color pixel_color;
-
 	//using only the fraction part so textures can be repeated
 	u=u-(int)u;
 	v=v-(int)v;
@@ -18,7 +17,4 @@ t3v::color t3v::software_rasterizer::texture_mapping(float u, float v, t3v::text
 	pixel_color.g=texture->data[offset];
 	offset++;
 	pixel_color.b=texture->data[offset];
-	pixel_color.a=255;
-
-	return pixel_color;
 }

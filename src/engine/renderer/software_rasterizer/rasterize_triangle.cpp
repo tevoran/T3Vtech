@@ -70,7 +70,10 @@ void t3v::software_rasterizer::rasterize_triangle(
 	//determining barycentric division constant for the triangle
 	const float div_const=t3v::barycentric_interpolation_optimized_div(vertex1_screen, vertex2_screen, vertex3_screen);
 
+	t3v::color pixel_color;
+		pixel_color.a=255;
 	glm::ivec2 pixel_draw={0,0};
+
 	//barycentric coordinates
 	float a,b,c; 
 	float d_a,d_b,d_c; //barycentric coordinates increment
@@ -125,7 +128,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 		//rendering a line
 		for(int ix=x_bounding_start; ix<x_bounding_end; ix++)
 		{
-			if(a>=0 && b>=0 && c>=0 && z<INT32_MAX) //z value buffer overflow check for clipping
+			if(a>=0 && b>=0 && c>=0) //z value buffer overflow check for clipping
 			{
 				//z-buffer check
 				if(z < data->z_buffer[offset])
@@ -147,9 +150,10 @@ void t3v::software_rasterizer::rasterize_triangle(
 					}
 
 					float w=1/w_inv;
-					t3v::color pixel_color=texture_mapping(u*w, v*w, vertex1.texture);
-					has_drawn=true;
+					texture_mapping(u*w, v*w, vertex1.texture, pixel_color);
 					draw_pixel_fast_simple(pixel_ptr, pixel_color);
+					has_drawn=true;
+
 				}
 			}
 			else
@@ -169,7 +173,7 @@ void t3v::software_rasterizer::rasterize_triangle(
 			//z-buffer line increments
 			z+=z_delta;
 
-			//pixel pointer increment
+			//screen pixel pointer increment
 			offset++;
 
 			//perspective correction increment
