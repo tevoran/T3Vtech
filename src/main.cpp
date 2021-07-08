@@ -1,5 +1,6 @@
 #include "te.hpp"
 
+#define FRAMES 1000
 
 
 int main()
@@ -9,7 +10,7 @@ int main()
 	//setting properties
 	te.set_resx(1920);
 	te.set_resy(1080);
-	te.set_fullscreen(true);
+	te.set_fullscreen(false);
 	te.start_renderer(TE_RENDERER_SOFTWARE_RASTERIZER);
 
 	//reading test font
@@ -28,7 +29,10 @@ int main()
 
 
 	bool quit=false;
-	while(!quit)
+
+	using namespace std::chrono;
+	steady_clock::time_point t_old=steady_clock::now();
+	for(int i=0; i<FRAMES; i++)
 	{
 		box.render();
 		box.rotate({1,0,0},0.4);
@@ -41,7 +45,16 @@ int main()
 		{
 			quit=true;
 		}
+		if(quit)
+		{
+			break;
+		}
 	}
+	steady_clock::time_point t_new=steady_clock::now();
+	duration<float> t_delta= duration_cast<duration<float>>(t_new-t_old);
+
+	std::cout << "average frame time: " << t_delta.count()*1000/FRAMES << "ms" << std::endl;
+	std::cout << "in " << FRAMES << " frames" << std::endl;
 
 	return 0;
 }
