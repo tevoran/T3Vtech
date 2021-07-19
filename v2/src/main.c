@@ -1,6 +1,6 @@
-#include <stdio.h>
+#include <te.h>
 
 void main()
 {
-	printf("hello world\n");
+	te_init();
 }
