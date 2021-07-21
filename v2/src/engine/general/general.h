@@ -3,7 +3,11 @@
 
 
 
-int te_init(const char *window_title, int resx, int resy);
+int te_init(
+	const char *window_title, 
+	int resx, 
+	int resy, 
+	unsigned long FLAGS);
 
 
 #endif

@@ -1,7 +1,8 @@
-#ifdef TE_H 
+#ifndef TE_H 
 #define TE_H
 
 #include <stddef.h>
+#include <stdio.h>
 
 
 //engine

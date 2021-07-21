@@ -1,11 +1,13 @@
-#include <general/general.h>
-
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
 extern SDL_Window *window;
 
-int te_init(const char *window_title, int resx, int resy)
+int te_init(
+	const char *window_title, 
+	int resx, 
+	int resy, 
+	unsigned long FLAGS)
 {
 	printf("Welcome to T3Vtech engine version 2\n");
 
@@ -18,7 +20,7 @@ int te_init(const char *window_title, int resx, int resy)
 	{
 		printf("done\n");
 	}
-	else
+	else 
 	{
 		printf("error\n");
 
