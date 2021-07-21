@@ -1,3 +1,4 @@
+#include <general/definitions.h>
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
@@ -23,6 +24,7 @@ int te_init(
 	else 
 	{
 		printf("error\n");
+		return TE_ERROR;
 
 	}
 
@@ -38,12 +40,11 @@ int te_init(
 	if(window==NULL)
 	{
 		printf("error\n");
+		return TE_ERROR;
 	}
 	else
 	{
 		printf("done\n");
 	}
-
-	SDL_Delay(3000);
-	return 0;
+	return TE_OKAY;
 }
