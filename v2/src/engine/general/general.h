@@ -1,13 +1,9 @@
 #ifndef TE_GENERAL_H
 #define TE_GENERAL_H
 
-#include <te.h>
 
-//vendor
-#include <SDL2/SDL.h>
 
-int te_init();
-
+int te_init(const char *window_title, int resx, int resy);
 
 
 #endif

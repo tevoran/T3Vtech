@@ -1,4 +1,3 @@
-#include <te.h>
 #include <general/general.h>
 
 #include <SDL2/SDL.h>
@@ -6,7 +5,7 @@
 
 extern SDL_Window *window;
 
-int te_init()
+int te_init(const char *window_title, int resx, int resy)
 {
 	printf("Welcome to T3Vtech engine version 2\n");
 
@@ -27,12 +26,13 @@ int te_init()
 
 	printf("Creating Window...");
 	window=SDL_CreateWindow(
-		"T3Vtech v2 test window", 
+		window_title, 
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
-		1366,
-		768,
+		resx,
+		resy,
 		0);
+
 	if(window==NULL)
 	{
 		printf("error\n");

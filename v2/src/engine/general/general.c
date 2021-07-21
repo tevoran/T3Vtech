@@ -1,4 +1,3 @@
-#include <te.h>
 #include <general/general.h>
 
 #include <SDL2/SDL.h>
