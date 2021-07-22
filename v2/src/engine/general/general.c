@@ -2,4 +2,4 @@
 
 
 //Window
-SDL_Window *window=NULL;
+SDL_Window *te_window=NULL;
