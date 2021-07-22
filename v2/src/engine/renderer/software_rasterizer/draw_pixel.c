@@ -3,7 +3,7 @@
 
 void te_software_rasterizer_draw_pixel(
 	SDL_Color *pixel_ptr, 
-	SDL_Color pixel_color) {
+	te_color *pixel_color) {
 
-	*pixel_ptr=pixel_color;
+	*pixel_ptr=*(SDL_Color*)pixel_color;
 }

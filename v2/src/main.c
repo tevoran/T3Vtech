@@ -8,8 +8,18 @@ int main() {
 	te_start_renderer(TE_SOFTWARE_RENDERER);
 
 	//current tests
-	SDL_Color color={255,255,255,255};
-	te_render(color, 10, 10);
+	te_color color;
+	color.r=255;
+	color.g=10;
+	color.b=200;
+	color.a=255;
+	for(int i=200; i<600; i++)
+	{
+		for(int y=100; y<300; y++)
+		{
+			te_render(color, i, y);	
+		}
+	}
 	te_update();
 
 	SDL_Delay(3000);
