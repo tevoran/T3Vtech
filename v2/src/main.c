@@ -7,8 +7,12 @@ int main() {
 
 	te_start_renderer(TE_SOFTWARE_RENDERER);
 
+	//current tests
+	SDL_Color color={255,255,255,255};
+	te_render(color, 10, 10);
 	te_update();
-	te_update();
+
 	SDL_Delay(3000);
 
+	te_quit();
 }

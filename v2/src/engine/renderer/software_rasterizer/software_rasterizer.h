@@ -15,4 +15,9 @@ te_software_renderer* te_software_rasterizer_init();
 void te_software_rasterizer_update(te_software_renderer *software_renderer);
 
 
+void te_software_rasterizer_draw_pixel(
+	SDL_Color *pixel_ptr, 
+	SDL_Color pixel_color);
+
+
 #endif

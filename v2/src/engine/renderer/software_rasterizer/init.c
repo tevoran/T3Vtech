@@ -18,5 +18,8 @@ te_software_renderer* te_software_rasterizer_init() {
 		software_renderer->resx,
 		software_renderer->resy);
 
+	//clearing screen as initialization
+	te_software_rasterizer_update(software_renderer);
+
 	return software_renderer;
 }
