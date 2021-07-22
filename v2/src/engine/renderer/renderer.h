@@ -9,6 +9,6 @@ int te_start_renderer(unsigned long FLAGS);
 void te_update();
 void te_quit();
 
-void te_render(te_color pixel_color, int x, int y);
+void te_render(te_vertex v1, te_vertex v2, te_vertex v3);
 
 #endif

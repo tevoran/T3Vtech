@@ -7,6 +7,7 @@
 
 //engine
 #include <general/definitions.h>
+#include <math/math.h>
 #include <general/general.h>
 #include <renderer/software_rasterizer/software_rasterizer.h>
 #include <renderer/renderer.h>

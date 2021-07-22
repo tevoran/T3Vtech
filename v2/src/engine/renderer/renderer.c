@@ -15,12 +15,8 @@ int te_start_renderer(unsigned long FLAGS) {
 	}
 }
 
-void te_render(te_color pixel_color, int x, int y) {
-	SDL_Color *pixel_ptr=software_renderer->window_surface->pixels;
-	pixel_ptr+=y*software_renderer->resx + x;
-	te_software_rasterizer_draw_pixel( 
-		pixel_ptr,
-		&pixel_color);
+void te_render(te_vertex v1, te_vertex v2, te_vertex v3) {
+	te_software_rasterizer_raster_tri(v1, v2, v3, software_renderer);
 }
 
 
