@@ -1,7 +1,7 @@
 #include <te.h>
 #include <math.h>
 
-#define FRAMES 5000
+#define FRAMES 2000
 
 int main() {
 	if(te_init("T3Vtech version 2 TEST WINDOW", 1366, 768, 0)!=TE_OKAY) {

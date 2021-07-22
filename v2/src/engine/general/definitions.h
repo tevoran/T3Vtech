@@ -18,6 +18,11 @@ struct te_vertex {
 	te_color color;
 } typedef te_vertex;
 
+//bools
+#define TE_TRUE 1
+#define TE_FALSE 0
+
+//return values
 #define TE_OKAY 0
 #define TE_ERROR 1 
 
