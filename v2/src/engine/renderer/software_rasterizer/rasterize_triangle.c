@@ -1,23 +1,41 @@
 #include <te.h>
 
 void te_software_rasterizer_raster_tri(
-	te_vertex v1,
-	te_vertex v2,
-	te_vertex v3,
+	te_vertex *v1,
+	te_vertex *v2,
+	te_vertex *v3,
 	te_software_renderer *software_renderer) {
 
+	//sorting vertices along the y-axis
+	if(v1->y > v2->y)
+	{
+		te_swap(v1, v2);
+	}
+	if(v2->y > v3->y)
+	{
+		te_swap(v2, v3);
+	}
+	if(v1->y > v2->y)
+	{
+		te_swap(v1, v2);
+	}
+
 	//getting the vertices' screen coordinates
-	float v1_2d_x=v1.x*software_renderer->resx;
-	float v1_2d_y=v1.y*software_renderer->resy;
+	float v1_2d_x=v1->x * software_renderer->resx;
+	float v1_2d_y=v1->y * software_renderer->resy;
 
-	float v2_2d_x=v2.x*software_renderer->resx;
-	float v2_2d_y=v2.y*software_renderer->resy;
+	float v2_2d_x=v2->x * software_renderer->resx;
+	float v2_2d_y=v2->y * software_renderer->resy;
 
-	float v3_2d_x=v3.x*software_renderer->resx;
-	float v3_2d_y=v3.y*software_renderer->resy;
+	float v3_2d_x=v3->x * software_renderer->resx;
+	float v3_2d_y=v3->y * software_renderer->resy;
+
+	//triangle bounding box
+
+	int y_bb_bottom=v3_2d_y+1;
 
 	//rasterize triangle
-	for(int y=0; y<software_renderer->resy; y++) {
+	for(int y=0; y<y_bb_bottom; y++) {
 		int has_drawn=TE_FALSE;
 
 		//go through current line
@@ -40,7 +58,7 @@ void te_software_rasterizer_raster_tri(
 				has_drawn=TE_TRUE;
 				SDL_Color *pixel_ptr=software_renderer->window_surface->pixels;
 				pixel_ptr+=x + y*software_renderer->resx;
-				te_software_rasterizer_draw_pixel(pixel_ptr, &v1.color);		
+				te_software_rasterizer_draw_pixel(pixel_ptr, &v1->color);		
 			}
 			else {
 				//if end of the line is reached then stop checking
