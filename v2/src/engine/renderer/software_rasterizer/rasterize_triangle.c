@@ -34,25 +34,70 @@ void te_software_rasterizer_raster_tri(
 
 	int y_bb_bottom=v3_2d_y+1;
 
+
+	//preparation calculations
+	//barycentric coordinates
+	float a,b,c;
+	float a_line_base,b_line_base,c_line_base;
+	float a_delta,b_delta,c_delta;
+	float a_line_delta,b_line_delta,c_line_delta;
+
+	te_barycentric_interpolation(
+		v1_2d_x,
+		v1_2d_y,
+		v2_2d_x,
+		v2_2d_y,
+		v3_2d_x,
+		v3_2d_y,
+		0,
+		0,
+		&a_line_base,
+		&b_line_base,
+		&c_line_base);
+
+	te_barycentric_interpolation(
+		v1_2d_x,
+		v1_2d_y,
+		v2_2d_x,
+		v2_2d_y,
+		v3_2d_x,
+		v3_2d_y,
+		1,
+		0,
+		&a_delta,
+		&b_delta,
+		&c_delta);
+	a_delta=a_delta - a_line_base;
+	b_delta=b_delta - b_line_base;
+	c_delta=c_delta - c_line_base;
+
+	te_barycentric_interpolation(
+		v1_2d_x,
+		v1_2d_y,
+		v2_2d_x,
+		v2_2d_y,
+		v3_2d_x,
+		v3_2d_y,
+		0,
+		1,
+		&a_line_delta,
+		&b_line_delta,
+		&c_line_delta);
+	a_line_delta=a_line_delta - a_line_base;
+	b_line_delta=b_line_delta - b_line_base;
+	c_line_delta=c_line_delta - c_line_base;
+
 	//rasterize triangle
 	for(int y=0; y<y_bb_bottom; y++) {
 		int has_drawn=TE_FALSE;
 
+		//line preparation
+		a=a_line_base;
+		b=b_line_base;
+		c=c_line_base;
+
 		//go through current line
 		for(int x=0; x<software_renderer->resx; x++) {
-			float a,b,c;
-			te_barycentric_interpolation(
-				v1_2d_x,
-				v1_2d_y,
-				v2_2d_x,
-				v2_2d_y,
-				v3_2d_x,
-				v3_2d_y,
-				(float)x,
-				(float)y,
-				&a,
-				&b,
-				&c);
 			//check if pixel is inside triangle
 			if(a>0 && b>0 && c>0) {
 				has_drawn=TE_TRUE;
@@ -66,6 +111,14 @@ void te_software_rasterizer_raster_tri(
 					break;
 				}
 			}
+		//increments per pixel
+		a+=a_delta;
+		b+=b_delta;
+		c+=c_delta;
 		}
+	//increments per line
+	a_line_base+=a_line_delta;
+	b_line_base+=b_line_delta;
+	c_line_base+=c_line_delta;
 	}
 }
