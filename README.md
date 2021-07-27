@@ -5,4 +5,4 @@ Welcome to the T3Vtech game engine repository. This is an engine with the goal o
 The engine is currently rewritten in C to achieve higher possible compability with different programming languages.
 
 With version 1 of the engine (written in C++-17) the game "Puff Puff" was made the Game Dev League July 2021 game jam.
-[text] (https://t3v.itch.io/puff-puff)
+[text](https://t3v.itch.io/puff-puff)
