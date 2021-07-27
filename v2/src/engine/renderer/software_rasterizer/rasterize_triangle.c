@@ -103,7 +103,8 @@ void te_software_rasterizer_raster_tri(
 				has_drawn=TE_TRUE;
 				SDL_Color *pixel_ptr=software_renderer->window_surface->pixels;
 				pixel_ptr+=x + y*software_renderer->resx;
-				te_software_rasterizer_draw_pixel(pixel_ptr, &v1->color);		
+				//draw pixel
+				*pixel_ptr=*(SDL_Color*)&v1->color;
 			}
 			else {
 				//if end of the line is reached then stop checking

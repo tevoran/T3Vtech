@@ -5,8 +5,8 @@ project("T3Vtech")
 #SET(CMAKE_CC_FLAGS  "-m64 -Ofast -flto -march=native -funroll-loops")
 
 #DEBUGMODE
-SET(CMAKE_CC_FLAGS "-g -ggdb -fsanitize=address")
-#SET(CMAKE_CC_FLAGS "-g")
+#SET(CMAKE_CC_FLAGS "-g -ggdb -fsanitize=address")
+SET(CMAKE_CC_FLAGS "-g")
 
 #PROFILERMODE
 #SET(CMAKE_CC_FLAGS "-g -pg")
