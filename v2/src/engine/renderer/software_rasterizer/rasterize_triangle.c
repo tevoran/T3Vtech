@@ -31,8 +31,38 @@ void te_software_rasterizer_raster_tri(
 	float v3_2d_y=v3->y * software_renderer->resy;
 
 	//triangle bounding box
-
+	int y_bb_top=v1_2d_y-1;
 	int y_bb_bottom=v3_2d_y+1;
+	int x_bb_left=v1_2d_x-1;
+	int x_bb_right=v1_2d_x+1;
+	if(x_bb_left > v2_2d_x) {
+		x_bb_left = v2_2d_x-1;
+	}
+	if(x_bb_left > v3_2d_x) {
+		x_bb_left = v3_2d_x-1;
+	}
+
+	if(x_bb_right < v2_2d_x) {
+		x_bb_right = v2_2d_x+1;
+	}
+	if(x_bb_right < v3_2d_x) {
+		x_bb_right = v3_2d_x+1;
+	}
+
+	//crop to the screen
+	if(y_bb_top < 0) {
+		y_bb_top = 0;
+	}
+	if(y_bb_bottom > software_renderer->resy) {
+		y_bb_top = software_renderer->resy;
+	}
+	if(x_bb_left < 0)
+	{
+		x_bb_left = 0;
+	}
+	if(x_bb_right > software_renderer->resx) {
+		x_bb_right = software_renderer->resx;
+	}
 
 
 	//preparation calculations
@@ -49,8 +79,8 @@ void te_software_rasterizer_raster_tri(
 		v2_2d_y,
 		v3_2d_x,
 		v3_2d_y,
-		0,
-		0,
+		x_bb_left,
+		y_bb_top,
 		&a_line_base,
 		&b_line_base,
 		&c_line_base);
@@ -62,8 +92,8 @@ void te_software_rasterizer_raster_tri(
 		v2_2d_y,
 		v3_2d_x,
 		v3_2d_y,
-		1,
-		0,
+		x_bb_left+1,
+		y_bb_top,
 		&a_delta,
 		&b_delta,
 		&c_delta);
@@ -78,8 +108,8 @@ void te_software_rasterizer_raster_tri(
 		v2_2d_y,
 		v3_2d_x,
 		v3_2d_y,
-		0,
-		1,
+		x_bb_left,
+		y_bb_top+1,
 		&a_line_delta,
 		&b_line_delta,
 		&c_line_delta);
@@ -88,7 +118,7 @@ void te_software_rasterizer_raster_tri(
 	c_line_delta=c_line_delta - c_line_base;
 
 	//rasterize triangle
-	for(int y=0; y<y_bb_bottom; y++) {
+	for(int y=y_bb_top; y<y_bb_bottom; y++) {
 		int has_drawn=TE_FALSE;
 
 		//line preparation
@@ -97,14 +127,13 @@ void te_software_rasterizer_raster_tri(
 		c=c_line_base;
 
 		//go through current line
-		for(int x=0; x<software_renderer->resx; x++) {
+		for(int x=x_bb_left; x<x_bb_right; x++) {
 			//check if pixel is inside triangle
 			if(a>0 && b>0 && c>0) {
 				has_drawn=TE_TRUE;
 				SDL_Color *pixel_ptr=software_renderer->window_surface->pixels;
 				pixel_ptr+=x + y*software_renderer->resx;
-				//draw pixel
-				*pixel_ptr=*(SDL_Color*)&v1->color;
+				*pixel_ptr=*(SDL_Color*)&v1->color; //draw pixel
 			}
 			else {
 				//if end of the line is reached then stop checking
