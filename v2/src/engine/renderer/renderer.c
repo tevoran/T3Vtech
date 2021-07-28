@@ -16,13 +16,13 @@ int te_start_renderer(unsigned long FLAGS) {
 }
 
 void te_render(te_vertex v1, te_vertex v2, te_vertex v3) {
-	te_software_rasterizer_raster_tri(&v1, &v2, &v3, software_renderer);
+	te_software_rasterizer_raster_tri(&v1, &v2, &v3);
 }
 
 
 void te_update() {
 	if(te_current_renderer==TE_SOFTWARE_RENDERER) {
-		te_software_rasterizer_update(software_renderer);
+		te_software_rasterizer_update();
 	}
 }
 

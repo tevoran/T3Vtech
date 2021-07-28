@@ -1,10 +1,11 @@
 #include <te.h>
 
+extern te_software_renderer *software_renderer;
+
 void te_software_rasterizer_raster_tri(
 	te_vertex *v1,
 	te_vertex *v2,
-	te_vertex *v3,
-	te_software_renderer *software_renderer) {
+	te_vertex *v3) {
 
 	//sorting vertices along the y-axis
 	if(v1->y > v2->y)
@@ -125,14 +126,15 @@ void te_software_rasterizer_raster_tri(
 		a=a_line_base;
 		b=b_line_base;
 		c=c_line_base;
+		//pixel drawing pointer preparation
+		SDL_Color *pixel_ptr=software_renderer->window_surface->pixels;
+		pixel_ptr+=x_bb_left + y*software_renderer->resx;
 
 		//go through current line
 		for(int x=x_bb_left; x<x_bb_right; x++) {
 			//check if pixel is inside triangle
 			if(a>0 && b>0 && c>0) {
 				has_drawn=TE_TRUE;
-				SDL_Color *pixel_ptr=software_renderer->window_surface->pixels;
-				pixel_ptr+=x + y*software_renderer->resx;
 				*pixel_ptr=*(SDL_Color*)&v1->color; //draw pixel
 			}
 			else {
@@ -145,6 +147,7 @@ void te_software_rasterizer_raster_tri(
 		a+=a_delta;
 		b+=b_delta;
 		c+=c_delta;
+		pixel_ptr++;
 		}
 	//increments per line
 	a_line_base+=a_line_delta;

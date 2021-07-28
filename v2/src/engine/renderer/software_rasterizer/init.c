@@ -2,12 +2,12 @@
 #include <SDL2/SDL.h>
 
 extern SDL_Window *te_window;
+extern te_software_renderer *software_renderer;
 
 te_software_renderer* te_software_rasterizer_init() {
 	printf("Starting the software rasterizer\n");
 
-	te_software_renderer *software_renderer=
-		malloc(sizeof(te_software_renderer));
+	software_renderer=malloc(sizeof(te_software_renderer));
 
 	software_renderer->window=te_window;
 	software_renderer->window_surface=SDL_GetWindowSurface(te_window);

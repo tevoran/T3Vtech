@@ -1,7 +1,8 @@
 #include <te.h>
 
+extern te_software_renderer *software_renderer;
 
-void te_software_rasterizer_update(te_software_renderer *software_renderer) {
+void te_software_rasterizer_update() {
 
 	SDL_UpdateWindowSurface(software_renderer->window);
 

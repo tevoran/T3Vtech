@@ -29,5 +29,5 @@ add_executable(T3Vtech ${T3Vtech})
 target_link_libraries(T3Vtech LINK_PRIVATE "${SDL2}")
 target_link_libraries(T3Vtech LINK_PRIVATE "${SDL2_ttf}")
 target_link_libraries(T3Vtech LINK_PRIVATE "${SDL2_image}")
-target_link_libraries(T3Vtech LINK_PRIVATE Threads::Threads)
+target_link_libraries(T3Vtech LINK_PRIVATE pthread)
 target_link_libraries(T3Vtech LINK_PRIVATE m) #include the std math lib
