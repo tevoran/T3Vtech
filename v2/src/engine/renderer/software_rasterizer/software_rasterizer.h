@@ -9,6 +9,7 @@ struct te_software_renderer {
 	SDL_Surface *window_surface;
 	int resx;
 	int resy;
+	int num_procs;
 } typedef te_software_renderer;
 
 te_software_renderer* te_software_rasterizer_init();
