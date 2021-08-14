@@ -5,7 +5,8 @@ extern te_software_renderer *software_renderer;
 void te_software_rasterizer_raster_tri(
 	te_vertex *v1,
 	te_vertex *v2,
-	te_vertex *v3) {
+	te_vertex *v3,
+	te_software_renderer_thread *thread) {
 
 	//sorting vertices along the y-axis
 	if(v1->y > v2->y)
@@ -34,6 +35,24 @@ void te_software_rasterizer_raster_tri(
 	//triangle bounding box
 	int y_bb_top=v1_2d_y-1;
 	int y_bb_bottom=v3_2d_y+1;
+
+	if(y_bb_bottom < thread->start_y) {
+		return;
+	}
+
+	if(y_bb_top > thread->end_y) {
+		return;
+	}
+
+	if(y_bb_top < thread->start_y) {
+		y_bb_top < thread->start_y;
+	}
+
+	if(y_bb_bottom > thread->end_y) {
+		y_bb_bottom = thread->end_y;
+	}
+
+
 	int x_bb_left=v1_2d_x-1;
 	int x_bb_right=v1_2d_x+1;
 	if(x_bb_left > v2_2d_x) {
@@ -51,12 +70,6 @@ void te_software_rasterizer_raster_tri(
 	}
 
 	//crop to the screen
-	if(y_bb_top < 0) {
-		y_bb_top = 0;
-	}
-	if(y_bb_bottom > software_renderer->resy) {
-		y_bb_top = software_renderer->resy;
-	}
 	if(x_bb_left < 0)
 	{
 		x_bb_left = 0;

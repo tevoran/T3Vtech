@@ -29,5 +29,6 @@ struct te_vertex {
 //configurations
 #define TE_NO_RENDERER 0
 #define TE_SOFTWARE_RENDERER 1
+#define TE_COLORDEPTH 4
 
 #endif
