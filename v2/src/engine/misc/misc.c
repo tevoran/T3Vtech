@@ -1,10 +1,9 @@
-#include <te.h>
+#include "misc.h"
 
-void te_swap(void *ptr1, void *ptr2) {
-	void *tmp_ptr;
+void *void_ptr;
 
-	tmp_ptr=ptr1;
-	ptr1=ptr2;
-	ptr2=tmp_ptr;
+void te_swap(void *a, void *b) {
+	void_ptr = *(void**)b;
+	*(void**)b = *(void**)a;
+	*(void**)a = void_ptr;
 }
-
