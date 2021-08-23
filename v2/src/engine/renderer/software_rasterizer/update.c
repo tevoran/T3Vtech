@@ -5,7 +5,6 @@ extern te_software_renderer *software_renderer;
 void te_software_rasterizer_update() {
 
 	//starting the rendering for each thread
-	software_renderer->currently_rendering=TE_TRUE;
 	te_thread_barrier_arrive_and_wait(&software_renderer->render_barrier);
 	te_thread_barrier_arrive_and_wait(&software_renderer->render_barrier);
 

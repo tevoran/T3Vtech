@@ -16,7 +16,9 @@ int te_start_renderer(unsigned long FLAGS) {
 }
 
 void te_render(te_vertex v1, te_vertex v2, te_vertex v3) {
-	te_software_rasterizer_render_tri(&v1, &v2, &v3);
+	if(software_renderer!=NULL) {
+		te_software_rasterizer_render_tri(v1, v2, v3);
+	}
 }
 
 

@@ -27,11 +27,11 @@ te_software_renderer* te_software_rasterizer_init() {
 	software_renderer->tri_queue.vertices=malloc(sizeof(te_vertex)
 		* software_renderer->tri_queue.num_vertices_cap);
 
-	//clearing screen as initialization
-	te_software_rasterizer_update();
-
 
 	//multithreading initialization
+	software_renderer->currently_rendering=TE_FALSE;
+	software_renderer->tri_queue.num_vertices=0;
+
 	software_renderer->num_procs=te_num_procs();
 	printf("Using %i thread(s) for software rasterization\n",
 		software_renderer->num_procs);
@@ -64,5 +64,6 @@ te_software_renderer* te_software_rasterizer_init() {
 			}
 	}
 	te_thread_barrier_arrive_and_wait(&software_renderer->render_barrier);
+
 	return software_renderer;
 }
