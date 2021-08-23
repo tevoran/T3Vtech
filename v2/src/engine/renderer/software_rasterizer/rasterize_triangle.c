@@ -2,6 +2,8 @@
 
 extern te_software_renderer *software_renderer;
 
+#define te_software_renderer_draw_pixel() *pixel_ptr=*(SDL_Color*)&v1->color
+
 void te_software_rasterizer_raster_tri(
 	te_vertex *v1,
 	te_vertex *v2,
@@ -148,7 +150,7 @@ void te_software_rasterizer_raster_tri(
 			//check if pixel is inside triangle
 			if(a>0 && b>0 && c>0) {
 				has_drawn=TE_TRUE;
-				*pixel_ptr=*(SDL_Color*)&v1->color; //draw pixel
+				te_software_renderer_draw_pixel();
 			}
 			else {
 				//if end of the line is reached then stop checking

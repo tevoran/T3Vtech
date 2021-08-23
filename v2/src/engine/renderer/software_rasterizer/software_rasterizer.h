@@ -4,8 +4,6 @@
 #include <SDL2/SDL.h>
 #include <threads.h>
 
-#define te_software_renderer_draw_pixel(x, y, c) pixels[x + w*(y)] = c
-
 //the triangle vertex queue for the render threads
 struct te_software_renderer_tri_queue {
 	te_vertex *vertices;
